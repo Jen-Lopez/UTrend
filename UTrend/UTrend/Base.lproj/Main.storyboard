@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Hwd-Rn-FcU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OpE-cO-Tv6">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -53,74 +53,83 @@
             </objects>
             <point key="canvasLocation" x="8049" y="82"/>
         </scene>
-        <!--Item 2-->
+        <!--View Controller-->
         <scene sceneID="LIP-zA-Z2q">
             <objects>
                 <viewController id="iTB-8H-rlk" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pmd-ol-X3i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Exu-qf-f5Y"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="3mT-mL-ZEl"/>
+                    <tabBarItem key="tabBarItem" title="" id="3mT-mL-ZEl">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ev7-by-zRM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4019" y="1116"/>
         </scene>
-        <!--Item-->
+        <!--View Controller-->
         <scene sceneID="9eP-b3-9CO">
             <objects>
                 <viewController id="Plo-0O-YCq" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XMc-ei-jjV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="KXb-Eq-euo"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="OMH-eV-cN4"/>
+                    <tabBarItem key="tabBarItem" title="" id="OMH-eV-cN4">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kcV-pS-h1E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4929" y="1116"/>
         </scene>
-        <!--Item-->
+        <!--View Controller-->
         <scene sceneID="y0z-b8-bzz">
             <objects>
                 <viewController id="eyF-Jk-Jw7" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t6c-Dl-o36">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="B1O-hc-4vd"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="clX-ic-g2h"/>
+                    <tabBarItem key="tabBarItem" title="" id="clX-ic-g2h">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DP7-8o-8rK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5907" y="1116"/>
         </scene>
-        <!--Item 1-->
+        <!--Profile-->
         <scene sceneID="3FG-jK-ZHK">
             <objects>
-                <viewController id="d3d-VR-Es5" sceneMemberID="viewController">
+                <viewController id="d3d-VR-Es5" customClass="Profile" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ose-Fl-kpH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.94901960784313721" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="evl-hh-rX8"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="y5K-sA-cJL"/>
+                    <tabBarItem key="tabBarItem" title="" id="y5K-sA-cJL">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
+                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oeM-mp-CRP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3010" y="1116"/>
+            <point key="canvasLocation" x="3008.6956521739135" y="1115.625"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar-->
         <scene sceneID="u9h-An-fKe">
             <objects>
-                <tabBarController id="OpE-cO-Tv6" sceneMemberID="viewController">
+                <tabBarController id="OpE-cO-Tv6" customClass="MainTabBar" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xOz-Ku-AWN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

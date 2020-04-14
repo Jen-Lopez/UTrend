@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D11099D244561F300FF3B7E /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D11099C244561F300FF3B7E /* MainTabBar.swift */; };
 		5D7C60DD2442DBA500BC3AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60DC2442DBA500BC3AFB /* AppDelegate.swift */; };
 		5D7C60DF2442DBA500BC3AFB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60DE2442DBA500BC3AFB /* SceneDelegate.swift */; };
 		5D7C60E12442DBA500BC3AFB /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60E02442DBA500BC3AFB /* Signup.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D11099C244561F300FF3B7E /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
 		5D7C60D92442DBA500BC3AFB /* UTrend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UTrend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D7C60DC2442DBA500BC3AFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D7C60DE2442DBA500BC3AFB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				5D7C60DC2442DBA500BC3AFB /* AppDelegate.swift */,
 				5D7C60DE2442DBA500BC3AFB /* SceneDelegate.swift */,
 				5D7C60F42442E1B800BC3AFB /* Views */,
+				5D11099C244561F300FF3B7E /* MainTabBar.swift */,
 				5D7C60E72442DBA600BC3AFB /* LaunchScreen.storyboard */,
 				5D7C60E22442DBA500BC3AFB /* Main.storyboard */,
 				5D7C60E52442DBA600BC3AFB /* Assets.xcassets */,
@@ -171,6 +174,7 @@
 				5D7C60DF2442DBA500BC3AFB /* SceneDelegate.swift in Sources */,
 				5D7C60FE2442E26B00BC3AFB /* InitialView.swift in Sources */,
 				5D7C60FA2442E20C00BC3AFB /* OutfitGenerator.swift in Sources */,
+				5D11099D244561F300FF3B7E /* MainTabBar.swift in Sources */,
 				5D7C60F32442E1AA00BC3AFB /* Login.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

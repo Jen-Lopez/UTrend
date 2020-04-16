@@ -1,4 +1,3 @@
-//
 //  MainTabBar.swift
 //  UTrend
 //
@@ -40,7 +39,7 @@ class MainTabBar: UITabBarController {
         tabItem.image = deselTabFour
         tabItem.selectedImage = selTabFour
         
-        
+        // always start on profile page
         self.selectedIndex = 0
     }
     

@@ -20,6 +20,9 @@
 		5D7C60FA2442E20C00BC3AFB /* OutfitGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60F92442E20C00BC3AFB /* OutfitGenerator.swift */; };
 		5D7C60FC2442E22800BC3AFB /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60FB2442E22800BC3AFB /* Upload.swift */; };
 		5D7C60FE2442E26B00BC3AFB /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60FD2442E26B00BC3AFB /* InitialView.swift */; };
+		5D884EC5244AAE2300F98213 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D884EC4244AAE2300F98213 /* PostCell.swift */; };
+		5D884EC7244ABBDF00F98213 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D884EC6244ABBDF00F98213 /* extensions.swift */; };
+		5D92E1C92449413E00043308 /* ProfileBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D92E1C82449413E00043308 /* ProfileBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		5D7C60F92442E20C00BC3AFB /* OutfitGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitGenerator.swift; sourceTree = "<group>"; };
 		5D7C60FB2442E22800BC3AFB /* Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
 		5D7C60FD2442E26B00BC3AFB /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
+		5D884EC4244AAE2300F98213 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		5D884EC6244ABBDF00F98213 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		5D92E1C82449413E00043308 /* ProfileBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,15 +91,26 @@
 		5D7C60F42442E1B800BC3AFB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5D884EC3244AAD6900F98213 /* Profile */,
 				5D7C60FD2442E26B00BC3AFB /* InitialView.swift */,
 				5D7C60F22442E1AA00BC3AFB /* Login.swift */,
 				5D7C60E02442DBA500BC3AFB /* Signup.swift */,
-				5D7C60F52442E1EA00BC3AFB /* Profile.swift */,
 				5D7C60F72442E1F900BC3AFB /* Social.swift */,
 				5D7C60F92442E20C00BC3AFB /* OutfitGenerator.swift */,
 				5D7C60FB2442E22800BC3AFB /* Upload.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5D884EC3244AAD6900F98213 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				5D7C60F52442E1EA00BC3AFB /* Profile.swift */,
+				5D92E1C82449413E00043308 /* ProfileBar.swift */,
+				5D884EC4244AAE2300F98213 /* PostCell.swift */,
+				5D884EC6244ABBDF00F98213 /* extensions.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,9 +190,12 @@
 				5D7C60FC2442E22800BC3AFB /* Upload.swift in Sources */,
 				5D7C60DF2442DBA500BC3AFB /* SceneDelegate.swift in Sources */,
 				5D7C60FE2442E26B00BC3AFB /* InitialView.swift in Sources */,
+				5D884EC7244ABBDF00F98213 /* extensions.swift in Sources */,
 				5D7C60FA2442E20C00BC3AFB /* OutfitGenerator.swift in Sources */,
 				5D11099D244561F300FF3B7E /* MainTabBar.swift in Sources */,
+				5D92E1C92449413E00043308 /* ProfileBar.swift in Sources */,
 				5D7C60F32442E1AA00BC3AFB /* Login.swift in Sources */,
+				5D884EC5244AAE2300F98213 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

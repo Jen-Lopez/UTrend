@@ -4,7 +4,9 @@
 import UIKit
 
 class ProfileBar : UIView, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-
+    
+    var profileController : Profile?
+    
     lazy var barItems : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -55,9 +57,9 @@ class ProfileBar : UIView, UICollectionViewDataSource,UICollectionViewDelegateFl
         return 0
     }
     
-    // change views
+    // when clicking on icon, change view
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("done")
+        profileController?.scrollToMenuIndex(menuIndex: indexPath.item)
     }
     
 }
@@ -95,7 +97,6 @@ class MenuCell : UICollectionViewCell {
         addSubview(title)
         title.anchor(top:icon.bottomAnchor, paddingTop: 5)
         title.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-
     }
     
     override var isHighlighted: Bool {

@@ -4,7 +4,20 @@
 // CUSTOM PROFILE CELLS
 import UIKit
 
-class postCell : UICollectionViewCell {
+class postCell : UICollectionViewCell, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "post", for: indexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: frame.width, height: 160)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         backgroundColor =  UIColor(red: (249/255.0), green: (249/255.0), blue: (249/255.0), alpha: 1.0)

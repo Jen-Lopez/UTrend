@@ -58,8 +58,9 @@ class Profile:  UIViewController {
     }()
     
     // create the navigator
-    let profileNav : ProfileBar = {
+    lazy var profileNav : ProfileBar = {
         let bar = ProfileBar()
+        bar.profileController = self
         return bar
     }()
 
@@ -87,7 +88,7 @@ class Profile:  UIViewController {
         
         // add sign out button
         profileHead.addSubview(signOutButton)
-        signOutButton.anchor(top: userName.bottomAnchor, left: profileImage.rightAnchor, paddingTop: 75, paddingLeft: 45, width: 130, height: 35)
+        signOutButton.anchor(top: userName.bottomAnchor, left: profileImage.rightAnchor, paddingTop: 75, paddingLeft: 65, width: 130, height: 35)
         
         // add the bar
         profileHead.addSubview(profileNav)
@@ -97,13 +98,22 @@ class Profile:  UIViewController {
         return profileHead
     }()
     
-    // COLLECTION VIEW
-    let profileView : UICollectionView = {
+    // HORIZONTAL COLLECTION VIEW
+    lazy var profileView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal // creates horizontal scroll effect
+        layout.minimumLineSpacing = 0 // removes white space
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(postCell.self, forCellWithReuseIdentifier: "cellID")
+        
+        
         cv.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
+
+        cv.register(FeedCell.self, forCellWithReuseIdentifier: "profile")
+        cv.isPagingEnabled  = true; // makes cell "snap" into place
+        
+        cv.delegate = self
+        cv.dataSource = self
         return cv
     }()
     
@@ -117,9 +127,18 @@ class Profile:  UIViewController {
         // Profile Collection View
         view.addSubview(profileView)
         profileView.anchor(top: profileNav.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor , right: view.rightAnchor)
-        
-        profileView.delegate = self
-        profileView.dataSource = self
-        
+        profileView.backgroundColor = .orange
+    }
+    
+    func scrollToMenuIndex(menuIndex: Int){
+        let indexP = IndexPath(item: menuIndex, section: 0)
+        profileView.scrollToItem(at: indexP, at: [], animated: true)
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        // choose the right icon in menu when scrolling
+        let index = Int(targetContentOffset.pointee.x/view.frame.width)
+        let indexP = IndexPath(item: index, section: 0)
+        profileNav.barItems.selectItem(at: indexP, animated: true, scrollPosition: [])
     }
 }

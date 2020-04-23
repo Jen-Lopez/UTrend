@@ -14,6 +14,7 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     let screenSize = UIScreen.main.bounds;
     
     lazy var cView : UICollectionView = {
@@ -33,11 +34,13 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
     
     // collection view METHODS
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "posts", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "posts", for: indexPath) as! postCell
+        let index = (indexPath.item)%2 + 1
+        cell.postImage.image = UIImage(named: "outfit\(index)")
         return cell
     }
     
@@ -52,5 +55,4 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-
 }

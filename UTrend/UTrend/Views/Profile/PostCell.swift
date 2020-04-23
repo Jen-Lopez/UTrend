@@ -8,13 +8,11 @@ class postCell : UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame:frame)
-        backgroundColor =  UIColor(red: (249/255.0), green: (249/255.0), blue: (249/255.0), alpha: 1.0)
         setupCell()
     }
     
     let postImage : UIImageView = {
         let img = UIImageView()
-        img.backgroundColor = .blue
         img.layer.masksToBounds = true
         img.layer.cornerRadius = 5
         img.image = UIImage(named: "outfit") // post picture
@@ -31,7 +29,8 @@ class postCell : UICollectionViewCell {
         com.font! = UIFont(name: "Avenir-Book", size: 12)!
         com.sizeToFit()
         com.textAlignment = .center
-        com.numberOfLines = 4
+        com.lineBreakMode = .byWordWrapping
+        com.numberOfLines = 0;
         return com
     }()
     
@@ -67,13 +66,13 @@ class postCell : UICollectionViewCell {
         postImage.anchor(top: self.topAnchor,left: self.leftAnchor, paddingTop: 14, paddingLeft: 25, width: 100, height: 135)
         
         addSubview(comment)
-        comment.anchor(top: postImage.topAnchor, left: postImage.rightAnchor, paddingTop: 15, paddingLeft: 20, width: 205)
+        comment.anchor(top: postImage.topAnchor, left: postImage.rightAnchor, paddingTop: 15, paddingLeft: 30, width: 205)
         
         addSubview(timeStamp)
         timeStamp.anchor(bottom: self.bottomAnchor, right: self.rightAnchor, paddingBottom: 8, paddingRight: 15)
 
         addSubview(heart)
-        heart.anchor( bottom: timeStamp.bottomAnchor, right: timeStamp.leftAnchor,paddingRight: 50, width: 25, height: 25)
+        heart.anchor( bottom: timeStamp.bottomAnchor, right: timeStamp.leftAnchor,paddingRight: 70, width: 25, height: 25)
 
         addSubview(likes)
         likes.anchor(left: heart.rightAnchor, bottom: heart.bottomAnchor, paddingLeft: -5,paddingBottom: 5,width: 35)
@@ -85,6 +84,8 @@ class postCell : UICollectionViewCell {
         self.layer.shadowOpacity = 0.25
         self.clipsToBounds = false
         self.layer.masksToBounds = false
+        
+        backgroundColor =  UIColor(red: (249/255.0), green: (249/255.0), blue: (249/255.0), alpha: 1.0)
     }
     
     required init?(coder: NSCoder) {

@@ -1,9 +1,6 @@
 //
 //  LikeFeed.swift
 //  UTrend
-//
-//  Created by Jennifer Lopez on 4/22/20.
-//
 
 import UIKit
 
@@ -14,7 +11,9 @@ class LikeFeed: postFeed{
         cView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likes", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likes", for: indexPath) as! LikeCell
+        let index = (indexPath.item)%6 + 1
+        cell.likedImage.image = UIImage(named: "like\(index)")
         return cell
     }
 
@@ -24,7 +23,7 @@ class LikeFeed: postFeed{
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         return 3
+         return 8
      }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

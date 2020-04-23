@@ -16,7 +16,6 @@ class WardrobeCell: UICollectionViewCell {
         }
         let outfit : UIImageView = {
             let img = UIImageView()
-            img.backgroundColor = .blue
             img.layer.masksToBounds = true
             img.image = UIImage(named: "wardrobe")
             img.contentMode = .scaleAspectFill

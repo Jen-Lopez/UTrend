@@ -10,6 +10,9 @@
 		5D11099D244561F300FF3B7E /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D11099C244561F300FF3B7E /* MainTabBar.swift */; };
 		5D421181245132DE00C139D2 /* LikeFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D421180245132DE00C139D2 /* LikeFeed.swift */; };
 		5D421183245132EF00C139D2 /* wardrobeFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D421182245132EF00C139D2 /* wardrobeFeed.swift */; };
+		5D421186245149DE00C139D2 /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D421185245149DE00C139D2 /* Social.swift */; };
+		5D4211882451542800C139D2 /* socialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4211872451542800C139D2 /* socialCell.swift */; };
+		5D42118A2451553100C139D2 /* socialLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4211892451553100C139D2 /* socialLayout.swift */; };
 		5D71C4A1244F86860090008A /* postFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71C4A0244F86860090008A /* postFeed.swift */; };
 		5D71C4A3244FAD030090008A /* LikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71C4A2244FAD030090008A /* LikeCell.swift */; };
 		5D71C4A5244FAD0D0090008A /* WardrobeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71C4A4244FAD0D0090008A /* WardrobeCell.swift */; };
@@ -21,7 +24,6 @@
 		5D7C60E92442DBA600BC3AFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D7C60E72442DBA600BC3AFB /* LaunchScreen.storyboard */; };
 		5D7C60F32442E1AA00BC3AFB /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60F22442E1AA00BC3AFB /* Login.swift */; };
 		5D7C60F62442E1EA00BC3AFB /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60F52442E1EA00BC3AFB /* Profile.swift */; };
-		5D7C60F82442E1F900BC3AFB /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60F72442E1F900BC3AFB /* Social.swift */; };
 		5D7C60FA2442E20C00BC3AFB /* OutfitGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60F92442E20C00BC3AFB /* OutfitGenerator.swift */; };
 		5D7C60FC2442E22800BC3AFB /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60FB2442E22800BC3AFB /* Upload.swift */; };
 		5D7C60FE2442E26B00BC3AFB /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60FD2442E26B00BC3AFB /* InitialView.swift */; };
@@ -34,6 +36,9 @@
 		5D11099C244561F300FF3B7E /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
 		5D421180245132DE00C139D2 /* LikeFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeFeed.swift; sourceTree = "<group>"; };
 		5D421182245132EF00C139D2 /* wardrobeFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wardrobeFeed.swift; sourceTree = "<group>"; };
+		5D421185245149DE00C139D2 /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
+		5D4211872451542800C139D2 /* socialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = socialCell.swift; sourceTree = "<group>"; };
+		5D4211892451553100C139D2 /* socialLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = socialLayout.swift; sourceTree = "<group>"; };
 		5D71C4A0244F86860090008A /* postFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postFeed.swift; sourceTree = "<group>"; };
 		5D71C4A2244FAD030090008A /* LikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCell.swift; sourceTree = "<group>"; };
 		5D71C4A4244FAD0D0090008A /* WardrobeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeCell.swift; sourceTree = "<group>"; };
@@ -47,7 +52,6 @@
 		5D7C60EA2442DBA600BC3AFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D7C60F22442E1AA00BC3AFB /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		5D7C60F52442E1EA00BC3AFB /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		5D7C60F72442E1F900BC3AFB /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
 		5D7C60F92442E20C00BC3AFB /* OutfitGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitGenerator.swift; sourceTree = "<group>"; };
 		5D7C60FB2442E22800BC3AFB /* Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
 		5D7C60FD2442E26B00BC3AFB /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
@@ -67,6 +71,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D421184245146BA00C139D2 /* social */ = {
+			isa = PBXGroup;
+			children = (
+				5D421185245149DE00C139D2 /* Social.swift */,
+				5D4211872451542800C139D2 /* socialCell.swift */,
+				5D4211892451553100C139D2 /* socialLayout.swift */,
+			);
+			path = social;
+			sourceTree = "<group>";
+		};
 		5D7C60D02442DBA500BC3AFB = {
 			isa = PBXGroup;
 			children = (
@@ -101,11 +115,12 @@
 		5D7C60F42442E1B800BC3AFB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5D884EC6244ABBDF00F98213 /* extensions.swift */,
 				5D884EC3244AAD6900F98213 /* Profile */,
+				5D421184245146BA00C139D2 /* social */,
 				5D7C60FD2442E26B00BC3AFB /* InitialView.swift */,
 				5D7C60F22442E1AA00BC3AFB /* Login.swift */,
 				5D7C60E02442DBA500BC3AFB /* Signup.swift */,
-				5D7C60F72442E1F900BC3AFB /* Social.swift */,
 				5D7C60F92442E20C00BC3AFB /* OutfitGenerator.swift */,
 				5D7C60FB2442E22800BC3AFB /* Upload.swift */,
 			);
@@ -115,7 +130,6 @@
 		5D884EC3244AAD6900F98213 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				5D884EC6244ABBDF00F98213 /* extensions.swift */,
 				5D7C60F52442E1EA00BC3AFB /* Profile.swift */,
 				5D92E1C82449413E00043308 /* ProfileBar.swift */,
 				5D71C4A0244F86860090008A /* postFeed.swift */,
@@ -200,17 +214,19 @@
 			files = (
 				5D7C60E12442DBA500BC3AFB /* Signup.swift in Sources */,
 				5D7C60F62442E1EA00BC3AFB /* Profile.swift in Sources */,
-				5D7C60F82442E1F900BC3AFB /* Social.swift in Sources */,
 				5D71C4A5244FAD0D0090008A /* WardrobeCell.swift in Sources */,
 				5D7C60DD2442DBA500BC3AFB /* AppDelegate.swift in Sources */,
 				5D7C60FC2442E22800BC3AFB /* Upload.swift in Sources */,
 				5D7C60DF2442DBA500BC3AFB /* SceneDelegate.swift in Sources */,
 				5D7C60FE2442E26B00BC3AFB /* InitialView.swift in Sources */,
 				5D71C4A1244F86860090008A /* postFeed.swift in Sources */,
+				5D421186245149DE00C139D2 /* Social.swift in Sources */,
+				5D4211882451542800C139D2 /* socialCell.swift in Sources */,
 				5D884EC7244ABBDF00F98213 /* extensions.swift in Sources */,
 				5D7C60FA2442E20C00BC3AFB /* OutfitGenerator.swift in Sources */,
 				5D421181245132DE00C139D2 /* LikeFeed.swift in Sources */,
 				5D11099D244561F300FF3B7E /* MainTabBar.swift in Sources */,
+				5D42118A2451553100C139D2 /* socialLayout.swift in Sources */,
 				5D421183245132EF00C139D2 /* wardrobeFeed.swift in Sources */,
 				5D92E1C92449413E00043308 /* ProfileBar.swift in Sources */,
 				5D7C60F32442E1AA00BC3AFB /* Login.swift in Sources */,

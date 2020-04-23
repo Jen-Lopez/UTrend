@@ -15,7 +15,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
     
     let icon : UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "UtrendIcon")
+        img.image = UIImage(named: "Utrend-Icon")
         return img
     }()
     

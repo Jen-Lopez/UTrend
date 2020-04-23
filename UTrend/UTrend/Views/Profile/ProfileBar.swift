@@ -28,7 +28,6 @@ class ProfileBar : UIView, UICollectionViewDataSource,UICollectionViewDelegateFl
         // select profile
         let selected = NSIndexPath(item: 0, section: 0)
         barItems.selectItem(at: selected as IndexPath, animated: false, scrollPosition: .top)
-
     }
 
     required init?(coder: NSCoder) {
@@ -67,7 +66,6 @@ class ProfileBar : UIView, UICollectionViewDataSource,UICollectionViewDelegateFl
 class MenuCell : UICollectionViewCell {
     var darkColor = UIColor(red: (142/255.0), green: (138/255.0), blue: (138/255.0), alpha: 1.0)
     var lightColor = UIColor(red: (184/255.0), green: (179/255.0), blue: (174/255.0), alpha: 1.0)
-
 
     override init(frame: CGRect) {
         super.init(frame: frame)

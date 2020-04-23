@@ -4,19 +4,19 @@
 
 import UIKit
 
-class LikeCell: UICollectionViewCell, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likes", for: indexPath)
-        return cell
-    }
+class LikeCell: UICollectionViewCell {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 10
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likes", for: indexPath)
+//        return cell
+//    }
     
     override init(frame: CGRect) {
         super.init(frame:frame)
-        setUp()
+        setUpCell()
     }
     
     required init?(coder: NSCoder) {
@@ -33,10 +33,16 @@ class LikeCell: UICollectionViewCell, UICollectionViewDataSource,UICollectionVie
         return img
     }()
     
-    func setUp() {
+    func setUpCell() {
         addSubview(likedImage)
         likedImage.anchor(top: topAnchor,left: leftAnchor, width: frame.width, height: frame.height)
-
     }
+    
+//    override func setUp() {
+//        addSubview(cView)
+//        cView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+//        cView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellWithReuseIdentifier: <#T##String#>)
+//    }
+    
     
 }

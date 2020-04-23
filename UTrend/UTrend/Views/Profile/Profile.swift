@@ -5,6 +5,8 @@ import UIKit
 
 class Profile:  UIViewController {
     
+//    var currIndex = 0
+
     // grey status bar
     let statusBar: UIImageView = {
         let sb = UIImageView()
@@ -109,7 +111,10 @@ class Profile:  UIViewController {
         
         cv.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
 
-        cv.register(FeedCell.self, forCellWithReuseIdentifier: "profile")
+        cv.register(postFeed.self, forCellWithReuseIdentifier: "postFeed")
+        cv.register(LikeFeed.self, forCellWithReuseIdentifier: "likeFeed")
+        cv.register(wardrobeFeed.self, forCellWithReuseIdentifier: "wardrobeFeed")
+        
         cv.isPagingEnabled  = true; // makes cell "snap" into place
         
         cv.delegate = self
@@ -127,9 +132,11 @@ class Profile:  UIViewController {
         // Profile Collection View
         view.addSubview(profileView)
         profileView.anchor(top: profileNav.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor , right: view.rightAnchor)
-        profileView.backgroundColor = .orange
+
+        profileView.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
     }
     
+    // scrolling mechanism
     func scrollToMenuIndex(menuIndex: Int){
         let indexP = IndexPath(item: menuIndex, section: 0)
         profileView.scrollToItem(at: indexP, at: [], animated: true)
@@ -141,4 +148,6 @@ class Profile:  UIViewController {
         let indexP = IndexPath(item: index, section: 0)
         profileNav.barItems.selectItem(at: indexP, animated: true, scrollPosition: [])
     }
+    
 }
+

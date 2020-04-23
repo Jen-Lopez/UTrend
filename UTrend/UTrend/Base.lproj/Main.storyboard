@@ -362,7 +362,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="UTrendIcon1" translatesAutoresizingMaskIntoConstraints="NO" id="t31-28-ngj">
-                                <rect key="frame" x="153" y="47" width="112" height="103"/>
+                                <rect key="frame" x="153" y="55" width="112" height="103"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>

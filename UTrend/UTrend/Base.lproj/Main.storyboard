@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Social-->
         <scene sceneID="LIP-zA-Z2q">
             <objects>
-                <viewController id="iTB-8H-rlk" sceneMemberID="viewController">
+                <viewController id="iTB-8H-rlk" customClass="Social" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pmd-ol-X3i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -209,10 +209,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="d3d-VR-Es5" kind="relationship" relationship="viewControllers" id="Xkg-zh-tLB"/>
-                        <segue destination="iTB-8H-rlk" kind="relationship" relationship="viewControllers" id="eae-zd-Gc7"/>
-                        <segue destination="Plo-0O-YCq" kind="relationship" relationship="viewControllers" id="5GD-Qf-l0T"/>
-                        <segue destination="eyF-Jk-Jw7" kind="relationship" relationship="viewControllers" id="n7Y-Vi-T9F"/>
+                        <segue destination="iTB-8H-rlk" kind="relationship" relationship="viewControllers" id="2mi-Mu-NXh"/>
+                        <segue destination="Plo-0O-YCq" kind="relationship" relationship="viewControllers" id="8gl-zB-EXd"/>
+                        <segue destination="eyF-Jk-Jw7" kind="relationship" relationship="viewControllers" id="5KD-na-uDU"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJH-IS-IWK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

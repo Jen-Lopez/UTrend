@@ -5,6 +5,28 @@
 import UIKit
 
 class LikeFeed: postFeed{
+    var likes : [Post] = {
+        var like1 = Post()
+        like1.postImg = "like1"
+        
+        var like2 = Post()
+        like2.postImg = "like2"
+        
+        var like3 = Post()
+        like3.postImg = "like3"
+        
+        var like4 = Post()
+        like4.postImg = "like4"
+        
+        var like5 = Post()
+        like5.postImg = "like5"
+        
+        var like6 = Post()
+        like6.postImg = "like6"
+        
+        return [like1,like2,like3,like4,like5,like6]
+    }()
+    
     override func setUp() {
         addSubview(cView)
         cView.register(LikeCell.self, forCellWithReuseIdentifier: "likes")
@@ -12,8 +34,8 @@ class LikeFeed: postFeed{
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likes", for: indexPath) as! LikeCell
-        let index = (indexPath.item)%6 + 1
-        cell.likedImage.image = UIImage(named: "like\(index)")
+        
+        cell.liked = likes[indexPath.item]
         return cell
     }
 
@@ -23,7 +45,7 @@ class LikeFeed: postFeed{
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         return 8
+        return likes.count
      }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

@@ -5,7 +5,11 @@
 import UIKit
 
 class LikeCell: UICollectionViewCell {
-
+    var liked : Post? {
+        didSet {
+            likedImage.image = UIImage(named: (liked?.postImg)!)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -18,7 +22,7 @@ class LikeCell: UICollectionViewCell {
     let likedImage : UIImageView = {
         let img = UIImageView()
         img.layer.masksToBounds = true
-        img.image = UIImage(named: "likes") // post picture
+//        img.image = UIImage(named: "likes") // post picture
         img.contentMode = .scaleAspectFill
         img.clipsToBounds = true
         return img

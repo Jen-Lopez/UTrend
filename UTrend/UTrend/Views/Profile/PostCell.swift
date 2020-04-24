@@ -5,6 +5,14 @@
 import UIKit
 
 class postCell : UICollectionViewCell {
+    var postItem : Post? {
+        didSet {
+            comment.text = postItem?.textCaption
+            postImage.image = UIImage(named: (postItem?.postImg)!)
+            timeStamp.text = postItem?.time
+            likes.text = String((postItem?.likes)!)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -15,7 +23,6 @@ class postCell : UICollectionViewCell {
         let img = UIImageView()
         img.layer.masksToBounds = true
         img.layer.cornerRadius = 5
-        img.image = UIImage(named: "outfit") // post picture
         img.contentMode = .scaleAspectFill
         img.clipsToBounds = true
         return img
@@ -24,8 +31,6 @@ class postCell : UICollectionViewCell {
     let comment : UILabel = {
         let com = UILabel()
         com.textColor = UIColor(red: (98/255.0), green: (92/255.0), blue: (92/255.0), alpha: 1.0)
-        com.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." // comment
-
         com.font! = UIFont(name: "Avenir-Book", size: 12)!
         com.sizeToFit()
         com.textAlignment = .center
@@ -36,7 +41,6 @@ class postCell : UICollectionViewCell {
     
     let timeStamp : UILabel = {
         let time = UILabel()
-        time.text = "3 weeks ago"
         time.font! = UIFont(name: "Avenir-Book", size: 11)!
         time.sizeToFit()
         time.textColor = UIColor(red: (168/255.0), green: (168/255.0), blue: (168/255.0), alpha: 1.0)
@@ -46,7 +50,6 @@ class postCell : UICollectionViewCell {
     
     let likes : UILabel = {
         let num = UILabel()
-        num.text = "324"
         num.textColor = UIColor(red: (132/255.0), green: (127/255.0), blue: (127/255.0), alpha: 1.0)
 
         num.font! = UIFont(name: "Avenir-Book", size: 12)!

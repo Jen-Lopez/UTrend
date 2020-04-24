@@ -113,6 +113,7 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         cv.register(wardrobeFeed.self, forCellWithReuseIdentifier: "wardrobeFeed")
         
         cv.isPagingEnabled  = true; // makes cell "snap" into place
+        cv.showsHorizontalScrollIndicator = false
         
         cv.delegate = self
         cv.dataSource = self

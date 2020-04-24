@@ -5,6 +5,20 @@
 import UIKit
 
 class wardrobeFeed: postFeed {
+    var closet :[ClothingItem] = {
+        var item1 = ClothingItem()
+        item1.uploadedImg = "clothes1"
+        var item2 = ClothingItem()
+        item2.uploadedImg = "clothes2"
+
+        var item3 = ClothingItem()
+        item3.uploadedImg = "clothes3"
+
+        var item4 = ClothingItem()
+        item4.uploadedImg = "clothes4"
+
+        return [item1,item2,item3,item4]
+    }()
     override func setUp() {
         addSubview(cView)
         cView.register(WardrobeCell.self, forCellWithReuseIdentifier: "clothes")
@@ -12,8 +26,7 @@ class wardrobeFeed: postFeed {
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "clothes", for: indexPath) as! WardrobeCell
-        let index = (indexPath.item)%4 + 1
-        cell.outfit.image = UIImage(named: "clothes\(index)")
+        cell.item = closet[indexPath.item]
         return cell
     }
 
@@ -23,7 +36,7 @@ class wardrobeFeed: postFeed {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         return 5
+        return closet.count
      }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

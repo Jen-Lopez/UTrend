@@ -6,6 +6,21 @@ import UIKit
 
 class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource  {
     
+    var posts : [Post] = {
+        var post1 = Post()
+        post1.postImg = "outfit1"
+        post1.textCaption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        post1.time = "1 day ago"
+        post1.likes = 243
+        
+        var post2 = Post()
+        post2.postImg = "outfit2"
+        post2.textCaption = "adipiscing elit, sed do eiusmod tempor!"
+        post2.time = "3 weeks ago"
+        post2.likes = 324
+        return [post1,post2]
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         setUp()
@@ -15,14 +30,13 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
         fatalError("init(coder:) has not been implemented")
     }
     
-    let screenSize = UIScreen.main.bounds;
-    
     lazy var cView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
+        cv.showsVerticalScrollIndicator = false
         return cv
     }()
     
@@ -34,13 +48,13 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
     
     // collection view METHODS
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return posts.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "posts", for: indexPath) as! postCell
-        let index = (indexPath.item)%2 + 1
-        cell.postImage.image = UIImage(named: "outfit\(index)")
+
+        cell.postItem = posts[indexPath.item]
         return cell
     }
     

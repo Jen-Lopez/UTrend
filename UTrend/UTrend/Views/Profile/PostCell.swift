@@ -10,7 +10,7 @@ class postCell : UICollectionViewCell {
             comment.text = postItem?.textCaption
             postImage.image = UIImage(named: (postItem?.postImg)!)
             timeStamp.text = postItem?.time
-            likes.text = String((postItem?.likes)!)
+            likes.text = (postItem?.likes)!.stringValue
         }
     }
     

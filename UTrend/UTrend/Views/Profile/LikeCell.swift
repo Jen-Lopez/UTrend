@@ -22,7 +22,6 @@ class LikeCell: UICollectionViewCell {
     let likedImage : UIImageView = {
         let img = UIImageView()
         img.layer.masksToBounds = true
-//        img.image = UIImage(named: "likes") // post picture
         img.contentMode = .scaleAspectFill
         img.clipsToBounds = true
         return img

@@ -23,7 +23,6 @@ class WardrobeCell: UICollectionViewCell {
         let outfit : UIImageView = {
             let img = UIImageView()
             img.layer.masksToBounds = true
-//            img.image = UIImage(named: "wardrobe")
             img.contentMode = .scaleAspectFill
             img.clipsToBounds = true
             return img

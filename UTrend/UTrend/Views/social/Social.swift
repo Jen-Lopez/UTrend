@@ -5,30 +5,31 @@ import UIKit
 import AVKit
 
 class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
+    var segueIdentifier = "viewInfo"
     
     let posts : [Post] = {
         let post1 = Post()
         post1.postImg = "out1"
         post1.time = "5h ago"
         post1.textCaption = "lor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-        post1.user = "mikayla"
+        post1.username = "mikayla"
         let post2 = Post()
         post2.postImg = "out2"
         post2.time = "22m ago"
         post2.textCaption = "lor sit amet, consectetur adipiscing"
-        post2.user = "andrea_ue"
+        post2.username = "andrea_ue"
 
         let post3 = Post()
         post3.postImg = "out3"
         post3.time = "3d ago"
         post3.textCaption = "lor sit amet, consectetur adipiscing"
-        post3.user = "nikkyG"
+        post3.username = "nikkyG"
 
         let post4 = Post()
         post4.postImg = "out4"
         post4.time = "1mo ago"
         post4.textCaption  = "lor sit amet, consectetur elit, sed do eiusmod tempor incididunt"
-        post4.user = "unknown"
+        post4.username = "unknown"
         
         return [post1,post2,post3,post4]
     }()
@@ -66,6 +67,8 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController!.navigationBar.isHidden = true // hides nav bar
+
         view.backgroundColor = mauve
         // add grey status bar
         view.addSubview(statusBar)
@@ -91,6 +94,25 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         cell.clipsToBounds = true
         cell.socialPost = posts[indexPath.item]
         return cell
+    }
+    
+    // open Socialmore VC, pass data
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let post = posts[indexPath.item]
+        performSegue(withIdentifier: segueIdentifier, sender: post)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let post = sender as! Post
+        if segue.identifier == segueIdentifier {
+            if let vc = segue.destination as? SocialMore {
+                vc.imageName = post.postImg
+                vc.timeStamp = post.time
+                vc.username = post.username
+                vc.numLikes = post.likes
+                vc.caption = post.textCaption
+            }
+        }
     }
     
 }

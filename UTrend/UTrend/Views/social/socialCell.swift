@@ -10,10 +10,10 @@ class socialCell: UICollectionViewCell {
             postImage.image = UIImage(named: (socialPost?.postImg)!)
             timeStamp.text = socialPost?.time
             comment.text = socialPost?.textCaption
-            userName.text = socialPost?.user
+            userName.text = socialPost?.username
         }
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         setUpCell()
@@ -90,7 +90,7 @@ class socialCell: UICollectionViewCell {
         comment.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         addSubview(userImg)
-        userImg.anchor(top: comment.bottomAnchor, left: postImage.leftAnchor, bottom: bottomAnchor, paddingTop: 10,paddingLeft: 30, paddingBottom: 15, width: 35, height: 35)
+        userImg.anchor(top: comment.bottomAnchor, left: postImage.leftAnchor, bottom: bottomAnchor, paddingTop: 15,paddingLeft: 30, paddingBottom: 15, width: 35, height: 35)
 
         addSubview(userName)
         userName.anchor(top: comment.bottomAnchor, left: userImg.rightAnchor,paddingLeft: 10)

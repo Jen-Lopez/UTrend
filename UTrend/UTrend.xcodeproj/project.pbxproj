@@ -13,6 +13,7 @@
 		45E6E682244D1D9E00338A91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45E6E681244D1D9E00338A91 /* GoogleService-Info.plist */; };
 		5C7AC44D0D365D9CB03F4039 /* Pods_UTrend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898F54192EECF32C4037520E /* Pods_UTrend.framework */; };
 		5D11099D244561F300FF3B7E /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D11099C244561F300FF3B7E /* MainTabBar.swift */; };
+		5D361A3B2453F54C008CFB1F /* SocialMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D361A3A2453F54C008CFB1F /* SocialMore.swift */; };
 		5D7C60DD2442DBA500BC3AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60DC2442DBA500BC3AFB /* AppDelegate.swift */; };
 		5D7C60DF2442DBA500BC3AFB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C60DE2442DBA500BC3AFB /* SceneDelegate.swift */; };
 		5D7C60E42442DBA500BC3AFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D7C60E22442DBA500BC3AFB /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		45E6E67D244D165400338A91 /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
 		45E6E681244D1D9E00338A91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5D11099C244561F300FF3B7E /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
+		5D361A3A2453F54C008CFB1F /* SocialMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMore.swift; sourceTree = "<group>"; };
 		5D7C60D92442DBA500BC3AFB /* UTrend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UTrend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D7C60DC2442DBA500BC3AFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D7C60DE2442DBA500BC3AFB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			children = (
 				5DDA4016245216F000D091FD /* Social.swift */,
 				5DDA4017245216F000D091FD /* socialCell.swift */,
+				5D361A3A2453F54C008CFB1F /* SocialMore.swift */,
 			);
 			path = social;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DC884CE2452A2670032833E /* ClothingItem.swift in Sources */,
+				5D361A3B2453F54C008CFB1F /* SocialMore.swift in Sources */,
 				45E6E67A244D160E00338A91 /* Welcome.swift in Sources */,
 				5DDA402C245216F000D091FD /* Profile.swift in Sources */,
 				45E6E67C244D163200338A91 /* Login.swift in Sources */,

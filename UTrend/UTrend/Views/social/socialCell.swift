@@ -11,6 +11,11 @@ class socialCell: UICollectionViewCell {
             timeStamp.text = socialPost?.time
             comment.text = socialPost?.textCaption
             userName.text = socialPost?.username
+       
+            if (socialPost?.userPic != nil) {
+                userImg.image = UIImage(named: (socialPost?.userPic)!)
+            }
+           
         }
     }
     

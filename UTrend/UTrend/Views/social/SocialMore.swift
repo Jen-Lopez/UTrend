@@ -11,6 +11,7 @@ class SocialMore: UIViewController {
     var numLikes : NSNumber!
     var userPic : String!
     var username : String!
+    var liked : Bool!
 
     let postImg :UIImageView = {
         let img = UIImageView()
@@ -20,7 +21,7 @@ class SocialMore: UIViewController {
         img.contentMode = .scaleAspectFill
         return img
     }()
-
+    
     let time : UILabel = {
         let stamp = UILabel()
         stamp.font! = UIFont(name: "Avenir-Book", size: 16)!
@@ -50,10 +51,16 @@ class SocialMore: UIViewController {
         return user
     }()
     
-    let likeHeart : UIImageView = {
-        let like = UIImageView()
-        like.image = UIImage(named : "likeheart")
+    let likeHeart : UIButton = {
+        let like = UIButton(type: .system)
+        like.addTarget(self, action:#selector(changeLike), for: .touchUpInside)
         return like
+    }()
+    
+    let likeHeartImg : UIImageView = {
+        let heart = UIImageView()
+        heart.image = UIImage(named:"likeheart")
+        return heart
     }()
     
     let likes : UILabel = {
@@ -63,6 +70,24 @@ class SocialMore: UIViewController {
         return like
     }()
     
+    @objc func changeLike(_ sender: UIButton) {
+        let isChanged = likeHeartImg.image?.isEqual(UIImage(named: "fill-likeheart"))
+        if (isChanged == true) {
+            if let image = UIImage(named:"likeheart") {
+                likeHeartImg.image = image
+                let newNum:Int = Int(likes.text!)! - 1
+                likes.text = String(newNum)
+            }
+        }
+        else {
+            if let image = UIImage(named:"fill-likeheart") {
+                likeHeartImg.image = image
+                let newNum:Int = Int(likes.text!)! + 1
+                likes.text = String(newNum)
+            }
+        }
+    }
+
     let comment: UILabel = {
         let com = UILabel()
         com.textColor = UIColor(red: (112/255.0), green: (112/255.0), blue: (112/255.0), alpha: 1.0)
@@ -91,25 +116,35 @@ class SocialMore: UIViewController {
         title.textColor = UIColor(red: (164/255.0), green: (111/255.0), blue: (111/255.0), alpha: 1.0)
         title.font! = UIFont(name: "Avenir-Heavy", size: 16)!
         button.layer.cornerRadius = 5
+        button.addTarget(self, action:#selector(savePhoto), for: .touchUpInside)
         return button
     }()
     
     let backButton : UIButton = {
         let button = UIButton(type: .system)
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = 18
         button.backgroundColor = UIColor(red: (139/255.0), green: (99/255.0), blue: (99/255.0), alpha: 0.47)
         
         let backB = UIImageView()
         backB.image = UIImage(named: "back")
         button.addSubview(backB)
-        backB.anchor(top: button.topAnchor, paddingTop: 10 ,width: 30, height: 30)
-        backB.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
-        button.addTarget(self, action:#selector(ButtonTapped), for: .touchUpInside)
+        backB.anchor(top: button.topAnchor,right: button.rightAnchor, paddingTop: 12, paddingRight: 15 , width: 25, height: 25)
+        button.addTarget(self, action:#selector(goBack), for: .touchUpInside)
         return button
     }()
     
-    @objc func ButtonTapped(_ sender: UIButton) {
+    @objc func goBack(_ sender: UIButton) {
          _ = navigationController?.popViewController(animated: true)
+      }
+    
+    @objc func savePhoto(_ sender: UIButton) {
+        let imgData = postImg.image!.pngData()
+        let compressed = UIImage(data: imgData!)
+        UIImageWriteToSavedPhotosAlbum(compressed!, nil, nil, nil)
+        let alert = UIAlertController(title: "Success!", message: "Your image has been saved.", preferredStyle: .alert)
+        let okay  = UIAlertAction(title: "Keep Scrolling", style: .default, handler: nil)
+        alert.addAction(okay)
+        self.present(alert, animated: true, completion: nil)
       }
 
     override func viewDidLoad() {
@@ -122,7 +157,7 @@ class SocialMore: UIViewController {
         let height = view.frame.height/2
         postImg.anchor(top: view.topAnchor, paddingTop: 125, width : width, height: height)
         postImg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
+
         view.addSubview(time)
         time.anchor(top: postImg.bottomAnchor, right: postImg.rightAnchor, paddingTop: 12, paddingRight: 10)
         
@@ -135,6 +170,8 @@ class SocialMore: UIViewController {
         
         view.addSubview(likeHeart)
         likeHeart.anchor(top: time.bottomAnchor, right: view.rightAnchor, paddingTop: 20, paddingRight: 65, width: 30, height: 30)
+        likeHeart.addSubview(likeHeartImg)
+        likeHeartImg.anchor(top: likeHeart.topAnchor)
         
         view.addSubview(likes)
         likes.anchor(top: time.bottomAnchor, left: likeHeart.rightAnchor, paddingLeft: 5)
@@ -154,8 +191,8 @@ class SocialMore: UIViewController {
     private func setUp() {
         // image
         let name = imageName
-        if let image = UIImage(named: name!) {
-            postImg.image = image
+        if let image = name {
+            postImg.image = UIImage(named: image)
         }
         
         // timestamp
@@ -164,7 +201,11 @@ class SocialMore: UIViewController {
             time.text = newTime
         }
         
-        // userImg -- need to implement
+        // userImg
+        let pic = userPic
+        if let profPic = pic {
+            userImg.image = UIImage(named: profPic)
+        }
         
         // userName
         let user = username
@@ -190,5 +231,4 @@ class SocialMore: UIViewController {
             likes.text = ""
         }
     }
-
 }

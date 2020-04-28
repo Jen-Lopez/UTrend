@@ -13,6 +13,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         post1.time = "5h ago"
         post1.textCaption = "lor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
         post1.username = "mikayla"
+        post1.userPic = "profilePic"
         let post2 = Post()
         post2.postImg = "out2"
         post2.time = "22m ago"
@@ -30,6 +31,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         post4.time = "1mo ago"
         post4.textCaption  = "lor sit amet, consectetur elit, sed do eiusmod tempor incididunt"
         post4.username = "unknown"
+        post4.likes = 394
         
         return [post1,post2,post3,post4]
     }()
@@ -52,7 +54,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         let layout = UICollectionViewFlowLayout()
         let width = view.frame.width/2 - 20
         layout.estimatedItemSize = CGSize(width: width, height: 300)
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 12, bottom: 5, right: 12)
         layout.minimumLineSpacing = 30
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -111,6 +113,8 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                 vc.username = post.username
                 vc.numLikes = post.likes
                 vc.caption = post.textCaption
+                vc.userPic = post.userPic
+                vc.liked = post.isLiked
             }
         }
     }

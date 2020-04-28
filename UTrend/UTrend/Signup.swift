@@ -8,9 +8,12 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import GoogleSignIn
 
 class Signup: UIViewController {
     
+    
+    @IBOutlet weak var firstName: UITextField!
     
     @IBOutlet weak var emailsu: UITextField!
     
@@ -19,6 +22,8 @@ class Signup: UIViewController {
     @IBOutlet weak var passwordsu: UITextField!
     
     @IBOutlet weak var signUpButton: UIButton!
+    
+    @IBOutlet weak var googleSignUp: GIDSignInButton!
     
     @IBOutlet weak var errorsu: UILabel!
     
@@ -43,7 +48,7 @@ class Signup: UIViewController {
     
     func isPasswordValid(_ password : String) -> Bool {
         
-        let testingPassword = NSPredicate(format: "SELF MATCHES %@", "^(?+.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
+        let testingPassword = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
         return testingPassword.evaluate(with: password)
     }
     
@@ -56,7 +61,7 @@ class Signup: UIViewController {
     
     func validateFields() -> String? {
         
-        if usernamesu.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || emailsu.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || passwordsu.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+        if firstName.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || usernamesu.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || emailsu.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || passwordsu.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             return "Please fill in all fields."
         }
         
@@ -87,6 +92,7 @@ class Signup: UIViewController {
         }
         else {
             
+            let firstname = firstName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let userName = usernamesu.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let email = emailsu.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordsu.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -100,13 +106,13 @@ class Signup: UIViewController {
                     //User created and now need to store the info
                     //Need to add auth pods and decide which database to use
                     
-                    //let db = Firestore.firestore()
-                    //db.collection("users").addDocument(data: ["username": userName, "uid": result!.user.uid ]) { (error) in
+                    let db = Firestore.firestore()
+                    db.collection("users").addDocument(data: ["firstname": firstname, "username": userName, "uid": result!.user.uid ]) { (error) in
                     
-                    //if error != nil {
-                        //self.showError("Error in saving user data.")
-                    //}
-                    //}
+                    if error != nil {
+                        self.showError("Error in saving user data.")
+                    }
+                    }
                     
                     //self.transitionToProfile()
                 }

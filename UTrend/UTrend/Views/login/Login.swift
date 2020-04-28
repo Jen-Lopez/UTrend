@@ -10,7 +10,7 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
-class Login: UIViewController {
+class Login: UIViewController, GIDSignInDelegate {
     
     
     @IBOutlet weak var emailli: UITextField!
@@ -19,18 +19,23 @@ class Login: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
     
+    @IBOutlet weak var googleLogIn: GIDSignInButton!
+    
     @IBOutlet weak var errorli: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
-        GIDSignIn.sharedInstance().signIn()
+        //GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance().delegate = self
         
         
 
         // Do any additional setup after loading the view.
     }
+    
+    
     
 
     /*
@@ -44,7 +49,41 @@ class Login: UIViewController {
     */
     
     
-    //TODO: IMPLEMENT VALIDATION HERE TOO
+    func isPasswordValid(_ password : String) -> Bool {
+        
+        let testingPassword = NSPredicate(format: "SELF MATCHES %@", "^(?+.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
+        return testingPassword.evaluate(with: password)
+    }
+    
+    func isEmailValid(_ email: String) -> Bool {
+        let emailCorrect = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let testingEmail = NSPredicate(format:"SELF MATCHES %@", emailCorrect)
+            return testingEmail.evaluate(with: email)
+    }
+    
+    func validateFields() -> String? {
+        
+        if  emailli.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || passwordli.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            return "Please fill in all fields."
+        }
+        
+        let givenEmail = emailli.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if isEmailValid(givenEmail) == false {
+            return "Please enter a valid email."
+        }
+        
+        
+        let givenPassword = passwordli.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if isPasswordValid(givenPassword) == false {
+            return "Please enter a password with at least 8 characters, a special character, and a number."
+            
+        }
+        
+        return nil
+    }
     
     @IBAction func loginPressed(_ sender: Any) {
         
@@ -61,8 +100,34 @@ class Login: UIViewController {
             }
         }
     }
+        
+    @IBAction func googleLPressed(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.signIn()
+    }
     
-    //MAKE GOOGLE BUTTON ACTION
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+      
+      if let error = error {
+        self.errorli.text = error.localizedDescription
+          
+          return
+      }
+      
+      guard let authentication = user.authentication else { return }
+      let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                        accessToken: authentication.accessToken)
+      
+      Auth.auth().signIn(with: credential) { (authResult, error) in
+          
+          if let error = error {
+              self.errorli.text = error.localizedDescription
+          }
+          else {
+              self.errorli.text = "Login Successful."
+          }
+      }
+      
+    }
     
 
 }

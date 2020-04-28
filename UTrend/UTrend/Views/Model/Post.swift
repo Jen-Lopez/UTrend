@@ -14,4 +14,5 @@ class Post: NSObject {
     var time : String?
     var username : String?
     var userPic : String?
+    var isLiked = false
 }

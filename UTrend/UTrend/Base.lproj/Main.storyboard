@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OpE-cO-Tv6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OpE-cO-Tv6">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,7 +47,6 @@
         <!--Social More-->
         <scene sceneID="Awj-6B-NX5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a3T-Q4-NqL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="5ey-q7-DG3" customClass="SocialMore" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kZe-LD-bnq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -57,6 +56,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Uao-80-d2j"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a3T-Q4-NqL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5174" y="2513"/>
         </scene>
@@ -436,31 +436,71 @@
             </objects>
             <point key="canvasLocation" x="5967" y="909"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Image-->
         <scene sceneID="WwY-Lq-uwD">
             <objects>
-                <viewController id="Z8Z-er-2NK" sceneMemberID="viewController">
+                <viewController id="Z8Z-er-2NK" customClass="AddImage" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="seP-bQ-Eh1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPh-ZT-mMw">
+                                <rect key="frame" x="20" y="157" width="89" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Take a Photo"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="Z8Z-er-2NK" eventType="touchUpInside" id="c18-UQ-UJE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wam-br-Ucs">
+                                <rect key="frame" x="226" y="157" width="150" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add from Camera Roll"/>
+                                <connections>
+                                    <action selector="selectImage:" destination="Z8Z-er-2NK" eventType="touchUpInside" id="jag-Uo-TZD"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zSz-R3-mwq">
+                                <rect key="frame" x="20" y="210" width="374" height="306"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8hf-gq-2os">
+                                <rect key="frame" x="307" y="749" width="93" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add to Closet"/>
+                                <connections>
+                                    <action selector="addToCloset:" destination="Z8Z-er-2NK" eventType="touchUpInside" id="X6W-BY-l4J"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gac-iq-Qqv">
+                                <rect key="frame" x="20" y="534" width="374" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="y6f-3u-1gV"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="UsW-b8-non">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="imageView" destination="zSz-R3-mwq" id="AlX-i7-k89"/>
+                        <outlet property="textField" destination="gac-iq-Qqv" id="yoh-bQ-bNJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XtE-3Z-cxM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6710" y="909"/>
+            <point key="canvasLocation" x="6708.6956521739139" y="908.70535714285711"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="UTrendIcon1" width="878" height="800"/>
-        <image name="btn_google_signin_light_normal_web" width="191" height="46"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="FQz-he-p3U"/>
         <segue reference="9hT-Mw-MSB"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="UTrendIcon1" width="878" height="800"/>
+        <image name="btn_google_signin_light_normal_web" width="191" height="46"/>
+    </resources>
 </document>

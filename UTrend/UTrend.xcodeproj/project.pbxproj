@@ -32,6 +32,7 @@
 		5DDA402D245216F000D091FD /* WardrobeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDA401E245216F000D091FD /* WardrobeCell.swift */; };
 		5DDA402E245216F000D091FD /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDA401F245216F000D091FD /* PostCell.swift */; };
 		5DDA402F245216F000D091FD /* LikeFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDA4020245216F000D091FD /* LikeFeed.swift */; };
+		D6F42B0724586CC100A473CF /* AddImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F42B0624586CC100A473CF /* AddImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		5DDA401F245216F000D091FD /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		5DDA4020245216F000D091FD /* LikeFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeFeed.swift; sourceTree = "<group>"; };
 		898F54192EECF32C4037520E /* Pods_UTrend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UTrend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6F42B0624586CC100A473CF /* AddImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImage.swift; sourceTree = "<group>"; };
 		E0347E973590C288F0AB45D8 /* Pods-UTrend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UTrend.release.xcconfig"; path = "Target Support Files/Pods-UTrend/Pods-UTrend.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +115,7 @@
 				5D11099C244561F300FF3B7E /* MainTabBar.swift */,
 				5D7C60E72442DBA600BC3AFB /* LaunchScreen.storyboard */,
 				5D7C60E22442DBA500BC3AFB /* Main.storyboard */,
+				D6F42B0624586CC100A473CF /* AddImage.swift */,
 				5D7C60E52442DBA600BC3AFB /* Assets.xcassets */,
 				5D7C60EA2442DBA600BC3AFB /* Info.plist */,
 				45E6E681244D1D9E00338A91 /* GoogleService-Info.plist */,
@@ -321,6 +324,7 @@
 				5DC884CE2452A2670032833E /* ClothingItem.swift in Sources */,
 				5D361A3B2453F54C008CFB1F /* SocialMore.swift in Sources */,
 				45E6E67A244D160E00338A91 /* Welcome.swift in Sources */,
+				D6F42B0724586CC100A473CF /* AddImage.swift in Sources */,
 				5DDA402C245216F000D091FD /* Profile.swift in Sources */,
 				45E6E67C244D163200338A91 /* Login.swift in Sources */,
 				5DDA402B245216F000D091FD /* ProfileBar.swift in Sources */,

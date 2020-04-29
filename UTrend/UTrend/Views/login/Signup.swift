@@ -10,7 +10,7 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
-class Signup: UIViewController {
+class Signup: UIViewController, GIDSignInDelegate {
     
     
     @IBOutlet weak var firstName: UITextField!
@@ -30,6 +30,10 @@ class Signup: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        //GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance().delegate = self
 
         // Do any additional setup after loading the view.
     }
@@ -114,7 +118,7 @@ class Signup: UIViewController {
                     }
                     }
                     
-                    //self.transitionToProfile()
+                    self.transitionToProfile()
                 }
                 
                 
@@ -127,9 +131,39 @@ class Signup: UIViewController {
         errorsu.text = message
         }
     
-    //func transitionToProfile () {
-        
-    //}
-        
+    func transitionToProfile () {
+        let main = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBar") as? MainTabBar
+        self.navigationController?.pushViewController(main!, animated: true)
+    }
+    
+    
+    @IBAction func googleSpressed(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.signIn()
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+      
+      if let error = error {
+        self.errorsu.text = error.localizedDescription
+          
+          return
+      }
+      
+      guard let authentication = user.authentication else { return }
+      let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                        accessToken: authentication.accessToken)
+      
+      Auth.auth().signIn(with: credential) { (authResult, error) in
+          
+          if let error = error {
+              self.errorsu.text = error.localizedDescription
+          }
+          else {
+              self.errorsu.text = "Login Successful."
+          }
+      }
+      
+    }
+    
 
 }

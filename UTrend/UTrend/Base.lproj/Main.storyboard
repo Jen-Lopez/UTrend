@@ -142,6 +142,9 @@
                                 <rect key="frame" x="125" y="683" width="164" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <action selector="googleSpressed:" destination="gzM-PW-QLb" eventType="valueChanged" id="O1t-qd-kMN"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ex6-gA-CGp">
                                 <rect key="frame" x="125" y="611" width="164" height="50"/>
@@ -197,7 +200,7 @@
         <!--Main Tab Bar-->
         <scene sceneID="u9h-An-fKe">
             <objects>
-                <tabBarController id="OpE-cO-Tv6" customClass="MainTabBar" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBar" id="OpE-cO-Tv6" customClass="MainTabBar" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xOz-Ku-AWN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

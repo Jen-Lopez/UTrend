@@ -96,7 +96,8 @@ class Login: UIViewController, GIDSignInDelegate {
                 self.errorli.text = err!.localizedDescription
             }
             else{
-                //transition to profile screen code
+                let main = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBar") as? MainTabBar
+                self.navigationController?.pushViewController(main!, animated: true)
             }
         }
     }

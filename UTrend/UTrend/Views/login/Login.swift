@@ -30,14 +30,16 @@ class Login: UIViewController, GIDSignInDelegate {
         //GIDSignIn.sharedInstance().signIn()
         GIDSignIn.sharedInstance().delegate = self
         
-        
-
-        // Do any additional setup after loading the view.
+        // cursor hides when touched outside input field
+        let tapRecognizer =
+            UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
+    @objc func hideKeyboard() {
+      view.endEditing(true)
+    }
     
-    
-
     /*
     // MARK: - Navigation
 

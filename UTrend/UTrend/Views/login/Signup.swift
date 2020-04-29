@@ -30,31 +30,24 @@ class Signup: UIViewController, GIDSignInDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         GIDSignIn.sharedInstance()?.presentingViewController = self
         //GIDSignIn.sharedInstance().signIn()
         GIDSignIn.sharedInstance().delegate = self
-
         // cursor hides when touched outside input field
-         let tapRecognizer =
-             UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-         view.addGestureRecognizer(tapRecognizer)
+        dismissCursor()
+    }    
+
+    func dismissCursor() {
+        let tapRecognizer =
+            UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc func hideKeyboard() {
       view.endEditing(true)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func isPasswordValid(_ password : String) -> Bool {
         

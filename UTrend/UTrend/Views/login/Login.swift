@@ -30,6 +30,8 @@ class Login: UIViewController, GIDSignInDelegate {
         GIDSignIn.sharedInstance().delegate = self
         // cursor hides when touched outside input field
         dismissCursor()
+        // hide password
+        passwordli.isSecureTextEntry = true
     }
     
     func dismissCursor() {

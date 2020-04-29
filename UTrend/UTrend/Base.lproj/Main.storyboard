@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OpE-cO-Tv6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5bL-CW-li4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -63,7 +63,7 @@
         <!--Signup-->
         <scene sceneID="f44-pd-bKj">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="gzM-PW-QLb" customClass="Signup" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gzM-PW-QLb" customClass="Signup" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nha-nL-G6k">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,7 +220,7 @@
         <!--Welcome-->
         <scene sceneID="ew8-Gh-0yZ">
             <objects>
-                <viewController storyboardIdentifier="welcome" modalPresentationStyle="fullScreen" id="Pgh-qU-jbe" customClass="Welcome" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welcome" id="Pgh-qU-jbe" customClass="Welcome" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SnJ-yx-Nd9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -285,7 +285,7 @@
         <!--Login-->
         <scene sceneID="oz6-5o-QW1">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="gL3-oL-FXl" customClass="Login" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gL3-oL-FXl" customClass="Login" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Sy9-Ht-7fN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -527,7 +527,7 @@
         <image name="Utrend-Icon" width="71" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FQz-he-p3U"/>
-        <segue reference="9hT-Mw-MSB"/>
+        <segue reference="eJ0-r6-cSF"/>
+        <segue reference="PfJ-0l-c25"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -2,6 +2,8 @@
 //  Created by UTrend on 4/12/20.
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     
@@ -16,7 +18,6 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     let profileImage:UIImageView = {
         let img = UIImageView()
         img.backgroundColor = UIColor(red: (252/255.0), green: (246/255.0), blue: (239/255.0), alpha: 1.0)
-        
         // assign profile picture
         img.image = UIImage(named: "placeholder")
         img.clipsToBounds = true
@@ -37,18 +38,15 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     } ()
     
     @objc func logOut(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "welcome") as UIViewController
-        self.present(vc, animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "welcome") as? Welcome
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
-    
-    // first + last name
-    let fullName:UILabel = {
+    // first name
+    let firstName:UILabel = {
         let name = UILabel()
-        name.text = "First Last" // replace name
         name.textColor = UIColor(red: (153/255.0), green: (153/255.0), blue: (153/255.0), alpha: 1.0)
-        name.font! = UIFont(name: "Verdana", size: 22)!
+        name.font! = UIFont(name: "Verdana", size: 30)!
         name.sizeToFit()
         name.textAlignment = .center
         return name
@@ -58,8 +56,7 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     let userName:UILabel = {
         let user = UILabel()
         user.textColor = UIColor(red: (193/255.0), green: (185/255.0), blue: (185/255.0), alpha: 1.0)
-        user.text = "@username" // replace username
-        user.font! = UIFont(name: "Verdana", size: 16)!
+        user.font! = UIFont(name: "Verdana", size: 22)!
         user.sizeToFit()
         user.textAlignment = .center
         return user
@@ -87,12 +84,12 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         profileImage.layer.cornerRadius = 135/2
 
         // add name label
-        profileHead.addSubview(fullName)
-        fullName.anchor(left: profileImage.rightAnchor, bottom: profileImage.centerYAnchor, right: profileHead.rightAnchor)
+        profileHead.addSubview(firstName)
+        firstName.anchor(left: profileImage.rightAnchor, bottom: profileImage.centerYAnchor, right: profileHead.rightAnchor)
         
         // add username
         profileHead.addSubview(userName)
-        userName.anchor(top: fullName.bottomAnchor,left: profileImage.rightAnchor, right: profileHead.rightAnchor, paddingTop: 5)
+        userName.anchor(top: firstName.bottomAnchor,left: profileImage.rightAnchor, right: profileHead.rightAnchor, paddingTop: 5)
         
         // add sign out button
         profileHead.addSubview(signOutButton)
@@ -131,6 +128,9 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // fetch user
+        fetchUser()
+        
         // add profile header
         view.addSubview(profileHeader)
         profileHeader.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 450)
@@ -140,6 +140,7 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         profileView.anchor(top: profileNav.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor , right: view.rightAnchor)
 
         profileView.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
+        
     }
     
     // scrolling mechanism
@@ -159,21 +160,43 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
            return 3
        }
 
-       func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-           if (indexPath.item == 0) {
-               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postFeed", for: indexPath)
-               return cell
-           } else if (indexPath.item == 1) {
-               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likeFeed", for: indexPath)
-               return cell
-           } else {
-               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wardrobeFeed", for: indexPath)
-               return cell
-           }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       if (indexPath.item == 0) {
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postFeed", for: indexPath)
+           return cell
+       } else if (indexPath.item == 1) {
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likeFeed", for: indexPath)
+           return cell
+       } else {
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wardrobeFeed", for: indexPath)
+           return cell
        }
-       
-       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-           return CGSize(width: view.frame.width, height: view.frame.height - 450)
-       }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+       return CGSize(width: view.frame.width, height: view.frame.height - 450)
+    }
+    
+    func fetchUser() {
+        // first, get the UID of logged in user
+        if let uid = Auth.auth().currentUser?.uid {
+            let db = Firestore.firestore()
+            // get the associated document of the user
+            let user = db.collection("users").document(uid)
+            // set values
+            user.getDocument { (doc, err) in
+                if err == nil {
+                    if doc != nil && doc!.exists {
+                        let data = doc!.data()
+                        self.firstName.text = data!["firstname"] as? String
+                        self.userName.text = "@" + (data!["username"] as? String)!
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    
 }
 

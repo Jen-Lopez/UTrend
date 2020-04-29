@@ -125,6 +125,8 @@ class Login: UIViewController, GIDSignInDelegate {
           }
           else {
               self.errorli.text = "Login Successful."
+            let main = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBar") as? MainTabBar
+            self.navigationController?.pushViewController(main!, animated: true)
           }
       }
       

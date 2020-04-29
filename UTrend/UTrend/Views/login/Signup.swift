@@ -160,6 +160,8 @@ class Signup: UIViewController, GIDSignInDelegate {
           }
           else {
               self.errorsu.text = "Login Successful."
+            let main = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBar") as? MainTabBar
+            self.navigationController?.pushViewController(main!, animated: true)
           }
       }
       

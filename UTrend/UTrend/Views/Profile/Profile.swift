@@ -32,8 +32,16 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        button.addTarget(self, action:#selector(logOut), for: .touchUpInside)
         return button
     } ()
+    
+    @objc func logOut(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "welcome") as UIViewController
+        self.present(vc, animated: true)
+    }
+    
     
     // first + last name
     let fullName:UILabel = {

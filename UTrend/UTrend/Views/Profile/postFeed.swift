@@ -5,14 +5,14 @@
 import UIKit
 
 class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource  {
-    
+//    let posts = [Post]()
     var posts : [Post] = {
         var post1 = Post()
         post1.postImg = "outfit1"
         post1.textCaption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         post1.time = "1 day ago"
         post1.likes = 243
-        
+
         var post2 = Post()
         post2.postImg = "outfit2"
         post2.textCaption = "adipiscing elit, sed do eiusmod tempor!"
@@ -20,7 +20,7 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
         post2.likes = 324
         return [post1,post2]
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame:frame)
         setUp()

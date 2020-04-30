@@ -112,14 +112,13 @@ class Signup: UIViewController, GIDSignInDelegate {
                     //Need to add auth pods and decide which database to use
                     
                     let db = Firestore.firestore()
-                    db.collection("users").document(result!.user.uid).setData(["firstname": firstname, "username": userName, "uid": result!.user.uid ])
+                    db.collection("users").document(result!.user.uid).setData(["firstname": firstname, "username": userName, "uid": result!.user.uid, "profileImgURL":""])
                     
                     self.transitionToProfile()
                 }
             }
         }
     }
-        
     
     func showError(_ message: String) {
         errorsu.text = message
@@ -160,6 +159,5 @@ class Signup: UIViewController, GIDSignInDelegate {
       }
       
     }
-    
 
 }

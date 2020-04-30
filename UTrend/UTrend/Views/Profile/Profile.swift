@@ -3,9 +3,9 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
+import FirebaseUI
 
-class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
+class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // grey status bar
     let statusBar: UIImageView = {
@@ -15,15 +15,54 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     }()
 
     // create the profile Image
-    let profileImage:UIImageView = {
+    lazy var profileImage:UIImageView = {
         let img = UIImageView()
         img.backgroundColor = UIColor(red: (252/255.0), green: (246/255.0), blue: (239/255.0), alpha: 1.0)
-        // assign profile picture
+        // assign placeholder for new user
         img.image = UIImage(named: "placeholder")
         img.clipsToBounds = true
         img.contentMode = .scaleAspectFill
+        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeProfilePic)))
+        img.isUserInteractionEnabled = true
         return img
     }()
+    
+    @objc func changeProfilePic() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    // IMAGE PICKER -- SET PROFILE PICTURE
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImg : UIImage?
+        if let edited = info[.editedImage] {
+            selectedImg = edited as? UIImage
+        } else if let original = info[.originalImage] {
+            selectedImg = original as? UIImage
+        }
+        
+        if let selected = selectedImg {
+            profileImage.image = selected
+            // UPLOAD NEW PROFILE IMG TO FIREBASE
+            let imgData = selected.jpegData(compressionQuality: 0.4)
+            let user = Auth.auth().currentUser?.uid
+            let db = Firestore.firestore()
+            let imgName = UUID().uuidString
+            let storageRef = Storage.storage().reference().child("profile").child(imgName)
+            storageRef.putData(imgData!, metadata: nil) { (meta, err) in
+                if err != nil {return}
+            }
+            db.collection("users").document(user!).setData([ "profileImgURL": imgName], merge: true)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
     // create sign out button
     let signOutButton:UIButton = {
@@ -110,7 +149,6 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         
-        
         cv.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
 
         cv.register(postFeed.self, forCellWithReuseIdentifier: "postFeed")
@@ -140,7 +178,6 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         profileView.anchor(top: profileNav.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor , right: view.rightAnchor)
 
         profileView.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
-        
     }
     
     // scrolling mechanism
@@ -191,12 +228,17 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
                         self.firstName.text = data!["firstname"] as? String
                         self.userName.text = "@" + (data!["username"] as? String)!
                         
+                        // download profile image from firebase
+                        let imgName = data!["profileImgURL"] as? String
+                        if (imgName?.isEmpty == false) {
+                            let img = Storage.storage().reference().child("profile").child(imgName!)
+                            self.profileImage.sd_setImage(with: img)
+                        }
                     }
                 }
             }
         }
     }
-    
     
 }
 

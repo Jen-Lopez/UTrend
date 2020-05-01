@@ -55,7 +55,7 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
             storageRef.putData(imgData!, metadata: nil) { (meta, err) in
                 if err != nil {return}
             }
-            db.collection("users").document(user!).setData([ "profileImgURL": imgName], merge: true)
+            db.collection("users").document(user!).setData([ "profileImg": imgName], merge: true)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -229,7 +229,7 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
                         self.userName.text = "@" + (data!["username"] as? String)!
                         
                         // download profile image from firebase
-                        let imgName = data!["profileImgURL"] as? String
+                        let imgName = data!["profileImg"] as? String
                         if (imgName?.isEmpty == false) {
                             let img = Storage.storage().reference().child("profile").child(imgName!)
                             self.profileImage.sd_setImage(with: img)

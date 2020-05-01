@@ -2,18 +2,28 @@
 //  UTrend
 
 import UIKit
+import FirebaseUI
 
 class socialCell: UICollectionViewCell {
     
     var socialPost : Post? {
         didSet {
-            postImage.image = UIImage(named: (socialPost?.postImg)!)
+            
             timeStamp.text = socialPost?.time
             comment.text = socialPost?.textCaption
             userName.text = socialPost?.username
-       
+            
+            // LOAD POST IMG
+            let imgName = socialPost?.postImg
+            let img = Storage.storage().reference().child("social").child(imgName!)
+            postImage.sd_setImage(with: img)
+            
+
+            // LOAD PROF IMG
             if (socialPost?.userPic != nil) {
-                userImg.image = UIImage(named: (socialPost?.userPic)!)
+                let prof = socialPost?.userPic
+                let ref = Storage.storage().reference().child("profile").child(prof!)
+                userImg.sd_setImage(with: ref)
             }
            
         }

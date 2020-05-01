@@ -3,29 +3,10 @@
 //  UTrend
 
 import UIKit
+import Firebase
 
 class LikeFeed: postFeed{
-    var likes : [Post] = {
-        var like1 = Post()
-        like1.postImg = "like1"
-        
-        var like2 = Post()
-        like2.postImg = "like2"
-        
-        var like3 = Post()
-        like3.postImg = "like3"
-        
-        var like4 = Post()
-        like4.postImg = "like4"
-        
-        var like5 = Post()
-        like5.postImg = "like5"
-        
-        var like6 = Post()
-        like6.postImg = "like6"
-        
-        return [like1,like2,like3,like4,like5,like6]
-    }()
+    var likes = [Post]()
     
     override func setUp() {
         addSubview(cView)
@@ -54,5 +35,27 @@ class LikeFeed: postFeed{
 
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
+    }
+    
+    override func fetchData()  {
+        let db = Firestore.firestore()
+        let currUser = Auth.auth().currentUser?.uid
+        let likeRef = db.collection("users").document(currUser!).collection("likes")
+        likeRef.getDocuments { (snap, err) in
+            if err == nil && snap != nil {
+                for doc in snap!.documents {
+                    let docData = doc.data()
+                    let post = Post()
+                    post.postImg = docData["likedImg"] as? String
+                    print()
+                    self.likes.append(post)
+                    print("inside fetchdata of like")
+                }
+                
+                DispatchQueue.main.async {
+                    self.cView.reloadData()
+                }
+            }
+        }
     }
 }

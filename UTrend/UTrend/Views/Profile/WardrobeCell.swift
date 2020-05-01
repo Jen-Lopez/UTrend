@@ -3,12 +3,16 @@
 //  UTrend
 
 import UIKit
+import FirebaseUI
 
 class WardrobeCell: UICollectionViewCell {
     
     var item : ClothingItem? {
         didSet {
-            outfit.image = UIImage(named: (item?.uploadedImg)!)
+            // load clothes img
+            let imgName = item?.uploadedImg
+              let img = Storage.storage().reference().child(imgName!) // will change to users -> uid -> clothes
+              outfit.sd_setImage(with: img)
         }
     }
 

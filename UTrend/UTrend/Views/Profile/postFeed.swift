@@ -3,24 +3,11 @@
 //  UTrend
 
 import UIKit
+import Firebase
 
 class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource  {
-    
-    var posts : [Post] = {
-        var post1 = Post()
-        post1.postImg = "outfit1"
-        post1.textCaption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        post1.time = "1 day ago"
-        post1.likes = 243
-        
-        var post2 = Post()
-        post2.postImg = "outfit2"
-        post2.textCaption = "adipiscing elit, sed do eiusmod tempor!"
-        post2.time = "3 weeks ago"
-        post2.likes = 324
-        return [post1,post2]
-    }()
-    
+    var posts = [Post]()
+
     override init(frame: CGRect) {
         super.init(frame:frame)
         setUp()
@@ -37,6 +24,7 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
         cv.dataSource = self
         cv.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
         cv.showsVerticalScrollIndicator = false
+        fetchData()
         return cv
     }()
     
@@ -53,7 +41,6 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "posts", for: indexPath) as! postCell
-
         cell.postItem = posts[indexPath.item]
         return cell
     }
@@ -68,5 +55,31 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func fetchData() {
+        print("inside fetchdata of post")
+
+        let db = Firestore.firestore()
+        let currUser = Auth.auth().currentUser?.uid
+        let postRef = db.collection("users").document(currUser!).collection("posts")
+        postRef.getDocuments { (snap, err) in
+            if err == nil && snap != nil {
+                for doc in snap!.documents {
+                    let docData = doc.data()
+                    let post = Post()
+                    post.postImg = docData["postImg"] as? String
+                    post.likes = docData["likes"] as? NSNumber
+                    post.textCaption = docData["caption"] as? String
+                    post.time = docData["timestamp"] as? String
+                    self.posts.append(post)
+                }
+            }
+            DispatchQueue.main.async {
+                self.cView.reloadData()
+            }
+        }
+//        let random = UUID().uuidString
+//        postRef.document(random).setData(["hello": "hi"])
     }
 }

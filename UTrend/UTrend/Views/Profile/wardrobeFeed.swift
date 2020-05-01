@@ -3,22 +3,25 @@
 //  UTrend
 
 import UIKit
+import Firebase
 
 class wardrobeFeed: postFeed {
-    var closet :[ClothingItem] = {
-        var item1 = ClothingItem()
-        item1.uploadedImg = "clothes1"
-        var item2 = ClothingItem()
-        item2.uploadedImg = "clothes2"
-
-        var item3 = ClothingItem()
-        item3.uploadedImg = "clothes3"
-
-        var item4 = ClothingItem()
-        item4.uploadedImg = "clothes4"
-
-        return [item1,item2,item3,item4]
-    }()
+//    var closet :[ClothingItem] = {
+//        var item1 = ClothingItem()
+//        item1.uploadedImg = "clothes1"
+//        var item2 = ClothingItem()
+//        item2.uploadedImg = "clothes2"
+//
+//        var item3 = ClothingItem()
+//        item3.uploadedImg = "clothes3"
+//
+//        var item4 = ClothingItem()
+//        item4.uploadedImg = "clothes4"
+//
+//        return [item1,item2,item3,item4]
+//    }()
+    var closet = [ClothingItem]()
+    
     override func setUp() {
         addSubview(cView)
         cView.register(WardrobeCell.self, forCellWithReuseIdentifier: "clothes")
@@ -45,5 +48,26 @@ class wardrobeFeed: postFeed {
 
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
+    }
+    
+    override func fetchData() {
+        let db = Firestore.firestore()
+        let currUser = Auth.auth().currentUser?.uid
+        let likeRef = db.collection("users").document(currUser!).collection("clothes")
+        likeRef.getDocuments { (snap, err) in
+            if err == nil && snap != nil {
+                for doc in snap!.documents {
+                    let docData = doc.data()
+                    let item = ClothingItem()
+                    item.uploadedImg = docData["imgName"] as? String
+                    self.closet.append(item)
+                    print("inside fetchdata of wardrobe")
+                }
+                
+                DispatchQueue.main.async {
+                    self.cView.reloadData()
+                }
+            }
+        }
     }
 }

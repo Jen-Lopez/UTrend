@@ -2,8 +2,10 @@
 //  Created by UTrend on 4/12/20.
 
 import UIKit
+import Firebase
+import FirebaseUI
 
-class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
+class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // grey status bar
     let statusBar: UIImageView = {
@@ -13,16 +15,54 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     }()
 
     // create the profile Image
-    let profileImage:UIImageView = {
+    lazy var profileImage:UIImageView = {
         let img = UIImageView()
         img.backgroundColor = UIColor(red: (252/255.0), green: (246/255.0), blue: (239/255.0), alpha: 1.0)
-        
-        // assign profile picture
+        // assign placeholder for new user
         img.image = UIImage(named: "placeholder")
         img.clipsToBounds = true
         img.contentMode = .scaleAspectFill
+        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeProfilePic)))
+        img.isUserInteractionEnabled = true
         return img
     }()
+    
+    @objc func changeProfilePic() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    // IMAGE PICKER -- SET PROFILE PICTURE
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImg : UIImage?
+        if let edited = info[.editedImage] {
+            selectedImg = edited as? UIImage
+        } else if let original = info[.originalImage] {
+            selectedImg = original as? UIImage
+        }
+        
+        if let selected = selectedImg {
+            profileImage.image = selected
+            // UPLOAD NEW PROFILE IMG TO FIREBASE
+            let imgData = selected.jpegData(compressionQuality: 0.4)
+            let user = Auth.auth().currentUser?.uid
+            let db = Firestore.firestore()
+            let imgName = UUID().uuidString
+            let storageRef = Storage.storage().reference().child("profile").child(imgName)
+            storageRef.putData(imgData!, metadata: nil) { (meta, err) in
+                if err != nil {return}
+            }
+            db.collection("users").document(user!).setData([ "profileImg": imgName], merge: true)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
     // create sign out button
     let signOutButton:UIButton = {
@@ -37,18 +77,15 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     } ()
     
     @objc func logOut(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "welcome") as UIViewController
-        self.present(vc, animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "welcome") as? Welcome
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
-    
-    // first + last name
-    let fullName:UILabel = {
+    // first name
+    let firstName:UILabel = {
         let name = UILabel()
-        name.text = "First Last" // replace name
         name.textColor = UIColor(red: (153/255.0), green: (153/255.0), blue: (153/255.0), alpha: 1.0)
-        name.font! = UIFont(name: "Verdana", size: 22)!
+        name.font! = UIFont(name: "Verdana", size: 30)!
         name.sizeToFit()
         name.textAlignment = .center
         return name
@@ -58,8 +95,7 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     let userName:UILabel = {
         let user = UILabel()
         user.textColor = UIColor(red: (193/255.0), green: (185/255.0), blue: (185/255.0), alpha: 1.0)
-        user.text = "@username" // replace username
-        user.font! = UIFont(name: "Verdana", size: 16)!
+        user.font! = UIFont(name: "Verdana", size: 22)!
         user.sizeToFit()
         user.textAlignment = .center
         return user
@@ -87,12 +123,12 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         profileImage.layer.cornerRadius = 135/2
 
         // add name label
-        profileHead.addSubview(fullName)
-        fullName.anchor(left: profileImage.rightAnchor, bottom: profileImage.centerYAnchor, right: profileHead.rightAnchor)
+        profileHead.addSubview(firstName)
+        firstName.anchor(left: profileImage.rightAnchor, bottom: profileImage.centerYAnchor, right: profileHead.rightAnchor)
         
         // add username
         profileHead.addSubview(userName)
-        userName.anchor(top: fullName.bottomAnchor,left: profileImage.rightAnchor, right: profileHead.rightAnchor, paddingTop: 5)
+        userName.anchor(top: firstName.bottomAnchor,left: profileImage.rightAnchor, right: profileHead.rightAnchor, paddingTop: 5)
         
         // add sign out button
         profileHead.addSubview(signOutButton)
@@ -113,7 +149,6 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         
-        
         cv.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
 
         cv.register(postFeed.self, forCellWithReuseIdentifier: "postFeed")
@@ -130,6 +165,9 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // fetch user
+        fetchUser()
         
         // add profile header
         view.addSubview(profileHeader)
@@ -159,21 +197,48 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
            return 3
        }
 
-       func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-           if (indexPath.item == 0) {
-               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postFeed", for: indexPath)
-               return cell
-           } else if (indexPath.item == 1) {
-               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likeFeed", for: indexPath)
-               return cell
-           } else {
-               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wardrobeFeed", for: indexPath)
-               return cell
-           }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       if (indexPath.item == 0) {
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postFeed", for: indexPath)
+           return cell
+       } else if (indexPath.item == 1) {
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likeFeed", for: indexPath)
+           return cell
+       } else {
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wardrobeFeed", for: indexPath)
+           return cell
        }
-       
-       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-           return CGSize(width: view.frame.width, height: view.frame.height - 450)
-       }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+       return CGSize(width: view.frame.width, height: view.frame.height - 450)
+    }
+    
+    func fetchUser() {
+        // first, get the UID of logged in user
+        if let uid = Auth.auth().currentUser?.uid {
+            let db = Firestore.firestore()
+            // get the associated document of the user
+            let user = db.collection("users").document(uid)
+            // set values
+            user.getDocument { (doc, err) in
+                if err == nil {
+                    if doc != nil && doc!.exists {
+                        let data = doc!.data()
+                        self.firstName.text = data!["firstname"] as? String
+                        self.userName.text = "@" + (data!["username"] as? String)!
+                        
+                        // download profile image from firebase
+                        let imgName = data!["profileImg"] as? String
+                        if (imgName?.isEmpty == false) {
+                            let img = Storage.storage().reference().child("profile").child(imgName!)
+                            self.profileImage.sd_setImage(with: img)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 

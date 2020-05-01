@@ -3,14 +3,22 @@
 
 // CUSTOM PROFILE CELLS
 import UIKit
+import Firebase
+import FirebaseUI
 
 class postCell : UICollectionViewCell {
     var postItem : Post? {
         didSet {
+            // post caption
             comment.text = postItem?.textCaption
-            postImage.image = UIImage(named: (postItem?.postImg)!)
-            timeStamp.text = postItem?.time
+            // LOAD img from db
+            let imgName =  postItem?.postImg
+            let img = Storage.storage().reference().child(imgName!)// will change to users -> uid -> posts
+            postImage.sd_setImage(with: img)
+            //post likes
             likes.text = (postItem?.likes)!.stringValue
+            // post time
+            timeStamp.text = postItem?.time
         }
     }
     

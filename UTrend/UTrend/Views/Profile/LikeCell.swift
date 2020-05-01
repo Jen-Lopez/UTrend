@@ -3,11 +3,22 @@
 //  UTrend
 
 import UIKit
+import FirebaseUI
 
 class LikeCell: UICollectionViewCell {
     var liked : Post? {
         didSet {
-            likedImage.image = UIImage(named: (liked?.postImg)!)
+            
+            // load liked img
+            let imgName = liked?.postImg
+            let img = Storage.storage().reference().child(imgName!) // will change to users -> uid -> likes
+            likedImage.sd_setImage(with: img)
+//            // LOAD img from db
+//                      let imgName =  postItem?.postImg
+//                      let img = Storage.storage().reference().child("posts").child(imgName!)
+//                      postImage.sd_setImage(with: img)
+//            likedImage.image = UIImage(named: (liked?.postImg)!)
+            
         }
     }
     

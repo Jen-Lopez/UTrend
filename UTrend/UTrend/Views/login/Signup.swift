@@ -36,6 +36,8 @@ class Signup: UIViewController, GIDSignInDelegate {
         GIDSignIn.sharedInstance().delegate = self
         // cursor hides when touched outside input field
         dismissCursor()
+        // hide password
+        passwordsu.isSecureTextEntry = true
     }    
 
     func dismissCursor() {
@@ -110,21 +112,13 @@ class Signup: UIViewController, GIDSignInDelegate {
                     //Need to add auth pods and decide which database to use
                     
                     let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["firstname": firstname, "username": userName, "uid": result!.user.uid ]) { (error) in
-                    
-                    if error != nil {
-                        self.showError("Error in saving user data.")
-                    }
-                    }
+                    db.collection("users").document(result!.user.uid).setData(["firstname": firstname, "username": userName, "uid": result!.user.uid, "profileImg":""])
                     
                     self.transitionToProfile()
                 }
-                
-                
             }
         }
     }
-        
     
     func showError(_ message: String) {
         errorsu.text = message
@@ -165,6 +159,5 @@ class Signup: UIViewController, GIDSignInDelegate {
       }
       
     }
-    
 
 }

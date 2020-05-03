@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="UTrendIcon1" translatesAutoresizingMaskIntoConstraints="NO" id="YGD-Xj-E5j">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="Utrend-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="YGD-Xj-E5j">
                                 <rect key="frame" x="87" y="338" width="240" height="220"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -30,6 +30,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="UTrendIcon1" width="878" height="800"/>
+        <image name="Utrend-Icon" width="71" height="64"/>
     </resources>
 </document>

@@ -2,6 +2,7 @@
 //  UTrend
 
 import UIKit
+import FirebaseUI
 
 class SocialMore: UIViewController {
     
@@ -77,6 +78,8 @@ class SocialMore: UIViewController {
                 likeHeartImg.image = image
                 let newNum:Int = Int(likes.text!)! - 1
                 likes.text = String(newNum)
+                // decrement the user's post like
+                // remove document from like collection
             }
         }
         else {
@@ -84,6 +87,9 @@ class SocialMore: UIViewController {
                 likeHeartImg.image = image
                 let newNum:Int = Int(likes.text!)! + 1
                 likes.text = String(newNum)
+                
+                // add it to users "likes"
+                // increment the like of the user's post user's post
             }
         }
     }
@@ -192,7 +198,8 @@ class SocialMore: UIViewController {
         // image
         let name = imageName
         if let image = name {
-            postImg.image = UIImage(named: image)
+            let ref = Storage.storage().reference().child("social").child(image)
+            postImg.sd_setImage(with: ref)
         }
         
         // timestamp

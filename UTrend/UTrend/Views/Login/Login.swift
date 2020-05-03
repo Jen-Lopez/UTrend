@@ -25,30 +25,26 @@ class Login: UIViewController, GIDSignInDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         GIDSignIn.sharedInstance()?.presentingViewController = self
         //GIDSignIn.sharedInstance().signIn()
         GIDSignIn.sharedInstance().delegate = self
-        
-        
-
-        // Do any additional setup after loading the view.
+        // cursor hides when touched outside input field
+        dismissCursor()
+        // hide password
+        passwordli.isSecureTextEntry = true
     }
     
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func dismissCursor() {
+        let tapRecognizer =
+            UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
     }
-    */
     
-    
+    @objc func hideKeyboard() {
+      view.endEditing(true)
+    }
+
     func isPasswordValid(_ password : String) -> Bool {
         
         let testingPassword = NSPredicate(format: "SELF MATCHES %@", "^(?+.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
@@ -96,7 +92,8 @@ class Login: UIViewController, GIDSignInDelegate {
                 self.errorli.text = err!.localizedDescription
             }
             else{
-                //transition to profile screen code
+                let main = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBar") as? MainTabBar
+                self.navigationController?.pushViewController(main!, animated: true)
             }
         }
     }
@@ -124,6 +121,8 @@ class Login: UIViewController, GIDSignInDelegate {
           }
           else {
               self.errorli.text = "Login Successful."
+            let main = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBar") as? MainTabBar
+            self.navigationController?.pushViewController(main!, animated: true)
           }
       }
       

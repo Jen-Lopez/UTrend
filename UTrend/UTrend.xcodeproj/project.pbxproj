@@ -125,17 +125,23 @@
 				5D11099C244561F300FF3B7E /* MainTabBar.swift */,
 				5D7C60E72442DBA600BC3AFB /* LaunchScreen.storyboard */,
 				5D7C60E22442DBA500BC3AFB /* Main.storyboard */,
-				D6F42B0624586CC100A473CF /* AddImage.swift */,
-				D641320E2458A8B8000BB417 /* OutfitGenerator.swift */,
-				D6CDB3A4245B338900B340B9 /* TopCell.swift */,
-				D64132102458C7EA000BB417 /* BottomCell.swift */,
-				D6CDB3A6245B360F00B340B9 /* ShoeCell.swift */,
-				D64132122458C804000BB417 /* CollectionViewCell.swift */,
 				5D7C60E52442DBA600BC3AFB /* Assets.xcassets */,
 				5D7C60EA2442DBA600BC3AFB /* Info.plist */,
 				45E6E681244D1D9E00338A91 /* GoogleService-Info.plist */,
 			);
 			path = UTrend;
+			sourceTree = "<group>";
+		};
+		5D9A1441245E694500CBA774 /* Outfit Generator */ = {
+			isa = PBXGroup;
+			children = (
+				D641320E2458A8B8000BB417 /* OutfitGenerator.swift */,
+				D6CDB3A4245B338900B340B9 /* TopCell.swift */,
+				D64132102458C7EA000BB417 /* BottomCell.swift */,
+				D6CDB3A6245B360F00B340B9 /* ShoeCell.swift */,
+				D64132122458C804000BB417 /* CollectionViewCell.swift */,
+			);
+			path = "Outfit Generator";
 			sourceTree = "<group>";
 		};
 		5DC884C9245299050032833E /* Model */ = {
@@ -151,22 +157,24 @@
 			isa = PBXGroup;
 			children = (
 				5DDA4013245216F000D091FD /* extensions.swift */,
+				D6F42B0624586CC100A473CF /* AddImage.swift */,
 				5DC884C9245299050032833E /* Model */,
-				5DDA40312452174900D091FD /* login */,
+				5DDA4014245216F000D091FD /* Social */,
+				5DDA40312452174900D091FD /* Login */,
 				5DDA4018245216F000D091FD /* Profile */,
-				5DDA4014245216F000D091FD /* social */,
+				5D9A1441245E694500CBA774 /* Outfit Generator */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5DDA4014245216F000D091FD /* social */ = {
+		5DDA4014245216F000D091FD /* Social */ = {
 			isa = PBXGroup;
 			children = (
 				5DDA4016245216F000D091FD /* Social.swift */,
 				5DDA4017245216F000D091FD /* socialCell.swift */,
 				5D361A3A2453F54C008CFB1F /* SocialMore.swift */,
 			);
-			path = social;
+			path = Social;
 			sourceTree = "<group>";
 		};
 		5DDA4018245216F000D091FD /* Profile */ = {
@@ -184,14 +192,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		5DDA40312452174900D091FD /* login */ = {
+		5DDA40312452174900D091FD /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				45E6E679244D160E00338A91 /* Welcome.swift */,
 				45E6E67B244D163200338A91 /* Login.swift */,
 				45E6E67D244D165400338A91 /* Signup.swift */,
 			);
-			path = login;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		B43D7BD6129391313C21B7F0 /* Pods */ = {

@@ -10,7 +10,7 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
-class Signup: UIViewController {
+class Signup: UIViewController, GIDSignInDelegate {
     
     
     @IBOutlet weak var firstName: UITextField!
@@ -31,20 +31,25 @@ class Signup: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        //GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance().delegate = self
+        // cursor hides when touched outside input field
+        dismissCursor()
+        // hide password
+        passwordsu.isSecureTextEntry = true
+    }    
+
+    func dismissCursor() {
+        let tapRecognizer =
+            UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func hideKeyboard() {
+      view.endEditing(true)
     }
-    */
     
     func isPasswordValid(_ password : String) -> Bool {
         
@@ -107,29 +112,52 @@ class Signup: UIViewController {
                     //Need to add auth pods and decide which database to use
                     
                     let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["firstname": firstname, "username": userName, "uid": result!.user.uid ]) { (error) in
+                    db.collection("users").document(result!.user.uid).setData(["firstname": firstname, "username": userName, "uid": result!.user.uid, "profileImg":""])
                     
-                    if error != nil {
-                        self.showError("Error in saving user data.")
-                    }
-                    }
-                    
-                    //self.transitionToProfile()
+                    self.transitionToProfile()
                 }
-                
-                
             }
         }
     }
-        
     
     func showError(_ message: String) {
         errorsu.text = message
         }
     
-    //func transitionToProfile () {
-        
-    //}
-        
+    func transitionToProfile () {
+        let main = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBar") as? MainTabBar
+        self.navigationController?.pushViewController(main!, animated: true)
+    }
+    
+    
+    @IBAction func googleSpressed(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.signIn()
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+      
+      if let error = error {
+        self.errorsu.text = error.localizedDescription
+          
+          return
+      }
+      
+      guard let authentication = user.authentication else { return }
+      let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                        accessToken: authentication.accessToken)
+      
+      Auth.auth().signIn(with: credential) { (authResult, error) in
+          
+          if let error = error {
+              self.errorsu.text = error.localizedDescription
+          }
+          else {
+              self.errorsu.text = "Login Successful."
+            let main = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBar") as? MainTabBar
+            self.navigationController?.pushViewController(main!, animated: true)
+          }
+      }
+      
+    }
 
 }

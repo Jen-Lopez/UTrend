@@ -3,38 +3,11 @@
 
 import UIKit
 import AVKit
+import Firebase
 
 class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     var segueIdentifier = "viewInfo"
-    
-    let posts : [Post] = {
-        let post1 = Post()
-        post1.postImg = "out1"
-        post1.time = "5h ago"
-        post1.textCaption = "lor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-        post1.username = "mikayla"
-        post1.userPic = "profilePic"
-        let post2 = Post()
-        post2.postImg = "out2"
-        post2.time = "22m ago"
-        post2.textCaption = "lor sit amet, consectetur adipiscing"
-        post2.username = "andrea_ue"
-
-        let post3 = Post()
-        post3.postImg = "out3"
-        post3.time = "3d ago"
-        post3.textCaption = "lor sit amet, consectetur adipiscing"
-        post3.username = "nikkyG"
-
-        let post4 = Post()
-        post4.postImg = "out4"
-        post4.time = "1mo ago"
-        post4.textCaption  = "lor sit amet, consectetur elit, sed do eiusmod tempor incididunt"
-        post4.username = "unknown"
-        post4.likes = 394
-        
-        return [post1,post2,post3,post4]
-    }()
+    var posts = [Post]()
     
     let mauve = UIColor(red: (229/255.0), green: (218/255.0), blue: (217/255.0), alpha: 1.0)
     
@@ -64,6 +37,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                 
         cv.delegate = self
         cv.dataSource = self
+        fetchSocialPost()
         return cv
     }()
     
@@ -119,4 +93,26 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         }
     }
     
+    func fetchSocialPost(){
+        let db = Firestore.firestore()
+        let socialRef = db.collection("socialFeed")
+        socialRef.getDocuments { (snap, err) in
+            if err == nil && snap != nil {
+                for doc in snap!.documents {
+                    let docData = doc.data()
+                    let post = Post()
+                    post.postImg = docData["postImg"] as? String
+                    post.textCaption = docData["caption"] as? String
+                    post.likes = docData["likes"] as? NSNumber
+                    post.username = docData["username"] as? String
+                    self.posts.append(post)
+                    print ("inside social posts")
+                }
+                DispatchQueue.main.async {
+                    self.socialView.reloadData()
+                }
+            }
+        }
+        
+    }
 }

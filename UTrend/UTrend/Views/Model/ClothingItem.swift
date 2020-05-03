@@ -8,5 +8,6 @@
 import UIKit
 
 class ClothingItem: NSObject {
-     var uploadedImg : String?
+    var uploadedImg : String?
+    var type : String?
 }

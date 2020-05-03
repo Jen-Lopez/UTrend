@@ -6,26 +6,13 @@ import UIKit
 import Firebase
 
 class wardrobeFeed: postFeed {
-//    var closet :[ClothingItem] = {
-//        var item1 = ClothingItem()
-//        item1.uploadedImg = "clothes1"
-//        var item2 = ClothingItem()
-//        item2.uploadedImg = "clothes2"
-//
-//        var item3 = ClothingItem()
-//        item3.uploadedImg = "clothes3"
-//
-//        var item4 = ClothingItem()
-//        item4.uploadedImg = "clothes4"
-//
-//        return [item1,item2,item3,item4]
-//    }()
     var closet = [ClothingItem]()
     
     override func setUp() {
         addSubview(cView)
         cView.register(WardrobeCell.self, forCellWithReuseIdentifier: "clothes")
         cView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "clothes", for: indexPath) as! WardrobeCell
@@ -58,6 +45,8 @@ class wardrobeFeed: postFeed {
             if err == nil && snap != nil {
                 for doc in snap!.documents {
                     let docData = doc.data()
+                    print(docData)
+
                     let item = ClothingItem()
                     item.uploadedImg = docData["imgName"] as? String
                     self.closet.append(item)

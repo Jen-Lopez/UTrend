@@ -55,6 +55,7 @@ class SocialMore: UIViewController {
     let likeHeart : UIButton = {
         let like = UIButton(type: .system)
         like.addTarget(self, action:#selector(changeLike), for: .touchUpInside)
+        // add image to likes
         return like
     }()
     
@@ -89,6 +90,7 @@ class SocialMore: UIViewController {
                 likes.text = String(newNum)
                 
                 // add it to users "likes"
+                addImg()
                 // increment the like of the user's post user's post
             }
         }
@@ -192,6 +194,18 @@ class SocialMore: UIViewController {
         
         view.addSubview(backButton)
         backButton.anchor(top: view.topAnchor, left: postImg.leftAnchor, paddingTop: 55,width: 50, height: 50)
+    }
+    
+    func addImg() {
+        let user = Auth.auth().currentUser?.uid
+        let imgData = postImg.image?.jpegData(compressionQuality: 0.4)
+        let db = Firestore.firestore()
+        let imgN = UUID().uuidString
+        let ref = Storage.storage().reference().child("users").child(user!).child("likes")
+        ref.child(imgN).putData(imgData!, metadata: nil) { (meta, err) in
+            if err != nil {return}
+        }
+        db.collection("users").document(user!).collection("likes").addDocument(data: ["likedImg":imgN])
     }
     
     private func setUp() {

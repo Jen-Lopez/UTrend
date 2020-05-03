@@ -39,11 +39,28 @@
                     <navigationItem key="navigationItem" id="koh-Rd-oNz"/>
                     <connections>
                         <segue destination="5ey-q7-DG3" kind="show" identifier="viewInfo" id="fhB-C2-GRj"/>
+                        <segue destination="7Vv-Da-fwC" kind="show" identifier="makepost" id="0Tp-Bc-2lz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lkB-Ov-3db" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5174" y="1724"/>
+        </scene>
+        <!--Post Info-->
+        <scene sceneID="vY9-vD-D0X">
+            <objects>
+                <viewController id="7Vv-Da-fwC" customClass="postInfo" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5k9-lJ-nn1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="9HU-DU-WdX"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="B9t-Dg-aAK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mpq-dI-Ocp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5967" y="1724"/>
         </scene>
         <!--Social More-->
         <scene sceneID="Awj-6B-NX5">
@@ -66,7 +83,7 @@
             <objects>
                 <viewController id="gzM-PW-QLb" customClass="Signup" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nha-nL-G6k">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Utrend-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="sRt-zD-LpC">
@@ -288,7 +305,7 @@
             <objects>
                 <viewController id="gL3-oL-FXl" customClass="Login" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Sy9-Ht-7fN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OA1-3D-nQI">
@@ -781,7 +798,7 @@
         <image name="wand.and.stars.inverse" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eJ0-r6-cSF"/>
-        <segue reference="PfJ-0l-c25"/>
+        <segue reference="FQz-he-p3U"/>
+        <segue reference="9hT-Mw-MSB"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,12 +1,10 @@
 //
 //  AddImage.swift
 //  UTrend
-//
 
 import Foundation
 import UIKit
 import Firebase
-import FirebaseUI
 
 class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
@@ -16,7 +14,6 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     @IBOutlet weak var viewForImage: UIView!
     @IBOutlet weak var viewForTextField: UIView!
-    
     
     let imagePicker = UIImagePickerController()
     
@@ -38,6 +35,8 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         //for keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        dismissCursor() // hides cursor
     }
     
     //move view up so keyboard doesn't cover content
@@ -57,8 +56,18 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         }
     }
     
+    func dismissCursor() {
+        let tapRecognizer =
+            UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func hideKeyboard() {
+      view.endEditing(true)
+    }
+    
     @IBAction func selectImage(_ sender: UIButton) {
-        imagePicker.sourceType = .savedPhotosAlbum
         imagePicker.allowsEditing = true
         present(imagePicker, animated:true, completion:nil)
        }
@@ -111,24 +120,29 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         let actionOkay = UIAlertAction(title: actionOk, style: .default, handler:nil)
         
         actionController.addAction(actionOkay)
-        */        
-        
+        */
+
         //get text from text field
         var text: String? = textField.text
-        var type: String
+        var type: String = ""
+        
+        var shouldUpload : Bool = false
         
 
         if text?.contains("top") ?? false { //is top, add to top array
             print("top")
             type = "top"
+            shouldUpload = true
         } else if text?.contains("bottom") ?? false { //is bottom, add to bottom array
             print("bottom")
             type = "bottom"
+            shouldUpload = true
         } else if text?.contains("shoes") ?? false { //is shoes, add to shoes array
             print("shoes")
             type = "shoes"
+            shouldUpload = true
         }
-        
+            
         //do not add
         else {
             
@@ -142,16 +156,25 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
             alertController.addAction(actionOk)
             self.present(alertController, animated: true, completion: nil)
         }
-        
+                
+        // UPLOAD TO FIREBASE
+        if shouldUpload {
+            let imgData = imageView.image?.jpegData(compressionQuality: 0.4)
+            let user = Auth.auth().currentUser?.uid
+            let db = Firestore.firestore()
+            let imgN = UUID().uuidString
+            let ref = Storage.storage().reference().child("users").child(user!).child("clothes")
+            
+            ref.child(imgN).putData(imgData!, metadata: nil) { (meta, err) in
+                if err != nil {return}
+            }
+            
+            db.collection("users").document(user!).collection("clothes").addDocument(data: ["imgName":imgN,"type":type])
+            
+        // refresh wardrobe collection
+
+        }
     }
-    
-    
-    func uploadImage() {
-        
-        var user = Firebase.Auth.auth().currentUser
-        
-    }
-    
     
 }
 

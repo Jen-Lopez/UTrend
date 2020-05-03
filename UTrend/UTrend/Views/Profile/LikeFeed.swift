@@ -47,7 +47,6 @@ class LikeFeed: postFeed{
                     let docData = doc.data()
                     let post = Post()
                     post.postImg = docData["likedImg"] as? String
-                    print()
                     self.likes.append(post)
                     print("inside fetchdata of like")
                 }

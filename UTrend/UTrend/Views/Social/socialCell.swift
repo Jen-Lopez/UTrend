@@ -21,6 +21,7 @@ class socialCell: UICollectionViewCell {
             // LOAD PROF IMG
             if (socialPost?.userPic != nil) {
                 let prof = socialPost?.userPic
+                print ("the profile picture is \(prof!)")
                 let ref = Storage.storage().reference().child("profile").child(prof!)
                 userImg.sd_setImage(with: ref)
             }

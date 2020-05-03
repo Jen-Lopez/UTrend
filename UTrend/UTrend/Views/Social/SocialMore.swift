@@ -225,7 +225,8 @@ class SocialMore: UIViewController {
         // userImg
         let pic = userPic
         if let profPic = pic {
-            userImg.image = UIImage(named: profPic)
+            let ref = Storage.storage().reference().child("profile").child(profPic)
+            userImg.sd_setImage(with: ref)
         }
         
         // userName

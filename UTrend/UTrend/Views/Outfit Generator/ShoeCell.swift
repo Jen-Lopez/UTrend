@@ -13,6 +13,16 @@ class ShoeCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    
+    let flowLayout : UICollectionViewFlowLayout =  {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.itemSize = CGSize(width: 193, height: 150 )
+        layout.scrollDirection = .horizontal
+        return layout
+    }()
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,14 +30,22 @@ class ShoeCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = false
+        collectionView.isPagingEnabled  = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.collectionViewLayout = flowLayout
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-
     
+    // chooses right item
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = Int(targetContentOffset.pointee.x/frame.width)
+        print (index)
+    }
 }
 
 extension ShoeCell : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -45,23 +63,6 @@ extension ShoeCell : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         
         cell.imageView.image = UIImage(named: name)
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return (self.frame.size.width)/3
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let h: CGFloat = collectionView.frame.height
-        let w: CGFloat = collectionView.frame.width
-        
-        return CGSize(width: w, height: h)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
 }

@@ -38,6 +38,8 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         //for keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        dismissCursor() // hides cursor
     }
     
     //move view up so keyboard doesn't cover content
@@ -57,8 +59,18 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         }
     }
     
+    func dismissCursor() {
+        let tapRecognizer =
+            UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func hideKeyboard() {
+      view.endEditing(true)
+    }
+    
     @IBAction func selectImage(_ sender: UIButton) {
-        imagePicker.sourceType = .savedPhotosAlbum
         imagePicker.allowsEditing = true
         present(imagePicker, animated:true, completion:nil)
        }

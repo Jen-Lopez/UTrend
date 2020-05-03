@@ -8,10 +8,19 @@
 import UIKit
 
 class TopCell: UITableViewCell {
-
-    var tops: [String] = ["clothes2", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2"]
+//    var tops = [ClothingItem]()
+    
+    var tops: [String] = ["clothes2", "clothes3", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2"]
        
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    let flowLayout : UICollectionViewFlowLayout =  {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.itemSize = CGSize(width: 193, height: 210 )
+        layout.scrollDirection = .horizontal
+        return layout
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,51 +28,39 @@ class TopCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = false
+        collectionView.isPagingEnabled  = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.collectionViewLayout = flowLayout
     }
-       
+           
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-}
-
-extension TopCell : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-  
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return tops.count
+    
+    // chooses right item
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = Int(targetContentOffset.pointee.x/frame.width)
+        print (index)
     }
     
+}
+
+extension TopCell : UICollectionViewDelegate, UICollectionViewDataSource {
+  
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tops.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CollectionViewCell
-        
+     
         var name: String = tops[indexPath.row]
+
+//        var name: String = tops[indexPath.row].uploadedImg!
         
         cell.imageView.image = UIImage(named: name)
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return (self.frame.size.width)/3
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let h: CGFloat = collectionView.frame.size.height
-        let w: CGFloat = collectionView.frame.size.width
-        
-        return CGSize(width: w, height: h)
-    }
-    
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    
-    
-    
-    
 }

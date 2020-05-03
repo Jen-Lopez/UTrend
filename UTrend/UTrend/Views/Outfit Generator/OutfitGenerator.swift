@@ -17,6 +17,7 @@ class OutfitGenerator : UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.tableView.isScrollEnabled = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -25,8 +26,6 @@ class OutfitGenerator : UIViewController {
     }
     
     @IBAction func newOutfit(_ sender: UIButton) {}
-    
-    
     
 }
 

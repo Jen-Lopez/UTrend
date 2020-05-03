@@ -15,7 +15,6 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var viewForImage: UIView!
     @IBOutlet weak var viewForTextField: UIView!
     
-    
     let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
@@ -157,9 +156,7 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
             alertController.addAction(actionOk)
             self.present(alertController, animated: true, completion: nil)
         }
-        
-        print (shouldUpload)
-        
+                
         // UPLOAD TO FIREBASE
         if shouldUpload {
             let imgData = imageView.image?.jpegData(compressionQuality: 0.4)
@@ -172,10 +169,10 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
                 if err != nil {return}
             }
             
-        db.collection("users").document(user!).collection("clothes").addDocument(data: ["imgName":imgN,"type":type])
+            db.collection("users").document(user!).collection("clothes").addDocument(data: ["imgName":imgN,"type":type])
             
         // refresh wardrobe collection
-            
+
         }
     }
     

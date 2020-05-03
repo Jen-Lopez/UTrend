@@ -12,8 +12,8 @@ class WardrobeCell: UICollectionViewCell {
             // load clothes img
             let imgName = item?.uploadedImg
             let user = Auth.auth().currentUser?.uid
-            let img = Storage.storage().reference().child("users").child(user!).child("clothes").child(imgName!) // will change to users -> uid -> clothes
-              outfit.sd_setImage(with: img)
+            let img = Storage.storage().reference().child("users").child(user!).child("clothes").child(imgName!)
+            outfit.sd_setImage(with: img)
         }
     }
 

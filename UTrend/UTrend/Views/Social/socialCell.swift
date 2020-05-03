@@ -17,7 +17,6 @@ class socialCell: UICollectionViewCell {
             let imgName = socialPost?.postImg
             let img = Storage.storage().reference().child("social").child(imgName!)
             postImage.sd_setImage(with: img)
-            
 
             // LOAD PROF IMG
             if (socialPost?.userPic != nil) {
@@ -25,7 +24,6 @@ class socialCell: UICollectionViewCell {
                 let ref = Storage.storage().reference().child("profile").child(prof!)
                 userImg.sd_setImage(with: ref)
             }
-           
         }
     }
     

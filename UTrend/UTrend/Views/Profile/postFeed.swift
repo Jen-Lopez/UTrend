@@ -82,5 +82,3 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
 
     }
 }
-//        let random = UUID().uuidString
-//        postRef.document(random).setData(["hello": "hi"])

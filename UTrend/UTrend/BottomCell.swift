@@ -9,7 +9,7 @@ import UIKit
 
 class BottomCell: UITableViewCell  {
     
-    var bottoms: [String] = ["clothes2", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2"]
+    var bottoms: [String] = ["clothes3", "clothes3", "clothes3", "clothes3", "clothes3", "clothes3", "clothes3"]
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -19,6 +19,7 @@ class BottomCell: UITableViewCell  {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.allowsMultipleSelection = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,21 +41,28 @@ extension BottomCell : UICollectionViewDelegate, UICollectionViewDataSource, UIC
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CollectionViewCell
         
-        var name: String = bottoms[indexPath.row]//[indexPath.section]
+        var name: String = bottoms[indexPath.row]
         
         cell.imageView.image = UIImage(named: name)
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return (self.frame.size.width)/3
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 100, height: 90)
+        let h: CGFloat = collectionView.frame.height
+        let w: CGFloat = collectionView.frame.width
+        
+        return CGSize(width: w, height: h)
     }
     
-    
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
     
 }
 

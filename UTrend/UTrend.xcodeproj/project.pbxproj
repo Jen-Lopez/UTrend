@@ -32,6 +32,11 @@
 		5DDA402D245216F000D091FD /* WardrobeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDA401E245216F000D091FD /* WardrobeCell.swift */; };
 		5DDA402E245216F000D091FD /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDA401F245216F000D091FD /* PostCell.swift */; };
 		5DDA402F245216F000D091FD /* LikeFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDA4020245216F000D091FD /* LikeFeed.swift */; };
+		D641320F2458A8B8000BB417 /* OutfitGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D641320E2458A8B8000BB417 /* OutfitGenerator.swift */; };
+		D64132112458C7EA000BB417 /* BottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64132102458C7EA000BB417 /* BottomCell.swift */; };
+		D64132132458C804000BB417 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64132122458C804000BB417 /* CollectionViewCell.swift */; };
+		D6CDB3A5245B338900B340B9 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDB3A4245B338900B340B9 /* TopCell.swift */; };
+		D6CDB3A7245B360F00B340B9 /* ShoeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDB3A6245B360F00B340B9 /* ShoeCell.swift */; };
 		D6F42B0724586CC100A473CF /* AddImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F42B0624586CC100A473CF /* AddImage.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +69,11 @@
 		5DDA401F245216F000D091FD /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		5DDA4020245216F000D091FD /* LikeFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeFeed.swift; sourceTree = "<group>"; };
 		898F54192EECF32C4037520E /* Pods_UTrend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UTrend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D641320E2458A8B8000BB417 /* OutfitGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitGenerator.swift; sourceTree = "<group>"; };
+		D64132102458C7EA000BB417 /* BottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCell.swift; sourceTree = "<group>"; };
+		D64132122458C804000BB417 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		D6CDB3A4245B338900B340B9 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
+		D6CDB3A6245B360F00B340B9 /* ShoeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCell.swift; sourceTree = "<group>"; };
 		D6F42B0624586CC100A473CF /* AddImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImage.swift; sourceTree = "<group>"; };
 		E0347E973590C288F0AB45D8 /* Pods-UTrend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UTrend.release.xcconfig"; path = "Target Support Files/Pods-UTrend/Pods-UTrend.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,12 +125,23 @@
 				5D11099C244561F300FF3B7E /* MainTabBar.swift */,
 				5D7C60E72442DBA600BC3AFB /* LaunchScreen.storyboard */,
 				5D7C60E22442DBA500BC3AFB /* Main.storyboard */,
-				D6F42B0624586CC100A473CF /* AddImage.swift */,
 				5D7C60E52442DBA600BC3AFB /* Assets.xcassets */,
 				5D7C60EA2442DBA600BC3AFB /* Info.plist */,
 				45E6E681244D1D9E00338A91 /* GoogleService-Info.plist */,
 			);
 			path = UTrend;
+			sourceTree = "<group>";
+		};
+		5D9A1441245E694500CBA774 /* Outfit Generator */ = {
+			isa = PBXGroup;
+			children = (
+				D641320E2458A8B8000BB417 /* OutfitGenerator.swift */,
+				D6CDB3A4245B338900B340B9 /* TopCell.swift */,
+				D64132102458C7EA000BB417 /* BottomCell.swift */,
+				D6CDB3A6245B360F00B340B9 /* ShoeCell.swift */,
+				D64132122458C804000BB417 /* CollectionViewCell.swift */,
+			);
+			path = "Outfit Generator";
 			sourceTree = "<group>";
 		};
 		5DC884C9245299050032833E /* Model */ = {
@@ -136,22 +157,24 @@
 			isa = PBXGroup;
 			children = (
 				5DDA4013245216F000D091FD /* extensions.swift */,
+				D6F42B0624586CC100A473CF /* AddImage.swift */,
 				5DC884C9245299050032833E /* Model */,
-				5DDA40312452174900D091FD /* login */,
+				5DDA4014245216F000D091FD /* Social */,
+				5DDA40312452174900D091FD /* Login */,
 				5DDA4018245216F000D091FD /* Profile */,
-				5DDA4014245216F000D091FD /* social */,
+				5D9A1441245E694500CBA774 /* Outfit Generator */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5DDA4014245216F000D091FD /* social */ = {
+		5DDA4014245216F000D091FD /* Social */ = {
 			isa = PBXGroup;
 			children = (
 				5DDA4016245216F000D091FD /* Social.swift */,
 				5DDA4017245216F000D091FD /* socialCell.swift */,
 				5D361A3A2453F54C008CFB1F /* SocialMore.swift */,
 			);
-			path = social;
+			path = Social;
 			sourceTree = "<group>";
 		};
 		5DDA4018245216F000D091FD /* Profile */ = {
@@ -169,14 +192,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		5DDA40312452174900D091FD /* login */ = {
+		5DDA40312452174900D091FD /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				45E6E679244D160E00338A91 /* Welcome.swift */,
 				45E6E67B244D163200338A91 /* Login.swift */,
 				45E6E67D244D165400338A91 /* Signup.swift */,
 			);
-			path = login;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		B43D7BD6129391313C21B7F0 /* Pods */ = {
@@ -323,6 +346,8 @@
 			files = (
 				5DC884CE2452A2670032833E /* ClothingItem.swift in Sources */,
 				5D361A3B2453F54C008CFB1F /* SocialMore.swift in Sources */,
+				D64132132458C804000BB417 /* CollectionViewCell.swift in Sources */,
+				D6CDB3A5245B338900B340B9 /* TopCell.swift in Sources */,
 				45E6E67A244D160E00338A91 /* Welcome.swift in Sources */,
 				D6F42B0724586CC100A473CF /* AddImage.swift in Sources */,
 				5DDA402C245216F000D091FD /* Profile.swift in Sources */,
@@ -331,6 +356,7 @@
 				5D7C60DD2442DBA500BC3AFB /* AppDelegate.swift in Sources */,
 				5DDA4028245216F000D091FD /* postFeed.swift in Sources */,
 				5DDA4029245216F000D091FD /* LikeCell.swift in Sources */,
+				D641320F2458A8B8000BB417 /* OutfitGenerator.swift in Sources */,
 				5DDA402F245216F000D091FD /* LikeFeed.swift in Sources */,
 				45E6E67E244D165400338A91 /* Signup.swift in Sources */,
 				5D7C60DF2442DBA500BC3AFB /* SceneDelegate.swift in Sources */,
@@ -342,6 +368,8 @@
 				5DC884CC24529C260032833E /* Post.swift in Sources */,
 				5DDA4027245216F000D091FD /* socialCell.swift in Sources */,
 				5DDA4024245216F000D091FD /* extensions.swift in Sources */,
+				D6CDB3A7245B360F00B340B9 /* ShoeCell.swift in Sources */,
+				D64132112458C7EA000BB417 /* BottomCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

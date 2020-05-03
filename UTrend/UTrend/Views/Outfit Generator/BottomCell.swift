@@ -3,13 +3,13 @@
 //  UTrend
 //
 //  Created by Samantha Garcia on 4/28/20.
-//
 
 import UIKit
+import Firebase
+import FirebaseUI
 
 class BottomCell: UITableViewCell  {
-    
-    var bottoms: [String] = ["clothes3", "clothes3", "clothes3", "clothes3", "clothes3", "clothes3", "clothes3"]
+    var bottoms =  [ClothingItem]()
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -32,6 +32,7 @@ class BottomCell: UITableViewCell  {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.collectionViewLayout = flowLayout
+        fetchBottoms()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -44,7 +45,33 @@ class BottomCell: UITableViewCell  {
         let index = Int(targetContentOffset.pointee.x/frame.width)
         print (index)
     }
-
+    
+    func fetchBottoms (){
+        let db = Firestore.firestore()
+        let currUser = Auth.auth().currentUser?.uid
+        let ref = db.collection("users").document(currUser!).collection("clothes")
+        
+        ref.getDocuments { (snap, err) in
+            if err == nil && snap != nil {
+                for doc in snap!.documents {
+                    let item = ClothingItem()
+                    
+                    let type = doc["type"] as? String
+                    let imgN = doc["imgName"] as? String
+                    
+                    if type == "bottom" {
+                        item.type = type
+                        item.uploadedImg = imgN
+                        self.bottoms.append(item)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
 }
 
 extension BottomCell : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -57,10 +84,13 @@ extension BottomCell : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CollectionViewCell
-        
-        var name: String = bottoms[indexPath.row]
-        
-        cell.imageView.image = UIImage(named: name)        
+                
+        // LOAD IMG FROM FIREBASE
+        let name: String = bottoms[indexPath.row].uploadedImg!
+        let user = Auth.auth().currentUser?.uid
+        let img = Storage.storage().reference().child("users").child(user!).child("clothes").child(name)
+        cell.imageView.sd_setImage(with: img)
+
         return cell
     }
 }

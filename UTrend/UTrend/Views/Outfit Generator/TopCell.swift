@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseUI
 
 class TopCell: UITableViewCell {
-//    var tops = [ClothingItem]()
+    var tops = [ClothingItem]()
     
-    var tops: [String] = ["clothes2", "clothes3", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2"]
+//    var tops: [String] = ["clothes2", "clothes3", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2"]
        
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -32,6 +34,7 @@ class TopCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.collectionViewLayout = flowLayout
+        fetchTops()
     }
            
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,6 +45,32 @@ class TopCell: UITableViewCell {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let index = Int(targetContentOffset.pointee.x/frame.width)
         print (index)
+    }
+    
+    func fetchTops (){
+        let db = Firestore.firestore()
+        let currUser = Auth.auth().currentUser?.uid
+        let ref = db.collection("users").document(currUser!).collection("clothes")
+        ref.getDocuments { (snap, err) in
+            if err == nil && snap != nil {
+                for doc in snap!.documents {
+                    let item = ClothingItem()
+                    
+                    let type = doc["type"] as? String
+                    let imgN = doc["imgName"] as? String
+                    
+                    if type == "top" {
+                        item.type = type
+                        item.uploadedImg = imgN
+                        self.tops.append(item)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
     
 }
@@ -56,11 +85,12 @@ extension TopCell : UICollectionViewDelegate, UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CollectionViewCell
      
-        var name: String = tops[indexPath.row]
-
-//        var name: String = tops[indexPath.row].uploadedImg!
+        // LOAD IMG FROM FIREBASE
+        let name: String = tops[indexPath.row].uploadedImg!
+        let user = Auth.auth().currentUser?.uid
+        let img = Storage.storage().reference().child("users").child(user!).child("clothes").child(name)
+        cell.imageView.sd_setImage(with: img)
         
-        cell.imageView.image = UIImage(named: name)
         return cell
     }
 }

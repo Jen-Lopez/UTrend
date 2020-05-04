@@ -40,6 +40,7 @@ class LikeFeed: postFeed{
     
     override func fetchData()  {
         likes.removeAll()
+        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let likeRef = db.collection("users").document(currUser!).collection("likes")
@@ -50,13 +51,13 @@ class LikeFeed: postFeed{
                     let post = Post()
                     post.postImg = docData["likedImg"] as? String
                     self.likes.append(post)
-                    print("inside fetchdata of like")
                 }
                 
-                DispatchQueue.main.async {
+                let deadline = DispatchTime.now() + .milliseconds(500)
+                DispatchQueue.main.asyncAfter(deadline: deadline) {
                     self.cView.reloadData()
+                    self.refresh.endRefreshing()
                 }
-                self.refresh.endRefreshing()
             }
         }
     }

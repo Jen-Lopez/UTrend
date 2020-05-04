@@ -47,6 +47,7 @@ class BottomCell: UITableViewCell  {
     }
     
     func fetchBottoms (){
+        bottoms.removeAll()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let ref = db.collection("users").document(currUser!).collection("clothes")

@@ -48,32 +48,62 @@ class ShoeCell: UITableViewCell {
         print (index)
     }
     
-    func fetchShoes(){
-        let db = Firestore.firestore()
-        let currUser = Auth.auth().currentUser?.uid
-        let ref = db.collection("users").document(currUser!).collection("clothes")
-        
-        ref.getDocuments { (snap, err) in
-            if err == nil && snap != nil {
-                for doc in snap!.documents {
-                    let item = ClothingItem()
-                    
-                    let type = doc["type"] as? String
-                    let imgN = doc["imgName"] as? String
-                    
-                    if type == "shoes" {
-                        item.type = type
-                        item.uploadedImg = imgN
-                        self.shoes.append(item)
+//    func fetchShoes(){
+//        shoes.removeAll()
+//        let db = Firestore.firestore()
+//        let currUser = Auth.auth().currentUser?.uid
+//        let ref = db.collection("users").document(currUser!).collection("clothes")
+//
+//        ref.getDocuments { (snap, err) in
+//            if err == nil && snap != nil {
+//                for doc in snap!.documents {
+//                    let item = ClothingItem()
+//
+//                    let type = doc["type"] as? String
+//                    let imgN = doc["imgName"] as? String
+//
+//                    if type == "shoes" {
+//                        item.type = type
+//                        item.uploadedImg = imgN
+//                        self.shoes.append(item)
+//                    }
+//                }
+//
+//                DispatchQueue.main.async {
+//                    self.collectionView.reloadData()
+//                }
+//            }
+//        }
+//    }
+    
+        func fetchShoes (){
+            shoes.removeAll()
+            let db = Firestore.firestore()
+            let currUser = Auth.auth().currentUser?.uid
+            let ref = db.collection("users").document(currUser!).collection("clothes")
+            
+            ref.getDocuments { (snap, err) in
+                if err == nil && snap != nil {
+                    for doc in snap!.documents {
+                        let item = ClothingItem()
+                        
+                        let type = doc["type"] as? String
+                        let imgN = doc["imgName"] as? String
+                        
+                        if type == "shoes" {
+                            item.type = type
+                            item.uploadedImg = imgN
+                            self.shoes.append(item)
+                        }
                     }
-                }
-                
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
                 }
             }
         }
-    }
+   
     
 }
 

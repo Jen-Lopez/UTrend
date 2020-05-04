@@ -45,7 +45,8 @@ class TopCell: UITableViewCell {
 //        print (index)
     }
     
-    func fetchTops (){
+  @objc  func fetchTops (){
+        tops.removeAll()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let ref = db.collection("users").document(currUser!).collection("clothes")

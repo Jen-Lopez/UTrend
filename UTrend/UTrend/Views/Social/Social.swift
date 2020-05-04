@@ -108,6 +108,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
     
     @objc func fetchSocialPost(){
         posts.removeAll()
+        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let socialRef = db.collection("socialFeed")
         socialRef.getDocuments { (snap, err) in
@@ -124,11 +125,11 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                     self.posts.append(post)
                     print ("inside social posts")
                 }
-                
-                DispatchQueue.main.async {
+                let deadline = DispatchTime.now() + .milliseconds(500)
+                DispatchQueue.main.asyncAfter(deadline: deadline) {
                     self.socialView.reloadData()
+                    self.refresh.endRefreshing()
                 }
-                self.refresh.endRefreshing()
             }
         }
         

@@ -33,8 +33,8 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         textField.delegate = self
     
         //for keyboard
-        NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         dismissCursor() // hides cursor
     }

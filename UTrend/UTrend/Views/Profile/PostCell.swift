@@ -13,6 +13,7 @@ class postCell : UICollectionViewCell {
             comment.text = postItem?.textCaption
             // LOAD img from db
             let imgName =  postItem?.postImg
+        
             let img = Storage.storage().reference().child("social").child(imgName!)
             postImage.sd_setImage(with: img)
             //post likes

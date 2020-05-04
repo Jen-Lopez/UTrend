@@ -8,7 +8,6 @@ class socialCell: UICollectionViewCell {
     
     var socialPost : Post? {
         didSet {
-            
             timeStamp.text = socialPost?.time
             comment.text = socialPost?.textCaption
             userName.text = socialPost?.username

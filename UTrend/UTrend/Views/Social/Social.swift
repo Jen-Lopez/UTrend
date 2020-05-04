@@ -101,7 +101,8 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                 vc.caption = post.textCaption
                 vc.liked = post.isLiked
                 vc.userPic = post.userPic
-                vc.id = post.uid
+                vc.id = post.pid
+                vc.uID = post.uid
             }
         }
     }
@@ -121,7 +122,8 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                     post.likes = docData["likes"] as? NSNumber
                     post.username = docData["username"] as? String
                     post.userPic = docData["profImg"] as? String
-                    post.uid = docData["ID"] as? String
+                    post.pid = docData["ID"] as? String
+                    post.uid = docData["uid"] as? String
                     self.posts.append(post)
                     print ("inside social posts")
                 }

@@ -80,9 +80,8 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         if caption.text != "" && imgName != "" {
             // add to user feed
-            userRef.collection("posts").document(randomDoc).setData(["caption": caption.text!,"postImg": imgName,"likes":0,"timestamp":"1 day ago","ID":randomDoc])
-            
-//            userRef.collection("posts").addDocument(data: ["caption": caption.text!,"postImg": imgName,"likes":0,"timestamp":"1 day ago"])
+            userRef.collection("posts").document(randomDoc).setData(["caption": caption.text!,"postImg": imgName,"likes":0,"timestamp":"1 day ago","ID":randomDoc,"uid":user!])
+
             
             // add to social feed db
             userRef.getDocument { (doc, err) in
@@ -90,9 +89,8 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     let data = doc!.data()
                     let profImg = data!["profileImg"] as? String
                     let username = data!["username"] as? String
-                    socialRef.document(randomDoc).setData(["caption": self.caption.text!,"postImg":self.imgName,"profImg":profImg!,"likes":0,"username":username!,"timestamp": "1 day ago","ID":randomDoc])
+                    socialRef.document(randomDoc).setData(["caption": self.caption.text!,"postImg":self.imgName,"profImg":profImg!,"likes":0,"username":username!,"timestamp": "1 day ago","ID":randomDoc,"uid":user!])
                     
-//                    socialRef.addDocument(data: ["caption": self.caption.text!,"postImg":self.imgName,"profImg":profImg!,"likes":0,"username":username!,"timestamp": "1 day ago"])
                 }
             }
 
@@ -129,7 +127,6 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             ref.putData(imgData!, metadata: nil) { (meta, err) in
                    if err != nil {return}
             }
-//              db.collection("users").document(user!).setData([ "profileImg": imgName], merge: true)
           }
           dismiss(animated: true, completion: nil)
         print (" the image name is \(imgName)")

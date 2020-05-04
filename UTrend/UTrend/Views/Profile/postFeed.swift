@@ -65,8 +65,8 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
     }
     
     @objc func fetchData() {
-        print("inside fetchdata of post")
         posts.removeAll()
+        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let postRef = db.collection("users").document(currUser!).collection("posts")
@@ -81,13 +81,14 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
                     post.time = docData["timestamp"] as? String
                     self.posts.append(post)
                 }
+                
+                let deadline = DispatchTime.now() + .milliseconds(500)
+                DispatchQueue.main.asyncAfter(deadline: deadline) {
+                    self.cView.reloadData()
+                    self.refresh.endRefreshing()
+                }
             }
-            
-            DispatchQueue.main.async {
-                self.cView.reloadData()
-            }
-            self.refresh.endRefreshing()
         }
-
     }
+    
 }

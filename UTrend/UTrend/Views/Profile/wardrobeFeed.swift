@@ -39,6 +39,7 @@ class wardrobeFeed: postFeed {
     
     override func fetchData() {
         closet.removeAll()
+        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let likeRef = db.collection("users").document(currUser!).collection("clothes")
@@ -50,14 +51,13 @@ class wardrobeFeed: postFeed {
                     let item = ClothingItem()
                     item.uploadedImg = docData["imgName"] as? String
                     self.closet.append(item)
-                    print("inside fetchdata of wardrobe")
                 }
                 
-                DispatchQueue.main.async {
+                let deadline = DispatchTime.now() + .milliseconds(500)
+                DispatchQueue.main.asyncAfter(deadline: deadline) {
                     self.cView.reloadData()
+                    self.refresh.endRefreshing()
                 }
-                self.refresh.endRefreshing()
-
             }
         }
     }

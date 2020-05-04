@@ -8,7 +8,6 @@ import UIKit
 
 class OutfitGenerator : UIViewController {
     //removed this part    , UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
-   
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,7 +25,6 @@ class OutfitGenerator : UIViewController {
     }
     
     @IBAction func newOutfit(_ sender: UIButton) {}
-    
 }
 
 

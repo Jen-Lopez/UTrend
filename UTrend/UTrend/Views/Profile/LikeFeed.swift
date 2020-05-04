@@ -1,4 +1,4 @@
-//
+
 //  LikeFeed.swift
 //  UTrend
 
@@ -13,6 +13,7 @@ class LikeFeed: postFeed{
         cView.register(LikeCell.self, forCellWithReuseIdentifier: "likes")
         cView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
     }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "likes", for: indexPath) as! LikeCell
         
@@ -38,6 +39,7 @@ class LikeFeed: postFeed{
     }
     
     override func fetchData()  {
+        likes.removeAll()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let likeRef = db.collection("users").document(currUser!).collection("likes")
@@ -54,6 +56,7 @@ class LikeFeed: postFeed{
                 DispatchQueue.main.async {
                     self.cView.reloadData()
                 }
+                self.refresh.endRefreshing()
             }
         }
     }

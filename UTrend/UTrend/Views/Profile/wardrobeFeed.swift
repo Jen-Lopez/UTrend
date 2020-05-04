@@ -38,6 +38,7 @@ class wardrobeFeed: postFeed {
     }
     
     override func fetchData() {
+        closet.removeAll()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let likeRef = db.collection("users").document(currUser!).collection("clothes")
@@ -45,7 +46,6 @@ class wardrobeFeed: postFeed {
             if err == nil && snap != nil {
                 for doc in snap!.documents {
                     let docData = doc.data()
-                    print(docData)
 
                     let item = ClothingItem()
                     item.uploadedImg = docData["imgName"] as? String
@@ -56,6 +56,8 @@ class wardrobeFeed: postFeed {
                 DispatchQueue.main.async {
                     self.cView.reloadData()
                 }
+                self.refresh.endRefreshing()
+
             }
         }
     }

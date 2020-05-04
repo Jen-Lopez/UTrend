@@ -11,9 +11,7 @@ import FirebaseUI
 
 class TopCell: UITableViewCell {
     var tops = [ClothingItem]()
-    
-//    var tops: [String] = ["clothes2", "clothes3", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2"]
-       
+
     @IBOutlet weak var collectionView: UICollectionView!
     
     let flowLayout : UICollectionViewFlowLayout =  {
@@ -44,7 +42,7 @@ class TopCell: UITableViewCell {
     // chooses right item
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let index = Int(targetContentOffset.pointee.x/frame.width)
-        print (index)
+//        print (index)
     }
     
     func fetchTops (){

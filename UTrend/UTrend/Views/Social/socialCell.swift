@@ -92,7 +92,7 @@ class socialCell: UICollectionViewCell {
         addSubview(postImage)
         
         postImage.anchor(top: topAnchor, paddingTop: 20)
-        postImage.anchor(top: topAnchor, paddingTop: 20, width: frame.width-30)
+        postImage.anchor(top: topAnchor, paddingTop: 20, width: frame.width-30, height: 200)
         postImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         addSubview(timeStamp)

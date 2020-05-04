@@ -43,7 +43,7 @@ class BottomCell: UITableViewCell  {
     // chooses right item
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let index = Int(targetContentOffset.pointee.x/frame.width)
-        print (index)
+//        print (index)
     }
     
     func fetchBottoms (){
@@ -79,7 +79,6 @@ extension BottomCell : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return bottoms.count
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         

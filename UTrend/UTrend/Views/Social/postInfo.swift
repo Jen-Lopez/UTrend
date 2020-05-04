@@ -75,10 +75,14 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         let socialRef = db.collection("socialFeed")
         let userRef = db.collection("users").document(user!)
+        let randomDoc = UUID().uuidString
+        print("randomDoc \(randomDoc)")
         
         if caption.text != "" && imgName != "" {
             // add to user feed
-            userRef.collection("posts").addDocument(data: ["caption": caption.text!,"postImg": imgName,"likes":0,"timestamp":"1 day ago"])
+            userRef.collection("posts").document(randomDoc).setData(["caption": caption.text!,"postImg": imgName,"likes":0,"timestamp":"1 day ago","ID":randomDoc])
+            
+//            userRef.collection("posts").addDocument(data: ["caption": caption.text!,"postImg": imgName,"likes":0,"timestamp":"1 day ago"])
             
             // add to social feed db
             userRef.getDocument { (doc, err) in
@@ -86,8 +90,9 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     let data = doc!.data()
                     let profImg = data!["profileImg"] as? String
                     let username = data!["username"] as? String
+                    socialRef.document(randomDoc).setData(["caption": self.caption.text!,"postImg":self.imgName,"profImg":profImg!,"likes":0,"username":username!,"timestamp": "1 day ago","ID":randomDoc])
                     
-                    socialRef.addDocument(data: ["caption": self.caption.text!,"postImg":self.imgName,"profImg":profImg!,"likes":0,"username":username!,"timestamp": "1 day ago"])
+//                    socialRef.addDocument(data: ["caption": self.caption.text!,"postImg":self.imgName,"profImg":profImg!,"likes":0,"username":username!,"timestamp": "1 day ago"])
                 }
             }
 
@@ -97,7 +102,6 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             success.addAction(okay)
             self.present(success, animated: true, completion: nil)
         } else {
-            print("do not add to db")
             // present an alert
             let alert = UIAlertController(title: "Sorry!", message: "Make sure you upload an Image and add a caption.", preferredStyle: .alert)
             let okay  = UIAlertAction(title: "Ok", style: .default, handler: nil)

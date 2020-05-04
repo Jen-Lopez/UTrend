@@ -21,7 +21,6 @@ class socialCell: UICollectionViewCell {
             // LOAD PROF IMG
             if (socialPost?.userPic != nil) {
                 let prof = socialPost?.userPic
-                print ("the profile picture is \(prof!)")
                 let ref = Storage.storage().reference().child("profile").child(prof!)
                 userImg.sd_setImage(with: ref)
             }
@@ -93,7 +92,7 @@ class socialCell: UICollectionViewCell {
         addSubview(postImage)
         
         postImage.anchor(top: topAnchor, paddingTop: 20)
-        postImage.anchor(top: topAnchor, paddingTop: 20, width: frame.width-30)
+        postImage.anchor(top: topAnchor, paddingTop: 20, width: frame.width-30, height: 200)
         postImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         addSubview(timeStamp)

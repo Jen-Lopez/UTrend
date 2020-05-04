@@ -15,4 +15,5 @@ class Post: NSObject {
     var username : String?
     var userPic : String?
     var isLiked = false
+    var uid : String?
 }

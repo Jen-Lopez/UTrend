@@ -71,14 +71,22 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         imagePicker.allowsEditing = true
         present(imagePicker, animated:true, completion:nil)
        }
-       
+    
+    // camera function
     @IBAction func takePhoto(_ sender: UIButton) {
-        imagePicker.sourceType = UIImagePickerController.SourceType.camera
-        imagePicker.allowsEditing = false
-        imagePicker.cameraCaptureMode = .photo
-        imagePicker.modalPresentationStyle = .fullScreen
-        present(imagePicker, animated: true, completion:nil)
-       }
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
+                imagePicker.sourceType = UIImagePickerController.SourceType.camera
+                imagePicker.allowsEditing = false
+                imagePicker.cameraCaptureMode = .photo
+                imagePicker.modalPresentationStyle = .fullScreen
+                present(imagePicker, animated: true, completion:nil)
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Camera is unavailable", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+     
+    }
        
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info:[UIImagePickerController.InfoKey: Any]) {
            

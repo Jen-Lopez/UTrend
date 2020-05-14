@@ -2,6 +2,7 @@
 //  UTrend
 
 import UIKit
+import Firebase
 import FirebaseUI
 
 class SocialMore: UIViewController {
@@ -13,6 +14,8 @@ class SocialMore: UIViewController {
     var userPic : String!
     var username : String!
     var liked : Bool!
+    var id : String!
+    var uID : String!
 
     let postImg :UIImageView = {
         let img = UIImageView()
@@ -55,6 +58,7 @@ class SocialMore: UIViewController {
     let likeHeart : UIButton = {
         let like = UIButton(type: .system)
         like.addTarget(self, action:#selector(changeLike), for: .touchUpInside)
+        // add image to likes
         return like
     }()
     
@@ -89,7 +93,15 @@ class SocialMore: UIViewController {
                 likes.text = String(newNum)
                 
                 // add it to users "likes"
-                // increment the like of the user's post user's post
+                addImg()
+                // increment the like of the original poster's post
+                let userRef = Firestore.firestore().collection("users").document(uID).collection("posts").document(id)
+                userRef.setData(["likes":newNum], merge: true)
+                
+                // incremement it in the social feed
+                let socialRef = Firestore.firestore().collection("socialFeed").document(id)
+                socialRef.setData(["likes":newNum], merge: true)
+                
             }
         }
     }
@@ -194,6 +206,18 @@ class SocialMore: UIViewController {
         backButton.anchor(top: view.topAnchor, left: postImg.leftAnchor, paddingTop: 55,width: 50, height: 50)
     }
     
+    func addImg() {
+        let user = Auth.auth().currentUser?.uid
+        let imgData = postImg.image?.jpegData(compressionQuality: 0.4)
+        let db = Firestore.firestore()
+        let imgN = UUID().uuidString
+        let ref = Storage.storage().reference().child("users").child(user!).child("likes")
+        ref.child(imgN).putData(imgData!, metadata: nil) { (meta, err) in
+            if err != nil {return}
+        }
+        db.collection("users").document(user!).collection("likes").addDocument(data: ["likedImg":imgN])
+    }
+    
     private func setUp() {
         // image
         let name = imageName
@@ -211,7 +235,8 @@ class SocialMore: UIViewController {
         // userImg
         let pic = userPic
         if let profPic = pic {
-            userImg.image = UIImage(named: profPic)
+            let ref = Storage.storage().reference().child("profile").child(profPic)
+            userImg.sd_setImage(with: ref)
         }
         
         // userName

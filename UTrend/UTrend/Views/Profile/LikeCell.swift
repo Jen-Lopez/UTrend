@@ -4,6 +4,7 @@
 
 import UIKit
 import FirebaseUI
+import Firebase
 
 class LikeCell: UICollectionViewCell {
     var liked : Post? {
@@ -11,14 +12,9 @@ class LikeCell: UICollectionViewCell {
             
             // load liked img
             let imgName = liked?.postImg
-            let img = Storage.storage().reference().child(imgName!) // will change to users -> uid -> likes
+            let user = Auth.auth().currentUser?.uid
+            let img = Storage.storage().reference().child("users").child(user!).child("likes").child(imgName!)
             likedImage.sd_setImage(with: img)
-//            // LOAD img from db
-//                      let imgName =  postItem?.postImg
-//                      let img = Storage.storage().reference().child("posts").child(imgName!)
-//                      postImage.sd_setImage(with: img)
-//            likedImage.image = UIImage(named: (liked?.postImg)!)
-            
         }
     }
     

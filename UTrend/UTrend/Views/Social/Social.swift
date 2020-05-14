@@ -8,8 +8,13 @@ import Firebase
 class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     var segueIdentifier = "viewInfo"
     var posts = [Post]()
-    
     let mauve = UIColor(red: (229/255.0), green: (218/255.0), blue: (217/255.0), alpha: 1.0)
+    
+    lazy var refresh:UIRefreshControl = {
+        let ref = UIRefreshControl()
+        ref.addTarget(self, action: #selector(fetchSocialPost), for: .valueChanged)
+        return ref
+    }()
     
     let statusBar: UIImageView = {
         let sb = UIImageView()
@@ -22,6 +27,10 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         img.image = UIImage(named: "Utrend-Icon")
         return img
     }()
+    
+    @objc func makePost() {
+        self.navigationController?.pushViewController(postInfo(), animated: true)
+    }
     
     lazy var socialView : UICollectionView =  {
         let layout = UICollectionViewFlowLayout()
@@ -37,6 +46,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                 
         cv.delegate = self
         cv.dataSource = self
+        cv.refreshControl = refresh
         fetchSocialPost()
         return cv
     }()
@@ -53,10 +63,12 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         view.addSubview(icon)
         icon.anchor(top: statusBar.bottomAnchor, paddingTop: 10, width: 100, height: 90)
         icon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
         // add collection view
         view.addSubview(socialView)
         socialView.anchor(top: icon.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 20)
+        // click on icon to submit a post
+        icon.isUserInteractionEnabled = true
+        icon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(makePost)))
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -87,13 +99,17 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                 vc.username = post.username
                 vc.numLikes = post.likes
                 vc.caption = post.textCaption
-                vc.userPic = post.userPic
                 vc.liked = post.isLiked
+                vc.userPic = post.userPic
+                vc.id = post.pid
+                vc.uID = post.uid
             }
         }
     }
     
-    func fetchSocialPost(){
+    @objc func fetchSocialPost(){
+        posts.removeAll()
+        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let socialRef = db.collection("socialFeed")
         socialRef.getDocuments { (snap, err) in
@@ -105,11 +121,16 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                     post.textCaption = docData["caption"] as? String
                     post.likes = docData["likes"] as? NSNumber
                     post.username = docData["username"] as? String
+                    post.userPic = docData["profImg"] as? String
+                    post.pid = docData["ID"] as? String
+                    post.uid = docData["uid"] as? String
                     self.posts.append(post)
                     print ("inside social posts")
                 }
-                DispatchQueue.main.async {
+                let deadline = DispatchTime.now() + .milliseconds(500)
+                DispatchQueue.main.asyncAfter(deadline: deadline) {
                     self.socialView.reloadData()
+                    self.refresh.endRefreshing()
                 }
             }
         }

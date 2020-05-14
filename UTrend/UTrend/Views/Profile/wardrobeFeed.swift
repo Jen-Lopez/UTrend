@@ -6,26 +6,13 @@ import UIKit
 import Firebase
 
 class wardrobeFeed: postFeed {
-//    var closet :[ClothingItem] = {
-//        var item1 = ClothingItem()
-//        item1.uploadedImg = "clothes1"
-//        var item2 = ClothingItem()
-//        item2.uploadedImg = "clothes2"
-//
-//        var item3 = ClothingItem()
-//        item3.uploadedImg = "clothes3"
-//
-//        var item4 = ClothingItem()
-//        item4.uploadedImg = "clothes4"
-//
-//        return [item1,item2,item3,item4]
-//    }()
     var closet = [ClothingItem]()
     
     override func setUp() {
         addSubview(cView)
         cView.register(WardrobeCell.self, forCellWithReuseIdentifier: "clothes")
         cView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "clothes", for: indexPath) as! WardrobeCell
@@ -51,6 +38,8 @@ class wardrobeFeed: postFeed {
     }
     
     override func fetchData() {
+        closet.removeAll()
+        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let likeRef = db.collection("users").document(currUser!).collection("clothes")
@@ -58,14 +47,16 @@ class wardrobeFeed: postFeed {
             if err == nil && snap != nil {
                 for doc in snap!.documents {
                     let docData = doc.data()
+
                     let item = ClothingItem()
                     item.uploadedImg = docData["imgName"] as? String
                     self.closet.append(item)
-                    print("inside fetchdata of wardrobe")
                 }
                 
-                DispatchQueue.main.async {
+                let deadline = DispatchTime.now() + .milliseconds(500)
+                DispatchQueue.main.asyncAfter(deadline: deadline) {
                     self.cView.reloadData()
+                    self.refresh.endRefreshing()
                 }
             }
         }

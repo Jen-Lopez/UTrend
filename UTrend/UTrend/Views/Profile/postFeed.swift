@@ -8,6 +8,12 @@ import Firebase
 class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource  {
     var posts = [Post]()
 
+    lazy var refresh:UIRefreshControl = {
+        let ref = UIRefreshControl()
+        ref.addTarget(self, action: #selector(fetchData), for: .valueChanged)
+        return ref
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         setUp()
@@ -24,6 +30,7 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
         cv.dataSource = self
         cv.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
         cv.showsVerticalScrollIndicator = false
+        cv.refreshControl = refresh
         fetchData()
         return cv
     }()
@@ -57,9 +64,9 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    func fetchData() {
-        print("inside fetchdata of post")
-
+    @objc func fetchData() {
+        posts.removeAll()
+        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let postRef = db.collection("users").document(currUser!).collection("posts")
@@ -74,13 +81,14 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
                     post.time = docData["timestamp"] as? String
                     self.posts.append(post)
                 }
-            }
-            DispatchQueue.main.async {
-                self.cView.reloadData()
+                
+                let deadline = DispatchTime.now() + .milliseconds(500)
+                DispatchQueue.main.asyncAfter(deadline: deadline) {
+                    self.cView.reloadData()
+                    self.refresh.endRefreshing()
+                }
             }
         }
-
     }
+    
 }
-//        let random = UUID().uuidString
-//        postRef.document(random).setData(["hello": "hi"])

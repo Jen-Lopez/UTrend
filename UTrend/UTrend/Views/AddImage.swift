@@ -31,7 +31,7 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
 
         imagePicker.delegate = self
     }
-    
+
     @IBAction func selectImage(_ sender: UIButton) {
         imagePicker.allowsEditing = true
         present(imagePicker, animated:true, completion:nil)
@@ -161,7 +161,8 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
             db.collection("users").document(user!).collection("clothes").addDocument(data: ["imgName":imgN,"type":type])
 
         // refresh wardrobe collection
-
+            var outVC = self.tabBarController!.viewControllers![2] as! OutfitGenerator
+            outVC.refreshAll()
         }
     }
 

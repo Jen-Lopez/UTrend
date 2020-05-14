@@ -8,37 +8,40 @@ import UIKit
 class OutfitGenerator : UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
-    lazy var refresh:UIRefreshControl = {
-        let ref = UIRefreshControl()
-        ref.addTarget(self, action: #selector(refreshAll), for: .valueChanged)
-        return ref
-    }()
+
+//    lazy var refresh:UIRefreshControl = {
+//        let ref = UIRefreshControl()
+//        ref.addTarget(self, action: #selector(refreshAll), for: .valueChanged)
+//        return ref
+//    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        tableView.refreshControl = refresh
+//        tableView.refreshControl = refresh
         tableView.backgroundColor =  UIColor(red: (235/255.0), green: (227/255.0), blue: (217/255.0), alpha: 1.0)
-//        self.tableView.isScrollEnabled = false
+        self.tableView.isScrollEnabled = false
     }
     @objc func refreshAll () {
-        if let top = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TopCell {
-            top.fetchTops()
-        }
-        if let bottom = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? BottomCell {
-            bottom.fetchBottoms()
-        }
-        if let shoes = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? ShoeCell {
-            shoes.fetchShoes()
+        if tableView != nil {
+            if let top = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TopCell {
+                top.fetchTops()
+            }
+            if let bottom = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? BottomCell {
+                bottom.fetchBottoms()
+            }
+            if let shoes = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? ShoeCell {
+                shoes.fetchShoes()
+            }
         }
 
-        let deadline = DispatchTime.now() + .milliseconds(500)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            self.refresh.endRefreshing()
-        }
+
+//        let deadline = DispatchTime.now() + .milliseconds(500)
+//        DispatchQueue.main.asyncAfter(deadline: deadline) {
+//            self.refresh.endRefreshing()
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,20 +57,20 @@ class OutfitGenerator : UIViewController {
         let topCount: Int = topCV!.numberOfItems(inSection: 0)
         let bottomCount: Int = botCV!.numberOfItems(inSection: 0)
         let shoeCount: Int = shoeCV!.numberOfItems(inSection: 0)
-        
+
         // generate random index
         if (topCount != 0 && bottomCount != 0 && shoeCount != 0) {
             let randTop = Int.random(in: 0..<topCount)
             let randBottom = Int.random(in: 0..<bottomCount)
             let randShoes = Int.random(in: 0..<shoeCount)
-            
+
             // slide to corresponding items
             topCV?.selectItem(at: IndexPath(item: randTop, section: 0), animated: true, scrollPosition: [])
             topCV?.scrollToItem(at: IndexPath(item: randTop, section: 0), at: [], animated: true)
-            
+
             botCV?.selectItem(at: IndexPath(item: randBottom, section: 0), animated: true, scrollPosition: [])
             botCV?.scrollToItem(at: IndexPath(item: randBottom, section: 0), at: [], animated: true)
-            
+
             shoeCV?.selectItem(at: IndexPath(item: randShoes, section: 0), animated: true, scrollPosition: [])
             shoeCV?.scrollToItem(at: IndexPath(item: randShoes, section: 0), at: [], animated: true)
         } else {
@@ -76,18 +79,18 @@ class OutfitGenerator : UIViewController {
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }
-        
+
 //        print ("random top: \(randTop)")
 //        print ("random bottom: \(randBottom)")
 //        print ("random shoe: \(randShoes)")
-        
+
     }
-    
-    
+
+
     @IBAction func saveOutfit(_ sender: UIButton) {
         print("save outfit")
     }
-    
+
 }
 
 extension OutfitGenerator : UITableViewDelegate, UITableViewDataSource

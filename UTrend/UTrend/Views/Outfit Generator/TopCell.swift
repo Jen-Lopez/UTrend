@@ -10,12 +10,13 @@ import Firebase
 import FirebaseUI
 
 class TopCell: UITableViewCell {
+    
     var tops = [ClothingItem]()
     
 //    var tops: [String] = ["clothes2", "clothes3", "clothes2", "clothes2", "clothes2", "clothes2", "clothes2"]
-       
-    @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var collectionView: UICollectionView!
+        
     let flowLayout : UICollectionViewFlowLayout =  {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -36,10 +37,11 @@ class TopCell: UITableViewCell {
         collectionView.collectionViewLayout = flowLayout
         fetchTops()
     }
-           
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
     
     // chooses right item
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -76,7 +78,21 @@ class TopCell: UITableViewCell {
 }
 
 extension TopCell : UICollectionViewDelegate, UICollectionViewDataSource {
-  
+    /*///////////////////////////////////////added this stuff but it doesn't work
+    func randomCell() {
+        
+        collectionView.selectItem(at: IndexPath(item: Int(arc4random())%tops.count, section: 0), animated: false, scrollPosition: [])
+        collectionView.reloadData()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        var indexToScrollTo = indexPath
+        self.collectionView.scrollToItem(at: indexToScrollTo, at: .centeredHorizontally, animated: true)
+        
+    }*/
+    //////////////////////////////////////////////end
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tops.count
     }
@@ -84,12 +100,13 @@ extension TopCell : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CollectionViewCell
-     
+        
         // LOAD IMG FROM FIREBASE
         let name: String = tops[indexPath.row].uploadedImg!
         let user = Auth.auth().currentUser?.uid
         let img = Storage.storage().reference().child("users").child(user!).child("clothes").child(name)
         cell.imageView.sd_setImage(with: img)
+
         
         return cell
     }

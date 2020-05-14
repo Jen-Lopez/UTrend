@@ -35,6 +35,7 @@
 		D641320F2458A8B8000BB417 /* OutfitGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D641320E2458A8B8000BB417 /* OutfitGenerator.swift */; };
 		D64132112458C7EA000BB417 /* BottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64132102458C7EA000BB417 /* BottomCell.swift */; };
 		D64132132458C804000BB417 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64132122458C804000BB417 /* CollectionViewCell.swift */; };
+		D6727B89245F6DC7003245B9 /* MakeRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6727B88245F6DC7003245B9 /* MakeRandom.swift */; };
 		D6CDB3A5245B338900B340B9 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDB3A4245B338900B340B9 /* TopCell.swift */; };
 		D6CDB3A7245B360F00B340B9 /* ShoeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDB3A6245B360F00B340B9 /* ShoeCell.swift */; };
 		D6F42B0724586CC100A473CF /* AddImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F42B0624586CC100A473CF /* AddImage.swift */; };
@@ -72,6 +73,7 @@
 		D641320E2458A8B8000BB417 /* OutfitGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitGenerator.swift; sourceTree = "<group>"; };
 		D64132102458C7EA000BB417 /* BottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCell.swift; sourceTree = "<group>"; };
 		D64132122458C804000BB417 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		D6727B88245F6DC7003245B9 /* MakeRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRandom.swift; sourceTree = "<group>"; };
 		D6CDB3A4245B338900B340B9 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		D6CDB3A6245B360F00B340B9 /* ShoeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCell.swift; sourceTree = "<group>"; };
 		D6F42B0624586CC100A473CF /* AddImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImage.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		5D9A1441245E694500CBA774 /* Outfit Generator */ = {
 			isa = PBXGroup;
 			children = (
+				D6727B88245F6DC7003245B9 /* MakeRandom.swift */,
 				D641320E2458A8B8000BB417 /* OutfitGenerator.swift */,
 				D6CDB3A4245B338900B340B9 /* TopCell.swift */,
 				D64132102458C7EA000BB417 /* BottomCell.swift */,
@@ -351,6 +354,7 @@
 				45E6E67A244D160E00338A91 /* Welcome.swift in Sources */,
 				D6F42B0724586CC100A473CF /* AddImage.swift in Sources */,
 				5DDA402C245216F000D091FD /* Profile.swift in Sources */,
+				D6727B89245F6DC7003245B9 /* MakeRandom.swift in Sources */,
 				45E6E67C244D163200338A91 /* Login.swift in Sources */,
 				5DDA402B245216F000D091FD /* ProfileBar.swift in Sources */,
 				5D7C60DD2442DBA500BC3AFB /* AppDelegate.swift in Sources */,

@@ -6,11 +6,13 @@
 import Foundation
 import UIKit
 
+
 class OutfitGenerator : UIViewController {
     //removed this part    , UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
-   
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var makeRandom: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +27,11 @@ class OutfitGenerator : UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func newOutfit(_ sender: UIButton) {}
+    @IBAction func newOutfit(_ sender: UIButton) {
+        makeRandom = true
+    }
     
 }
-
 
 extension OutfitGenerator : UITableViewDelegate, UITableViewDataSource
 {
@@ -42,6 +45,7 @@ extension OutfitGenerator : UITableViewDelegate, UITableViewDataSource
         
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopCell", for: indexPath) as! TopCell
+            //if (makeRandom) { cell.randomCell() }
             return cell
         } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BottomCell", for: indexPath) as! BottomCell

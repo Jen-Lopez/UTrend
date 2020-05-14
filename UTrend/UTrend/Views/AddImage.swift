@@ -9,11 +9,17 @@ import Firebase
 class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var textField: UITextField!
+    //@IBOutlet weak var textField: UITextField!
     
     
     @IBOutlet weak var viewForImage: UIView!
-    @IBOutlet weak var viewForTextField: UIView!
+    //@IBOutlet weak var viewForTextField: UIView!
+    
+    @IBOutlet weak var topButton: UIButton!
+    @IBOutlet weak var bottomButton: UIButton!
+    @IBOutlet weak var shoesButton: UIButton!
+    
+    var clothingType: String!
     
     
     let imagePicker = UIImagePickerController()
@@ -26,21 +32,23 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         viewForImage.layer.cornerRadius = 10
         viewForImage.layer.masksToBounds = true
-        viewForTextField.layer.cornerRadius = 10
-        viewForTextField.layer.masksToBounds = true
+        //viewForTextField.layer.cornerRadius = 10
+        //viewForTextField.layer.masksToBounds = true
         
         
         imagePicker.delegate = self
-        textField.delegate = self
+        //textField.delegate = self
     
-        //for keyboard
+        /*//for keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AddImage.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         dismissCursor() // hides cursor
+        */
     }
     
-    //move view up so keyboard doesn't cover content
+    //not using keyboard anymore
+    /*//move view up so keyboard doesn't cover content
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo else {return}
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
@@ -67,6 +75,7 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
     @objc func hideKeyboard() {
       view.endEditing(true)
     }
+    */
     
     @IBAction func selectImage(_ sender: UIButton) {
         imagePicker.allowsEditing = true
@@ -102,14 +111,26 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         picker.dismiss(animated: true, completion: nil)
     }
     
-    //textfield delegate
+    /*//textfield delegate
     internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         textField.endEditing(true)
         return true
+    } */
+    
+    @IBAction func topButtonPressed(_ sender: UIButton) {
+        self.clothingType = "top"
     }
     
-    //get contents of textfield, check if top, bottom, shoes
+    @IBAction func bottomButtonPressed(_ sender: UIButton) {
+        self.clothingType = "bottom"
+    }
+    
+    @IBAction func shoesButtonPressed(_ sender: UIButton) {
+        self.clothingType = "shoes"
+    }
+    
+    //using clothingType, determine type and add to closet
     @IBAction func addToCloset(_ sender: UIButton) {
        
         /*
@@ -124,12 +145,12 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         */
 
         //get text from text field
-        var text: String? = textField.text
+        //var text: String? = textField.text
         var type: String = ""
         
         var shouldUpload : Bool = false
         
-
+        /* //re did this part using variable clothingType instead of textfield ********
         if text?.contains("top") ?? false { //is top, add to top array
             print("top")
             type = "top"
@@ -139,6 +160,20 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
             type = "bottom"
             shouldUpload = true
         } else if text?.contains("shoes") ?? false { //is shoes, add to shoes array
+            print("shoes")
+            type = "shoes"
+            shouldUpload = true
+        }*/
+        
+        if clothingType == "top" {
+            print("top")
+            type = "top"
+            shouldUpload = true
+        } else if clothingType == "bottom" {
+            print("bottom")
+            type = "bottom"
+            shouldUpload = true
+        } else if clothingType == "shoes" {
             print("shoes")
             type = "shoes"
             shouldUpload = true

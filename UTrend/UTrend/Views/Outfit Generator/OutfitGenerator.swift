@@ -10,36 +10,39 @@ class OutfitGenerator : UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var refresh:UIRefreshControl = {
-        let ref = UIRefreshControl()
-        ref.addTarget(self, action: #selector(refreshAll), for: .valueChanged)
-        return ref
-    }()
+//    lazy var refresh:UIRefreshControl = {
+//        let ref = UIRefreshControl()
+//        ref.addTarget(self, action: #selector(refreshAll), for: .valueChanged)
+//        return ref
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        tableView.refreshControl = refresh
+//        tableView.refreshControl = refresh
         tableView.backgroundColor =  UIColor(red: (235/255.0), green: (227/255.0), blue: (217/255.0), alpha: 1.0)
-//        self.tableView.isScrollEnabled = false
+        self.tableView.isScrollEnabled = false
     }
     @objc func refreshAll () {
-        if let top = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TopCell {
-            top.fetchTops()
-        }
-        if let bottom = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? BottomCell {
-            bottom.fetchBottoms()
-        }
-        if let shoes = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? ShoeCell {
-            shoes.fetchShoes()
+        if tableView != nil {
+            if let top = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TopCell {
+                top.fetchTops()
+            }
+            if let bottom = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? BottomCell {
+                bottom.fetchBottoms()
+            }
+            if let shoes = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? ShoeCell {
+                shoes.fetchShoes()
+            }
         }
 
-        let deadline = DispatchTime.now() + .milliseconds(500)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            self.refresh.endRefreshing()
-        }
+
+//        let deadline = DispatchTime.now() + .milliseconds(500)
+//        DispatchQueue.main.asyncAfter(deadline: deadline) {
+//            self.refresh.endRefreshing()
+//        }
     }
     
     override func didReceiveMemoryWarning() {

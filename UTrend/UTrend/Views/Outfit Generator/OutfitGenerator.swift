@@ -54,20 +54,28 @@ class OutfitGenerator : UIViewController {
         let topCount: Int = topCV!.numberOfItems(inSection: 0)
         let bottomCount: Int = botCV!.numberOfItems(inSection: 0)
         let shoeCount: Int = shoeCV!.numberOfItems(inSection: 0)
+        
         // generate random index
-        let randTop = Int.random(in: 0..<topCount)
-        let randBottom = Int.random(in: 0..<bottomCount)
-        let randShoes = Int.random(in: 0..<shoeCount)
-        
-        // slide to corresponding items
-        topCV?.selectItem(at: IndexPath(item: randTop, section: 0), animated: true, scrollPosition: [])
-        topCV?.scrollToItem(at: IndexPath(item: randTop, section: 0), at: [], animated: true)
-        
-        botCV?.selectItem(at: IndexPath(item: randBottom, section: 0), animated: true, scrollPosition: [])
-        botCV?.scrollToItem(at: IndexPath(item: randBottom, section: 0), at: [], animated: true)
-        
-        shoeCV?.selectItem(at: IndexPath(item: randShoes, section: 0), animated: true, scrollPosition: [])
-        shoeCV?.scrollToItem(at: IndexPath(item: randShoes, section: 0), at: [], animated: true)
+        if (topCount != 0 && bottomCount != 0 && shoeCount != 0) {
+            let randTop = Int.random(in: 0..<topCount)
+            let randBottom = Int.random(in: 0..<bottomCount)
+            let randShoes = Int.random(in: 0..<shoeCount)
+            
+            // slide to corresponding items
+            topCV?.selectItem(at: IndexPath(item: randTop, section: 0), animated: true, scrollPosition: [])
+            topCV?.scrollToItem(at: IndexPath(item: randTop, section: 0), at: [], animated: true)
+            
+            botCV?.selectItem(at: IndexPath(item: randBottom, section: 0), animated: true, scrollPosition: [])
+            botCV?.scrollToItem(at: IndexPath(item: randBottom, section: 0), at: [], animated: true)
+            
+            shoeCV?.selectItem(at: IndexPath(item: randShoes, section: 0), animated: true, scrollPosition: [])
+            shoeCV?.scrollToItem(at: IndexPath(item: randShoes, section: 0), at: [], animated: true)
+        } else {
+            let alert = UIAlertController(title: "Empty Wardrobe", message: "You have missing clothing items. Please upload them to create your cool fit!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
         
 //        print ("random top: \(randTop)")
 //        print ("random bottom: \(randBottom)")

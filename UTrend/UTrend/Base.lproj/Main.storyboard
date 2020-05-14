@@ -83,7 +83,7 @@
             <objects>
                 <viewController id="gzM-PW-QLb" customClass="Signup" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nha-nL-G6k">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Utrend-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="sRt-zD-LpC">
@@ -305,7 +305,7 @@
             <objects>
                 <viewController id="gL3-oL-FXl" customClass="Login" customModule="UTrend" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Sy9-Ht-7fN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OA1-3D-nQI">
@@ -654,12 +654,18 @@
                                 <color key="backgroundColor" red="0.97359281778335571" green="0.93179577589035034" blue="0.90009206533432007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="square.and.arrow.down.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="saveOutfit:" destination="OBg-p9-Ulv" eventType="touchUpInside" id="pV3-0t-ngs"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xms-K9-b2w">
                                 <rect key="frame" x="20" y="91" width="76" height="51"/>
                                 <color key="backgroundColor" red="0.97359281778335571" green="0.93179577589035034" blue="0.90009206533432007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="wand.and.stars.inverse" catalog="system"/>
+                                <connections>
+                                    <action selector="newOutfit:" destination="OBg-p9-Ulv" eventType="touchUpInside" id="t35-j3-4Fn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92238599060000004" green="0.89076173309999995" blue="0.85290437939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -737,19 +743,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.87762784959999995" green="0.82361775640000001" blue="0.81960707899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Td5-BK-w2O">
-                                <rect key="frame" x="20" y="546" width="374" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67u-L9-riy">
-                                        <rect key="frame" x="8" y="13" width="358" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" red="0.87762784959999995" green="0.82361775640000001" blue="0.81960707899999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7zC-lb-Iba">
                                 <rect key="frame" x="334" y="644" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -757,6 +750,36 @@
                                 <state key="normal" backgroundImage="plus.square" catalog="system"/>
                                 <connections>
                                     <action selector="addToCloset:" destination="Z8Z-er-2NK" eventType="touchUpInside" id="h0F-TU-ZJC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJh-47-oT8">
+                                <rect key="frame" x="292" y="557" width="67" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.97359281778335571" green="0.93179577589035034" blue="0.90009206533432007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title=" shoes "/>
+                                <connections>
+                                    <action selector="shoesButtonPressed:" destination="Z8Z-er-2NK" eventType="touchUpInside" id="d2a-vu-56q"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXN-jV-ujk">
+                                <rect key="frame" x="168" y="557" width="78" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.97359281778335571" green="0.93179577589035034" blue="0.90009206533432007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title=" bottom "/>
+                                <connections>
+                                    <action selector="bottomButtonPressed:" destination="Z8Z-er-2NK" eventType="touchUpInside" id="LTk-hJ-qk1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RbM-LC-F7N">
+                                <rect key="frame" x="69" y="557" width="41" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.97359281778335571" green="0.93179577589035034" blue="0.90009206533432007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title=" top "/>
+                                <connections>
+                                    <action selector="topButtonPressed:" destination="Z8Z-er-2NK" eventType="touchUpInside" id="32B-ps-k6U"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -774,10 +797,11 @@
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="bottomButton" destination="FXN-jV-ujk" id="1Pf-kM-PtH"/>
                         <outlet property="imageView" destination="Pl2-vi-gup" id="eyN-LA-ebW"/>
-                        <outlet property="textField" destination="67u-L9-riy" id="G7c-59-KH6"/>
+                        <outlet property="shoesButton" destination="IJh-47-oT8" id="vHK-O6-Mau"/>
+                        <outlet property="topButton" destination="RbM-LC-F7N" id="FQs-eY-DyG"/>
                         <outlet property="viewForImage" destination="4L4-K1-ID9" id="bMR-aO-T0z"/>
-                        <outlet property="viewForTextField" destination="Td5-BK-w2O" id="iuM-d0-dam"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XtE-3Z-cxM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -798,7 +822,7 @@
         <image name="wand.and.stars.inverse" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FQz-he-p3U"/>
-        <segue reference="9hT-Mw-MSB"/>
+        <segue reference="eJ0-r6-cSF"/>
+        <segue reference="PfJ-0l-c25"/>
     </inferredMetricsTieBreakers>
 </document>

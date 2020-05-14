@@ -15,6 +15,7 @@ class SocialMore: UIViewController {
     var username : String!
     var liked : Bool!
     var id : String!
+    var uID : String!
 
     let postImg :UIImageView = {
         let img = UIImageView()
@@ -94,8 +95,7 @@ class SocialMore: UIViewController {
                 // add it to users "likes"
                 addImg()
                 // increment the like of the original poster's post
-                let user = Auth.auth().currentUser?.uid
-                let userRef = Firestore.firestore().collection("users").document(user!).collection("posts").document(id)
+                let userRef = Firestore.firestore().collection("users").document(uID).collection("posts").document(id)
                 userRef.setData(["likes":newNum], merge: true)
                 
                 // incremement it in the social feed

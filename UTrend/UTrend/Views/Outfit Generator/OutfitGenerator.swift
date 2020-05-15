@@ -72,6 +72,21 @@ class OutfitGenerator : UIViewController {
 
     @IBAction func saveOutfit(_ sender: UIButton) {
         print("save outfit")
+        
+        UIImageWriteToSavedPhotosAlbum(save(), nil, nil, nil);
+    }
+    
+    //get image from tableview
+    func save() -> UIImage {
+        
+        let view = self.tableView
+        UIGraphicsBeginImageContextWithOptions(self.tableView.bounds.size, false, 0.0)
+        let context = UIGraphicsGetCurrentContext();
+        view?.layer.render(in: context!);
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!;
+        UIGraphicsEndImageContext();
+        
+        return image;
     }
 }
 

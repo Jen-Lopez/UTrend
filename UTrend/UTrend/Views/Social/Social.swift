@@ -125,7 +125,6 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                     post.pid = docData["ID"] as? String
                     post.uid = docData["uid"] as? String
                     self.posts.append(post)
-                    print ("inside social posts")
                 }
                 let deadline = DispatchTime.now() + .milliseconds(500)
                 DispatchQueue.main.asyncAfter(deadline: deadline) {

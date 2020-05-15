@@ -76,7 +76,6 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let socialRef = db.collection("socialFeed")
         let userRef = db.collection("users").document(user!)
         let randomDoc = UUID().uuidString
-        print("randomDoc \(randomDoc)")
         
         if caption.text != "" && imgName != "" {
             // add to user feed
@@ -96,7 +95,16 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 
             // show success alert
             let success = UIAlertController(title: "Success!", message: "Thanks for posting", preferredStyle: .alert)
-            let okay  = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            let okay = UIAlertAction(title: "Okay", style: .default) { (alert) in
+                // refresh post collection in profile
+                let profVC = self.tabBarController!.viewControllers![0] as! Profile
+                let postFeed = profVC.profileView.cellForItem(at: IndexPath(item: 0, section: 0)) as? postFeed
+                if (postFeed != nil) {postFeed!.fetchData()}
+                
+                // pop back to social feed
+                self.navigationController?.popViewController(animated: true)
+                
+            }
             success.addAction(okay)
             self.present(success, animated: true, completion: nil)
         } else {
@@ -129,7 +137,6 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
           }
           dismiss(animated: true, completion: nil)
-        print (" the image name is \(imgName)")
       }
       
       func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -168,8 +175,8 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         // hide cursor
         dismissCursor()
-        
     }
+    
     func dismissCursor() {
         let tapRecognizer =
             UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

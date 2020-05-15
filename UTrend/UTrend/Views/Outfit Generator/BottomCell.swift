@@ -41,10 +41,10 @@ class BottomCell: UITableViewCell  {
     }
     
     // chooses right item
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let index = Int(targetContentOffset.pointee.x/frame.width)
-//        print (index)
-    }
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        let index = Int(targetContentOffset.pointee.x/frame.width)
+////        print (index)
+//    }
     
     func fetchBottoms (){
         bottoms.removeAll()

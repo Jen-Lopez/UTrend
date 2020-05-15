@@ -1,12 +1,12 @@
 //  Profile.swift
-//  Created by UTrend on 4/12/20.
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
 import FirebaseUI
 
 class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     // grey status bar
     let statusBar: UIImageView = {
         let sb = UIImageView()
@@ -76,6 +76,7 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         return button
     } ()
     
+    // when log out is clicked, it goes back to welcome page
     @objc func logOut(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "welcome") as? Welcome
         self.navigationController?.pushViewController(vc!, animated: true)
@@ -163,6 +164,11 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         return cv
     }()
     
+    // refreshes collections before appearing
+    override func viewWillAppear(_ animated: Bool) {
+        refreshAllData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -180,12 +186,23 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         profileView.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
     }
     
-    // scrolling mechanism
+    // refreshes collection views on page
+    func refreshAllData() {
+        let postFeed = self.profileView.cellForItem(at: IndexPath(item: 0, section: 0)) as? postFeed
+        let likeFeed = self.profileView.cellForItem(at: IndexPath(item: 1, section: 0)) as? LikeFeed
+        let wardrobeFeed = self.profileView.cellForItem(at: IndexPath(item: 2, section: 0)) as? wardrobeFeed
+        postFeed?.fetchData()
+        likeFeed?.fetchData()
+        wardrobeFeed?.fetchData()
+        print ("refreshed data")
+    }
+    
+    // when you click on menu item, it scrolls to appropriate view
     func scrollToMenuIndex(menuIndex: Int){
         let indexP = IndexPath(item: menuIndex, section: 0)
         profileView.scrollToItem(at: indexP, at: [], animated: true)
     }
-    
+    // when you scroll, it selects appropriate menu icon
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         // choose the right icon in menu when scrolling
         let index = Int(targetContentOffset.pointee.x/view.frame.width)
@@ -213,7 +230,7 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
        return CGSize(width: view.frame.width, height: view.frame.height - 450)
     }
-    
+    // fetches user info (e.g. username, name, profilepic) from database
     func fetchUser() {
         // first, get the UID of logged in user
         if let uid = Auth.auth().currentUser?.uid {

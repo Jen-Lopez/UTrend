@@ -1,5 +1,5 @@
 //  PostCell.swift
-//  Created by UTrend on 4/18/20.
+//  Created by Jennifer Lopez
 
 // CUSTOM PROFILE CELLS
 import UIKit
@@ -20,6 +20,8 @@ class postCell : UICollectionViewCell {
             likes.text = (postItem?.likes)!.stringValue
             // post time
             timeStamp.text = postItem?.time
+            // post id
+            postId = postItem!.pid
         }
     }
     
@@ -27,6 +29,8 @@ class postCell : UICollectionViewCell {
         super.init(frame:frame)
         setupCell()
     }
+    
+    var postId : String?
     
     let postImage : UIImageView = {
         let img = UIImageView()

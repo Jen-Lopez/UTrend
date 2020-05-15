@@ -9,19 +9,9 @@ class OutfitGenerator : UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-//    lazy var refresh:UIRefreshControl = {
-//        let ref = UIRefreshControl()
-//        ref.addTarget(self, action: #selector(refreshAll), for: .valueChanged)
-//        return ref
-//    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-//        tableView.refreshControl = refresh
-        tableView.backgroundColor =  UIColor(red: (235/255.0), green: (227/255.0), blue: (217/255.0), alpha: 1.0)
         self.tableView.isScrollEnabled = false
     }
     @objc func refreshAll () {
@@ -36,12 +26,6 @@ class OutfitGenerator : UIViewController {
                 shoes.fetchShoes()
             }
         }
-
-
-//        let deadline = DispatchTime.now() + .milliseconds(500)
-//        DispatchQueue.main.asyncAfter(deadline: deadline) {
-//            self.refresh.endRefreshing()
-//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,7 +70,6 @@ class OutfitGenerator : UIViewController {
 
     }
 
-
     @IBAction func saveOutfit(_ sender: UIButton) {
         print("save outfit")
         
@@ -105,12 +88,9 @@ class OutfitGenerator : UIViewController {
         
         return image;
     }
-
 }
 
-extension OutfitGenerator : UITableViewDelegate, UITableViewDataSource
-{
-
+extension OutfitGenerator : UITableViewDelegate, UITableViewDataSource {
     func tableView( _ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
@@ -119,7 +99,6 @@ extension OutfitGenerator : UITableViewDelegate, UITableViewDataSource
 
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopCell", for: indexPath) as! TopCell
-            //if (makeRandom) { cell.randomCell() }
             return cell
         } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BottomCell", for: indexPath) as! BottomCell
@@ -134,10 +113,6 @@ extension OutfitGenerator : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         let height: CGFloat = tableView.frame.size.height
-
-        //NSLog("0 : %f", (3*height)/8)
-        //NSLog("1 : %f", (3*height)/8)
-        //NSLog("2 : %f", (2*height)/8)
 
         if (indexPath.row == 0) {
             return (3*height)/8

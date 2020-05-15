@@ -1,5 +1,6 @@
 //  SocialMore.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -13,7 +14,6 @@ class SocialMore: UIViewController {
     var numLikes : NSNumber!
     var userPic : String!
     var username : String!
-    var liked : Bool!
     var id : String!
     var uID : String!
 
@@ -22,7 +22,7 @@ class SocialMore: UIViewController {
         img.layer.cornerRadius = 40
         img.layer.masksToBounds = true
         img.clipsToBounds = true
-        img.contentMode = .scaleAspectFill
+        img.contentMode = .scaleAspectFit
         return img
     }()
     
@@ -57,14 +57,13 @@ class SocialMore: UIViewController {
     
     let likeHeart : UIButton = {
         let like = UIButton(type: .system)
-        like.addTarget(self, action:#selector(changeLike), for: .touchUpInside)
         // add image to likes
+        like.addTarget(self, action:#selector(changeLike), for: .touchUpInside)
         return like
     }()
     
     let likeHeartImg : UIImageView = {
         let heart = UIImageView()
-        heart.image = UIImage(named:"likeheart")
         return heart
     }()
     
@@ -75,18 +74,32 @@ class SocialMore: UIViewController {
         return like
     }()
     
+    // when user clicks on like, the post is added to their like feed. Image like also increments
     @objc func changeLike(_ sender: UIButton) {
+        // checks if user liked image in order to prevent double like
         let isChanged = likeHeartImg.image?.isEqual(UIImage(named: "fill-likeheart"))
+        // if it was like, then it'll "unlike" image
         if (isChanged == true) {
+            print ("unlike, should delete")
             if let image = UIImage(named:"likeheart") {
                 likeHeartImg.image = image
                 let newNum:Int = Int(likes.text!)! - 1
                 likes.text = String(newNum)
                 // decrement the user's post like
-                // remove document from like collection
+                let userRef = Firestore.firestore().collection("users").document(uID).collection("posts").document(id)
+                              userRef.setData(["likes":newNum], merge: true)
+                // decrement from social as well
+                let socialRef = Firestore.firestore().collection("socialFeed").document(id)
+                socialRef.setData(["likes":newNum], merge: true)
+                // remove document from user like collection
+                let currUser = Auth.auth().currentUser?.uid
+                let likeColl = Firestore.firestore().collection("users").document(currUser!).collection("likes").document(id)
+                likeColl.delete()
             }
         }
         else {
+            print ("LIKE")
+
             if let image = UIImage(named:"fill-likeheart") {
                 likeHeartImg.image = image
                 let newNum:Int = Int(likes.text!)! + 1
@@ -98,10 +111,9 @@ class SocialMore: UIViewController {
                 let userRef = Firestore.firestore().collection("users").document(uID).collection("posts").document(id)
                 userRef.setData(["likes":newNum], merge: true)
                 
-                // incremement it in the social feed
+                // increment it in the social feed
                 let socialRef = Firestore.firestore().collection("socialFeed").document(id)
                 socialRef.setData(["likes":newNum], merge: true)
-                
             }
         }
     }
@@ -150,11 +162,12 @@ class SocialMore: UIViewController {
         button.addTarget(self, action:#selector(goBack), for: .touchUpInside)
         return button
     }()
-    
+    // goes back to social page
     @objc func goBack(_ sender: UIButton) {
-         _ = navigationController?.popViewController(animated: true)
-      }
+        navigationController?.popViewController(animated: true)
+    }
     
+    // saves photo to camera roll
     @objc func savePhoto(_ sender: UIButton) {
         let imgData = postImg.image!.pngData()
         let compressed = UIImage(data: imgData!)
@@ -205,7 +218,7 @@ class SocialMore: UIViewController {
         view.addSubview(backButton)
         backButton.anchor(top: view.topAnchor, left: postImg.leftAnchor, paddingTop: 55,width: 50, height: 50)
     }
-    
+    // add image to database storage
     func addImg() {
         let user = Auth.auth().currentUser?.uid
         let imgData = postImg.image?.jpegData(compressionQuality: 0.4)
@@ -215,7 +228,7 @@ class SocialMore: UIViewController {
         ref.child(imgN).putData(imgData!, metadata: nil) { (meta, err) in
             if err != nil {return}
         }
-        db.collection("users").document(user!).collection("likes").addDocument(data: ["likedImg":imgN])
+        db.collection("users").document(user!).collection("likes").document(id!).setData(["likedImg":imgN, "ID":id!], merge: true)
     }
     
     private func setUp() {

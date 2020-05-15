@@ -1,6 +1,7 @@
 //
 //  FeedCell.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -8,12 +9,6 @@ import Firebase
 class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource  {
     var posts = [Post]()
 
-    lazy var refresh:UIRefreshControl = {
-        let ref = UIRefreshControl()
-        ref.addTarget(self, action: #selector(fetchData), for: .valueChanged)
-        return ref
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame:frame)
         setUp()
@@ -30,7 +25,6 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
         cv.dataSource = self
         cv.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
         cv.showsVerticalScrollIndicator = false
-        cv.refreshControl = refresh
         fetchData()
         return cv
     }()
@@ -64,9 +58,40 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
+    // DELETE POST
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if ((collectionView.cellForItem(at: indexPath)?.isKind(of: postCell.self))!){
+            // create the alert
+            let alert = UIAlertController(title: "Delete Post", message: "Would you like to delete this post?", preferredStyle: UIAlertController.Style.alert)
+
+            // set up delete action
+            alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (alert) in
+                // remove from posts page
+                let db = Firestore.firestore()
+                let user = Auth.auth().currentUser?.uid
+                let postID = (collectionView.cellForItem(at: indexPath) as? postCell)?.postId
+                db.collection("users").document(user!).collection("posts").document(postID!).delete { (err) in
+                // update post page
+                    self.fetchData()
+                }
+                // remove from social page.
+                db.collection("socialFeed").document(postID!).delete()
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+
+            // show the alert
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            // refresh social page
+            let social = self.window?.rootViewController?.tabBarController?.viewControllers![1] as? Social
+            social?.fetchSocialPost()
+        }
+    }
+    
+    // fetch posts from database
     @objc func fetchData() {
         posts.removeAll()
-        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let postRef = db.collection("users").document(currUser!).collection("posts")
@@ -79,13 +104,12 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
                     post.likes = docData["likes"] as? NSNumber
                     post.textCaption = docData["caption"] as? String
                     post.time = docData["timestamp"] as? String
+                    post.pid = docData["ID"] as? String
                     self.posts.append(post)
                 }
                 
-                let deadline = DispatchTime.now() + .milliseconds(500)
-                DispatchQueue.main.asyncAfter(deadline: deadline) {
+                DispatchQueue.main.async {
                     self.cView.reloadData()
-                    self.refresh.endRefreshing()
                 }
             }
         }

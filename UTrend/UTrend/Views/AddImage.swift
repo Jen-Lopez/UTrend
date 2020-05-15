@@ -1,4 +1,3 @@
-//
 //  AddImage.swift
 //  UTrend
 
@@ -9,9 +8,7 @@ import Firebase
 class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
-
     @IBOutlet weak var viewForImage: UIView!
-
     @IBOutlet weak var topButton: UIButton!
     @IBOutlet weak var bottomButton: UIButton!
     @IBOutlet weak var shoesButton: UIButton!
@@ -25,6 +22,7 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
 
         imageView.layer.cornerRadius = 15.0
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFit
 
         viewForImage.layer.cornerRadius = 10
         viewForImage.layer.masksToBounds = true
@@ -47,7 +45,7 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
                 present(imagePicker, animated: true, completion:nil)
         } else {
             let alert = UIAlertController(title: "Error", message: "Camera is unavailable", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
 
@@ -73,77 +71,65 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
 
     @IBAction func topButtonPressed(_ sender: UIButton) {
         self.clothingType = "top"
+        resetColors()
+        sender.backgroundColor = UIColor(red: (255/255.0), green: (244/255.0), blue: (243/255.0), alpha: 1.0)
     }
 
     @IBAction func bottomButtonPressed(_ sender: UIButton) {
         self.clothingType = "bottom"
+        resetColors()
+        sender.backgroundColor =  UIColor(red: (255/255.0), green: (244/255.0), blue: (243/255.0), alpha: 1.0)
     }
 
     @IBAction func shoesButtonPressed(_ sender: UIButton) {
         self.clothingType = "shoes"
+        resetColors()
+        sender.backgroundColor =  UIColor(red: (255/255.0), green: (244/255.0), blue: (243/255.0), alpha: 1.0)
+    }
+    // resets button colors
+    func resetColors() {
+        let defaultColor = UIColor(red: (248/255.0), green: (238/255.0), blue: (230/255.0), alpha: 1.0)
+        topButton.backgroundColor = defaultColor
+        bottomButton.backgroundColor = defaultColor
+        shoesButton.backgroundColor = defaultColor
     }
 
     //using clothingType, determine type and add to closet
     @IBAction func addToCloset(_ sender: UIButton) {
-
-        /*
-        let actionTitle = "Are you sure?"
-        let actionMessage = "Add to closet?"
-        let actionOk = "Add to Closet"
-
-        let actionController = UIAlertController(title: actionTitle, message: actionMessage, preferredStyle: .actionSheet)
-        let actionOkay = UIAlertAction(title: actionOk, style: .default, handler:nil)
-
-        actionController.addAction(actionOkay)
-        */
-
-        //get text from text field
-        //var text: String? = textField.text
         var type: String = ""
 
         var shouldUpload : Bool = false
+        
+        let placeholder = UIImage(named: "playstore-icon")?.pngData()
+        let currImg = imageView.image?.pngData()
+        // make sure img isn't placeholder
+        if (placeholder != currImg) {
+            if clothingType == "top" {
+              print("top")
+              type = "top"
+              shouldUpload = true
+            } else if clothingType == "bottom" {
+              print("bottom")
+              type = "bottom"
+              shouldUpload = true
+            } else if clothingType == "shoes" {
+              print("shoes")
+              type = "shoes"
+              shouldUpload = true
+            }
 
-        /* //re did this part using variable clothingType instead of textfield ********
-        if text?.contains("top") ?? false { //is top, add to top array
-            print("top")
-            type = "top"
-            shouldUpload = true
-        } else if text?.contains("bottom") ?? false { //is bottom, add to bottom array
-            print("bottom")
-            type = "bottom"
-            shouldUpload = true
-        } else if text?.contains("shoes") ?? false { //is shoes, add to shoes array
-            print("shoes")
-            type = "shoes"
-            shouldUpload = true
-        }*/
+            //do not add
+            else {
+              let alertTitle = "Wait!"
+              let alertMessage = "Please enter 'top', 'bottom', 'shoes' before adding to closet."
+              let alertOk = "OK"
 
-        if clothingType == "top" {
-            print("top")
-            type = "top"
-            shouldUpload = true
-        } else if clothingType == "bottom" {
-            print("bottom")
-            type = "bottom"
-            shouldUpload = true
-        } else if clothingType == "shoes" {
-            print("shoes")
-            type = "shoes"
-            shouldUpload = true
-        }
+              let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+              let actionOk = UIAlertAction(title: alertOk, style: .default, handler: nil)
 
-        //do not add
-        else {
-
-            let alertTitle = "Wait!"
-            let alertMessage = "Please enter 'top', 'bottom', 'shoes' before adding to closet."
-            let alertOk = "OK"
-
-            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-            let actionOk = UIAlertAction(title: alertOk, style: .default, handler: nil)
-
-            alertController.addAction(actionOk)
-            self.present(alertController, animated: true, completion: nil)
+              alertController.addAction(actionOk)
+              self.present(alertController, animated: true, completion: nil)
+            }
         }
 
         // UPLOAD TO FIREBASE
@@ -160,10 +146,24 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
 
             db.collection("users").document(user!).collection("clothes").addDocument(data: ["imgName":imgN,"type":type])
 
-        // refresh wardrobe collection
-            var outVC = self.tabBarController!.viewControllers![2] as! OutfitGenerator
-            outVC.refreshAll()
+        // refresh outfit generator data
+        let outVC = self.tabBarController!.viewControllers![2] as! OutfitGenerator
+        outVC.refreshAll()
+            
+        // success & reset content
+            let success = UIAlertController(title: "Added", message: "Successfully added your item.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .default) { (alert) in
+                // reset image
+                self.imageView.image = UIImage(named: "playstore-icon")
+                // reset buttons
+                self.resetColors()
+                // reset value
+                self.clothingType = ""
+            }
+            success.addAction(action)
+            present(success, animated: true, completion: nil)
+    
         }
     }
-
 }
+

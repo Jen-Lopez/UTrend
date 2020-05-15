@@ -1,6 +1,7 @@
 //
 //  postInfo.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -33,6 +34,7 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         img.backgroundColor = UIColor(red: (216/255.0), green: (200/255.0), blue: (199/255.0), alpha: 1.0)
         img.layer.cornerRadius = 15
         img.layer.masksToBounds = true
+        img.contentMode = .scaleAspectFit
         return img
     }()
     
@@ -60,7 +62,7 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         button.addTarget(self, action:#selector(addToDB), for: .touchUpInside)
         return button
     }()
-    
+    // retrieves photo that will be posted from camera roll
     @objc func getPicture () {
         // open up imagepicker
         let picker = UIImagePickerController()
@@ -69,6 +71,7 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         present(picker, animated: true, completion: nil)
     }
     
+    // adds the image to the database when both the image and caption are setup
     @objc func addToDB(_ sender: UIButton) {
         let db = Firestore.firestore()
         let user = Auth.auth().currentUser?.uid
@@ -76,7 +79,6 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let socialRef = db.collection("socialFeed")
         let userRef = db.collection("users").document(user!)
         let randomDoc = UUID().uuidString
-        print("randomDoc \(randomDoc)")
         
         if caption.text != "" && imgName != "" {
             // add to user feed
@@ -96,7 +98,12 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 
             // show success alert
             let success = UIAlertController(title: "Success!", message: "Thanks for posting", preferredStyle: .alert)
-            let okay  = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            let okay = UIAlertAction(title: "Okay", style: .default) { (alert) in
+
+                // pop back to social feed
+                self.navigationController?.popViewController(animated: true)
+                
+            }
             success.addAction(okay)
             self.present(success, animated: true, completion: nil)
         } else {
@@ -129,7 +136,6 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
           }
           dismiss(animated: true, completion: nil)
-        print (" the image name is \(imgName)")
       }
       
       func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -168,8 +174,8 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         // hide cursor
         dismissCursor()
-        
     }
+    // when you click outside of text field, cursor disappears
     func dismissCursor() {
         let tapRecognizer =
             UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

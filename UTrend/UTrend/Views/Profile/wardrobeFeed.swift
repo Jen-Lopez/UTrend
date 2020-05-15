@@ -1,6 +1,7 @@
 //
 //  wardrobeFeed.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -36,7 +37,7 @@ class wardrobeFeed: postFeed {
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
     }
-    
+    // fetches uploaded clothing items from database
     override func fetchData() {
             closet.removeAll()
             let db = Firestore.firestore()

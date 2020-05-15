@@ -1,5 +1,6 @@
 //  SocialMore.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -75,8 +76,11 @@ class SocialMore: UIViewController {
         return like
     }()
     
+    // when user clicks on like, the post is added to their like feed. Image like also increments
     @objc func changeLike(_ sender: UIButton) {
+        // checks if user liked image in order to prevent double like
         let isChanged = likeHeartImg.image?.isEqual(UIImage(named: "fill-likeheart"))
+        // if it was like, then it'll "unlike" image
         if (isChanged == true) {
             if let image = UIImage(named:"likeheart") {
                 likeHeartImg.image = image
@@ -154,11 +158,11 @@ class SocialMore: UIViewController {
         button.addTarget(self, action:#selector(goBack), for: .touchUpInside)
         return button
     }()
-    
+    // goes back to social page
     @objc func goBack(_ sender: UIButton) {
          navigationController?.popViewController(animated: true)
       }
-    
+    // saves photo to camera roll
     @objc func savePhoto(_ sender: UIButton) {
         let imgData = postImg.image!.pngData()
         let compressed = UIImage(data: imgData!)
@@ -209,7 +213,7 @@ class SocialMore: UIViewController {
         view.addSubview(backButton)
         backButton.anchor(top: view.topAnchor, left: postImg.leftAnchor, paddingTop: 55,width: 50, height: 50)
     }
-    
+    // add image to database storage
     func addImg() {
         let user = Auth.auth().currentUser?.uid
         let imgData = postImg.image?.jpegData(compressionQuality: 0.4)

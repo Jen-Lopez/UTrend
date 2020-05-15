@@ -1,6 +1,7 @@
 //
 //  WardrobeCell.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import FirebaseUI

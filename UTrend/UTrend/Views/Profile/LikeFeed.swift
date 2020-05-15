@@ -1,6 +1,7 @@
 
 //  LikeFeed.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -38,6 +39,7 @@ class LikeFeed: postFeed{
         return UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
     }
     
+    // fetches liked posts from database
     override func fetchData()  {
         likes.removeAll()
         let db = Firestore.firestore()

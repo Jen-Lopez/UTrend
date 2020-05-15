@@ -1,6 +1,7 @@
 //
 //  postInfo.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -60,7 +61,7 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         button.addTarget(self, action:#selector(addToDB), for: .touchUpInside)
         return button
     }()
-    
+    // retrieves photo that will be posted from camera roll
     @objc func getPicture () {
         // open up imagepicker
         let picker = UIImagePickerController()
@@ -69,6 +70,7 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         present(picker, animated: true, completion: nil)
     }
     
+    // adds the image to the database when both the image and caption are setup
     @objc func addToDB(_ sender: UIButton) {
         let db = Firestore.firestore()
         let user = Auth.auth().currentUser?.uid
@@ -176,7 +178,7 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         // hide cursor
         dismissCursor()
     }
-    
+    // when you click outside of text field, cursor disappears
     func dismissCursor() {
         let tapRecognizer =
             UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

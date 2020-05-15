@@ -1,5 +1,6 @@
 //  socialCellCollectionViewCell.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import FirebaseUI
@@ -87,6 +88,7 @@ class socialCell: UICollectionViewCell {
         return user
     }()
     
+    // sets up cell
     func setUpCell() {
         addSubview(postImage)
         

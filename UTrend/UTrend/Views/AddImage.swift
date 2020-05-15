@@ -1,4 +1,3 @@
-//
 //  AddImage.swift
 //  UTrend
 

@@ -1,6 +1,7 @@
 //
 //  FeedCell.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -56,7 +57,7 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-    
+    // fetched posts from database
     @objc func fetchData() {
         posts.removeAll()
         let db = Firestore.firestore()

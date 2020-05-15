@@ -1,5 +1,6 @@
 //  Social.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import AVKit
@@ -27,7 +28,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         img.image = UIImage(named: "Utrend-Icon")
         return img
     }()
-    
+    // opens view to submit a post to the social page
     @objc func makePost() {
         self.navigationController?.pushViewController(postInfo(), animated: true)
     }
@@ -74,7 +75,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
-    
+    // generates posts displayed in social view
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "users", for: indexPath) as! socialCell
 
@@ -84,7 +85,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         return cell
     }
     
-    // open Socialmore VC, pass data
+    // opens view to see more information on pos, passes data forward
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = posts[indexPath.item]
         performSegue(withIdentifier: segueIdentifier, sender: post)
@@ -107,6 +108,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         }
     }
     
+    // fetch post from database. Uses refresh control
     @objc func fetchSocialPost(){
         posts.removeAll()
         self.refresh.beginRefreshing()

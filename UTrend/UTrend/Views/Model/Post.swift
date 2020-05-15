@@ -3,7 +3,8 @@
 //  UTrend
 //
 //  Created by Jennifer Lopez on 4/24/20.
-//
+
+// model for post uploaded to social page
 
 import UIKit
 

@@ -1,5 +1,6 @@
 //  ProfileBar.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 

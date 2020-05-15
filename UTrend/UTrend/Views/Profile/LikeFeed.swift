@@ -1,6 +1,7 @@
 
 //  LikeFeed.swift
 //  UTrend
+//  Created by Jennifer Lopez
 
 import UIKit
 import Firebase
@@ -38,9 +39,9 @@ class LikeFeed: postFeed{
         return UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
     }
     
+    // fetches liked posts from database
     override func fetchData()  {
         likes.removeAll()
-        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let currUser = Auth.auth().currentUser?.uid
         let likeRef = db.collection("users").document(currUser!).collection("likes")
@@ -52,11 +53,8 @@ class LikeFeed: postFeed{
                     post.postImg = docData["likedImg"] as? String
                     self.likes.append(post)
                 }
-                
-                let deadline = DispatchTime.now() + .milliseconds(500)
-                DispatchQueue.main.asyncAfter(deadline: deadline) {
+                 DispatchQueue.main.async {
                     self.cView.reloadData()
-                    self.refresh.endRefreshing()
                 }
             }
         }

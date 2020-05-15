@@ -86,7 +86,7 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         resetColors()
         sender.backgroundColor =  UIColor(red: (255/255.0), green: (244/255.0), blue: (243/255.0), alpha: 1.0)
     }
-    
+    // resets button colors
     func resetColors() {
         let defaultColor = UIColor(red: (248/255.0), green: (238/255.0), blue: (230/255.0), alpha: 1.0)
         topButton.backgroundColor = defaultColor

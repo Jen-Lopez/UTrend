@@ -62,7 +62,6 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if ((collectionView.cellForItem(at: indexPath)?.isKind(of: postCell.self))!){
-            print(indexPath.item)
             // create the alert
             let alert = UIAlertController(title: "Delete Post", message: "Would you like to delete this post?", preferredStyle: UIAlertController.Style.alert)
 

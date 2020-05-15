@@ -40,13 +40,6 @@ class TopCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-
-    // chooses right item
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let index = Int(targetContentOffset.pointee.x/frame.width)
-//        print (index)
-    }
-
   @objc  func fetchTops (){
         tops.removeAll()
         let db = Firestore.firestore()
@@ -77,20 +70,6 @@ class TopCell: UITableViewCell {
 }
 
 extension TopCell : UICollectionViewDelegate, UICollectionViewDataSource {
-    /*///////////////////////////////////////added this stuff but it doesn't work
-    func randomCell() {
-
-        collectionView.selectItem(at: IndexPath(item: Int(arc4random())%tops.count, section: 0), animated: false, scrollPosition: [])
-        collectionView.reloadData()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
-        var indexToScrollTo = indexPath
-        self.collectionView.scrollToItem(at: indexToScrollTo, at: .centeredHorizontally, animated: true)
-
-    }*/
-    //////////////////////////////////////////////end
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tops.count

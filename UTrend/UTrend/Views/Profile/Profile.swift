@@ -1,5 +1,4 @@
 //  Profile.swift
-//  Created by UTrend on 4/12/20.
 //  Created by Jennifer Lopez
 
 import UIKit

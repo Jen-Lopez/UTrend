@@ -1,5 +1,4 @@
 //  PostCell.swift
-//  Created by UTrend on 4/18/20.
 //  Created by Jennifer Lopez
 
 // CUSTOM PROFILE CELLS

@@ -34,6 +34,7 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         img.backgroundColor = UIColor(red: (216/255.0), green: (200/255.0), blue: (199/255.0), alpha: 1.0)
         img.layer.cornerRadius = 15
         img.layer.masksToBounds = true
+        img.contentMode = .scaleAspectFit
         return img
     }()
     
@@ -98,11 +99,7 @@ class postInfo: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             // show success alert
             let success = UIAlertController(title: "Success!", message: "Thanks for posting", preferredStyle: .alert)
             let okay = UIAlertAction(title: "Okay", style: .default) { (alert) in
-                // refresh post collection in profile
-                let profVC = self.tabBarController!.viewControllers![0] as! Profile
-                let postFeed = profVC.profileView.cellForItem(at: IndexPath(item: 0, section: 0)) as? postFeed
-                if (postFeed != nil) {postFeed!.fetchData()}
-                
+
                 // pop back to social feed
                 self.navigationController?.popViewController(animated: true)
                 

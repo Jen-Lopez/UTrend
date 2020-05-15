@@ -149,10 +149,6 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         // refresh outfit generator data
         let outVC = self.tabBarController!.viewControllers![2] as! OutfitGenerator
         outVC.refreshAll()
-        // refresh wardrobe collection in profile
-        let profVC = self.tabBarController!.viewControllers![0] as! Profile
-        let wardrobeFeed = profVC.profileView.cellForItem(at: IndexPath(item: 2, section: 0)) as? wardrobeFeed
-        if (wardrobeFeed != nil) {wardrobeFeed!.fetchData()}
             
         // success & reset content
             let success = UIAlertController(title: "Added", message: "Successfully added your item.", preferredStyle: .alert)

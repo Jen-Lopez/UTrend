@@ -181,6 +181,17 @@ class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectio
         profileView.backgroundColor = UIColor(red: (246/255.0), green: (242/255.0), blue: (237/255.0), alpha: 1.0)
     }
     
+    // refreshes collection views on page at the beginning before it appears
+    override func viewWillAppear(_ animated: Bool) {
+        let postFeed = self.profileView.cellForItem(at: IndexPath(item: 0, section: 0)) as? postFeed
+        let likeFeed = self.profileView.cellForItem(at: IndexPath(item: 1, section: 0)) as? LikeFeed
+        let wardrobeFeed = self.profileView.cellForItem(at: IndexPath(item: 2, section: 0)) as? wardrobeFeed
+        postFeed?.fetchData()
+        likeFeed?.fetchData()
+        wardrobeFeed?.fetchData()
+        print ("refreshed data")
+    }
+    
     // when you click on menu item, it scrolls to appropriate view
     func scrollToMenuIndex(menuIndex: Int){
         let indexP = IndexPath(item: menuIndex, section: 0)

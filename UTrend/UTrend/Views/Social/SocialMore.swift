@@ -105,11 +105,6 @@ class SocialMore: UIViewController {
                 // increment it in the social feed
                 let socialRef = Firestore.firestore().collection("socialFeed").document(id)
                 socialRef.setData(["likes":newNum], merge: true)
-                
-                // refresh like collection in profile
-                let profVC = self.tabBarController!.viewControllers![0] as! Profile
-                let likeFeed = profVC.profileView.cellForItem(at: IndexPath(item: 1, section: 0)) as? LikeFeed
-                if (likeFeed != nil) {likeFeed!.fetchData()}
             }
         }
     }

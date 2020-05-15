@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5bL-CW-li4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5bL-CW-li4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -809,20 +809,20 @@
             <point key="canvasLocation" x="6708.6956521739139" y="908.70535714285711"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Utrend-Icon" width="71" height="64"/>
-        <image name="camera.on.rectangle.fill" catalog="system" width="64" height="48"/>
-        <image name="clothes2" width="107" height="139"/>
-        <image name="clothes3" width="107" height="139"/>
-        <image name="clothes4" width="107" height="139"/>
-        <image name="photo.on.rectangle" catalog="system" width="64" height="48"/>
-        <image name="playstore-icon" width="512" height="512"/>
-        <image name="plus.square" catalog="system" width="64" height="56"/>
-        <image name="square.and.arrow.down.fill" catalog="system" width="60" height="64"/>
-        <image name="wand.and.stars.inverse" catalog="system" width="64" height="56"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="eJ0-r6-cSF"/>
         <segue reference="PfJ-0l-c25"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="Utrend-Icon" width="71" height="64"/>
+        <image name="camera.on.rectangle.fill" catalog="system" width="128" height="96"/>
+        <image name="clothes2" width="107" height="139"/>
+        <image name="clothes3" width="107" height="139"/>
+        <image name="clothes4" width="107" height="139"/>
+        <image name="photo.on.rectangle" catalog="system" width="128" height="98"/>
+        <image name="playstore-icon" width="512" height="512"/>
+        <image name="plus.square" catalog="system" width="128" height="114"/>
+        <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
+        <image name="wand.and.stars.inverse" catalog="system" width="128" height="113"/>
+    </resources>
 </document>

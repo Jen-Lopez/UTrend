@@ -157,6 +157,8 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
                 self.imageView.image = UIImage(named: "playstore-icon")
                 // reset buttons
                 self.resetColors()
+                // reset value
+                self.clothingType = ""
             }
             success.addAction(action)
             present(success, animated: true, completion: nil)
@@ -164,3 +166,4 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
         }
     }
 }
+

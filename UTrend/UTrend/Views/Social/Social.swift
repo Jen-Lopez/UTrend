@@ -10,12 +10,7 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
     var segueIdentifier = "viewInfo"
     var posts = [Post]()
     let mauve = UIColor(red: (229/255.0), green: (218/255.0), blue: (217/255.0), alpha: 1.0)
-    
-    lazy var refresh:UIRefreshControl = {
-        let ref = UIRefreshControl()
-        ref.addTarget(self, action: #selector(fetchSocialPost), for: .valueChanged)
-        return ref
-    }()
+
     
     let statusBar: UIImageView = {
         let sb = UIImageView()
@@ -47,10 +42,12 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                 
         cv.delegate = self
         cv.dataSource = self
-        cv.refreshControl = refresh
-        fetchSocialPost()
         return cv
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchSocialPost()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,12 +92,27 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         let post = sender as! Post
         if segue.identifier == segueIdentifier {
             if let vc = segue.destination as? SocialMore {
+                                
+                // check if the post was liked. If it was, fill in likeheart
+                let db = Firestore.firestore()
+                let user = Auth.auth().currentUser?.uid
+                let likes = db.collection("users").document(user!).collection("likes").document(post.pid!)
+//                print (post.pid!)
+                likes.getDocument { (doc, err) in
+                    if (doc?.exists == true) {
+//                        print ("does exist!")
+                        vc.likeHeartImg.image = UIImage(named:"fill-likeheart")
+                    }
+                    else {
+                        vc.likeHeartImg.image = UIImage(named:"likeheart")
+                    }
+                }
+                
                 vc.imageName = post.postImg
                 vc.timeStamp = post.time
                 vc.username = post.username
                 vc.numLikes = post.likes
                 vc.caption = post.textCaption
-                vc.liked = post.isLiked
                 vc.userPic = post.userPic
                 vc.id = post.pid
                 vc.uID = post.uid
@@ -108,10 +120,9 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         }
     }
     
-    // fetch post from database. Uses refresh control
-    @objc func fetchSocialPost(){
+    func fetchSocialPost(){
+//        print ("inside fetch post")
         posts.removeAll()
-        self.refresh.beginRefreshing()
         let db = Firestore.firestore()
         let socialRef = db.collection("socialFeed")
         socialRef.getDocuments { (snap, err) in
@@ -126,15 +137,13 @@ class Social: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                     post.userPic = docData["profImg"] as? String
                     post.pid = docData["ID"] as? String
                     post.uid = docData["uid"] as? String
+                    
                     self.posts.append(post)
                 }
-                let deadline = DispatchTime.now() + .milliseconds(500)
-                DispatchQueue.main.asyncAfter(deadline: deadline) {
+                DispatchQueue.main.async {
                     self.socialView.reloadData()
-                    self.refresh.endRefreshing()
                 }
             }
         }
-        
     }
 }

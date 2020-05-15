@@ -57,9 +57,10 @@ class ProfileBar : UIView, UICollectionViewDataSource,UICollectionViewDelegateFl
         return 0
     }
     
-    // when clicking on icon, change view
+    // when clicking on icon, change view & update data
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         profileController?.scrollToMenuIndex(menuIndex: indexPath.item)
+        profileController?.refreshAllData()
     }
     
 }

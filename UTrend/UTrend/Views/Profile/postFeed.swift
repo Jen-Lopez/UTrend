@@ -75,17 +75,18 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
                 // update post page
                     self.fetchData()
                 }
-                // remove from social page. Need to manually refresh in social page.
+                // remove from social page.
                 db.collection("socialFeed").document(postID!).delete()
-                
             }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
 
             // show the alert
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            // refresh social page
+            let social = self.window?.rootViewController?.tabBarController?.viewControllers![1] as? Social
+            social?.fetchSocialPost()
         }
-
     }
     
     // fetch posts from database

@@ -14,7 +14,6 @@ class SocialMore: UIViewController {
     var numLikes : NSNumber!
     var userPic : String!
     var username : String!
-    var liked : Bool!
     var id : String!
     var uID : String!
 
@@ -58,14 +57,13 @@ class SocialMore: UIViewController {
     
     let likeHeart : UIButton = {
         let like = UIButton(type: .system)
-        like.addTarget(self, action:#selector(changeLike), for: .touchUpInside)
         // add image to likes
+        like.addTarget(self, action:#selector(changeLike), for: .touchUpInside)
         return like
     }()
     
     let likeHeartImg : UIImageView = {
         let heart = UIImageView()
-        heart.image = UIImage(named:"likeheart")
         return heart
     }()
     
@@ -82,15 +80,26 @@ class SocialMore: UIViewController {
         let isChanged = likeHeartImg.image?.isEqual(UIImage(named: "fill-likeheart"))
         // if it was like, then it'll "unlike" image
         if (isChanged == true) {
+            print ("unlike, should delete")
             if let image = UIImage(named:"likeheart") {
                 likeHeartImg.image = image
                 let newNum:Int = Int(likes.text!)! - 1
                 likes.text = String(newNum)
                 // decrement the user's post like
-                // remove document from like collection
+                let userRef = Firestore.firestore().collection("users").document(uID).collection("posts").document(id)
+                              userRef.setData(["likes":newNum], merge: true)
+                // decrement from social as well
+                let socialRef = Firestore.firestore().collection("socialFeed").document(id)
+                socialRef.setData(["likes":newNum], merge: true)
+                // remove document from user like collection
+                let currUser = Auth.auth().currentUser?.uid
+                let likeColl = Firestore.firestore().collection("users").document(currUser!).collection("likes").document(id)
+                likeColl.delete()
             }
         }
         else {
+            print ("LIKE")
+
             if let image = UIImage(named:"fill-likeheart") {
                 likeHeartImg.image = image
                 let newNum:Int = Int(likes.text!)! + 1
@@ -155,8 +164,9 @@ class SocialMore: UIViewController {
     }()
     // goes back to social page
     @objc func goBack(_ sender: UIButton) {
-         navigationController?.popViewController(animated: true)
-      }
+        navigationController?.popViewController(animated: true)
+    }
+    
     // saves photo to camera roll
     @objc func savePhoto(_ sender: UIButton) {
         let imgData = postImg.image!.pngData()
@@ -218,7 +228,7 @@ class SocialMore: UIViewController {
         ref.child(imgN).putData(imgData!, metadata: nil) { (meta, err) in
             if err != nil {return}
         }
-        db.collection("users").document(user!).collection("likes").addDocument(data: ["likedImg":imgN])
+        db.collection("users").document(user!).collection("likes").document(id!).setData(["likedImg":imgN, "ID":id!], merge: true)
     }
     
     private func setUp() {

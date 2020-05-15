@@ -23,7 +23,7 @@ class SocialMore: UIViewController {
         img.layer.cornerRadius = 40
         img.layer.masksToBounds = true
         img.clipsToBounds = true
-        img.contentMode = .scaleAspectFill
+        img.contentMode = .scaleAspectFit
         return img
     }()
     

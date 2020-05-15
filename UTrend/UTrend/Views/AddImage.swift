@@ -22,6 +22,7 @@ class AddImage : UIViewController, UIImagePickerControllerDelegate, UINavigation
 
         imageView.layer.cornerRadius = 15.0
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFit
 
         viewForImage.layer.cornerRadius = 10
         viewForImage.layer.masksToBounds = true

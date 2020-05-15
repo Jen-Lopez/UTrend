@@ -7,7 +7,7 @@ import Firebase
 import FirebaseUI
 
 class Profile:  UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     // grey status bar
     let statusBar: UIImageView = {
         let sb = UIImageView()

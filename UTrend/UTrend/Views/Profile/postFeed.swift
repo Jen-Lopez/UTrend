@@ -57,7 +57,39 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-    // fetched posts from database
+    
+    // DELETE POST
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if ((collectionView.cellForItem(at: indexPath)?.isKind(of: postCell.self))!){
+            print(indexPath.item)
+            // create the alert
+            let alert = UIAlertController(title: "Delete Post", message: "Would you like to delete this post?", preferredStyle: UIAlertController.Style.alert)
+
+            // set up delete action
+            alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (alert) in
+                // remove from posts page
+                let db = Firestore.firestore()
+                let user = Auth.auth().currentUser?.uid
+                let postID = (collectionView.cellForItem(at: indexPath) as? postCell)?.postId
+                db.collection("users").document(user!).collection("posts").document(postID!).delete { (err) in
+                // update post page
+                    self.fetchData()
+                }
+                // remove from social page. Need to manually refresh in social page.
+                db.collection("socialFeed").document(postID!).delete()
+                
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+
+            // show the alert
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+
+    }
+    
+    // fetch posts from database
     @objc func fetchData() {
         posts.removeAll()
         let db = Firestore.firestore()
@@ -72,6 +104,7 @@ class postFeed: UICollectionViewCell, UICollectionViewDelegateFlowLayout,UIColle
                     post.likes = docData["likes"] as? NSNumber
                     post.textCaption = docData["caption"] as? String
                     post.time = docData["timestamp"] as? String
+                    post.pid = docData["ID"] as? String
                     self.posts.append(post)
                 }
                 
